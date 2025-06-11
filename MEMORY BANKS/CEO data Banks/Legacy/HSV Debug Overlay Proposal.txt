@@ -1,0 +1,109 @@
+**You:**
+
+You're0an0UI0systems0intern.0Propose0a0minimal,0high-efficiency0debug0overlay0for0HeadShotV0to0display0real-time0hits,0misses,0and0system0lag.
+
+* * *
+
+**ChatGPT:**
+
+🧠 MODGPT INTERN REPORT — UI SYSTEMS INTERN
+Task: Propose a minimal, high-efficiency debug overlay for HeadShotV
+Focus: Real-time hits, misses, and system lag visualization
+Constraints:
+
+Ultra-lightweight (suitable for SHV)
+
+Non-intrusive but always visible
+
+Should work in both development and testing builds
+
+Requires zero dependencies outside ScriptHookV
+
+✅ Overlay Proposal: HSV DebugStrip (Rev 0.1)
+💡 Core UI Design Philosophy
+Principle	Detail
+Minimal	Renders a single-line unobtrusive overlay strip in top-right corner
+Efficient	Uses only direct DRAW_TEXT and DRAW_RECT ScriptHookV natives
+Informative	Displays real-time hit/miss data and loop lag in milliseconds
+Safe	Fully wrapped in a toggle (bool bDebugOverlay) for clean disable
+📐 Layout Specification
+sql
+┌──────────────────────────────┐
+│ 🔫 H: 002 | ❌ M: 001 | 🕒 16ms │  ← Fixed-width monospaced readout
+└──────────────────────────────┘
+       ↳ Top-right, screen-safe margin (e.g. 10px offset)
+
+📊 Metrics Shown
+Symbol	Name	Description
+🔫 H	Hits	Number of headshots since last 10s interval (rolling counter)
+❌ M	Misses	Failed shot events (if tracked) or non-head hits (if enabled)
+🕒	Lag (ms)	Time (in ms) between each game tick and overlay render completion
+⚙️ Internals / Rendering Logic
+1. Timing (Lag Tracking)
+
+Use GetTickCount64() or GetGameTimer() at tick start and just before DRAW_TEXT.
+
+cpp
+static DWORD lastDraw = 0;
+DWORD now = GetTickCount();
+DWORD frameLag = now - lastDraw;
+lastDraw = now;
+
+2. Draw Code (Pseudocode)
+cpp
+void DrawHSVDebugOverlay() {
+    if (!bDebugOverlay) return;
+
+    char buffer[64];
+    snprintf(buffer, 64, "🔫 H: %03d | ❌ M: %03d | 🕒 %02dms", hitCount, missCount, frameLag);
+
+    DRAW_RECT(0.90f, 0.05f, 0.2f, 0.035f, 0, 0, 0, 120);  // semi-transparent background
+    SET_TEXT_FONT(0);
+    SET_TEXT_SCALE(0.3f, 0.3f);
+    SET_TEXT_COLOUR(255, 255, 255, 255);
+    DRAW_TEXT(buffer, 0.81f, 0.04f);
+}
+
+3. Update Rules
+
+hitCount and missCount reset every 10s via GetGameTimer() window
+
+Optional: fade background red when frameLag > 33ms (30FPS bottleneck)
+
+🧪 Performance Budget
+Operation	Cost (est.)
+DRAW_RECT	~0.03ms
+DRAW_TEXT	~0.06ms
+Total per frame	~0.1ms
+
+🟢 Impact: negligible even on low-end machines.
+
+✅ Benefits
+
+🔍 Real-time headshot feedback loop
+
+🚨 Instant detection of missed hooks or logic stalls
+
+🧪 Great for QA/testing without dev console spam
+
+🎯 Helps diagnose combat inconsistencies in under 1s
+
+🛠 Optional Future Expansions
+Feature	Description
+Toggle keybind	Allow F9 to toggle bDebugOverlay
+Accuracy % tracker	Accuracy: 85% after 10 shots
+Color flash on hit	Quick green blink for each valid headshot
+HUD fade	Overlay fades after inactivity (e.g. 15s)
+🚀 Next Steps
+
+ Confirm native limits for font scaling/sizing
+
+ Verify safe screen coordinates across 16:9 and 21:9
+
+ Implement in Render() callback of ScriptHookV tick
+
+ Add to HSV internal settings struct (HSV_DEBUG_MODE)
+
+ETA TO IMPLEMENTATION: ~45 minutes
+
+Would you like a working source snippet for immediate injection into your HeadShotV tick loop?

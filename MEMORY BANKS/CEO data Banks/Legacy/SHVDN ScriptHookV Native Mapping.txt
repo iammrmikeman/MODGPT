@@ -1,0 +1,116 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Map SHVDN native calls and explore their relation to ScriptHookV.
+
+* * *
+
+**ChatGPT:**
+
+✅ MODGPT has inherited this window and all global GTAV MODGPT context.
+
+🧠 Task Accepted: SHVDN ↔ ScriptHookV Native Mapping
+
+This thread will map out the relationship between SHVDN (ScriptHookVDotNet) native calls and ScriptHookV, providing an in-depth technical analysis of:
+
+⚙️ 1. Terminology & Stack Primer
+Term	Description
+ScriptHookV	Native C++ plugin SDK for GTA V by Alexander Blade. Allows direct native function calls (via natives.h, invoker.cpp, etc).
+SHVDN (ScriptHookVDotNet)	.NET-based scripting layer that sits on top of ScriptHookV. Exposes managed C# APIs that internally invoke ScriptHookV natives.
+Native Function	Internal GTA V game engine function (e.g., SET_PED_HEALTH, DRAW_RECT). Identified by hash and used by both ScriptHookV and SHVDN.
+🧩 2. Architecture Relationship Diagram
+pgsql
+[C# Scripts (SHVDN)]      ← ← ← User Code (e.g., MyScript.cs)
+        ↓
+[SHVDN Wrapper Layer]     ← ← ← Exposes .NET objects (Ped, Vehicle, etc)
+        ↓
+[ScriptHookVDotNet.Core.dll]
+        ↓
+[ScriptHookV Interface]   ← ← ← NATIVE_CALL via hash
+        ↓
+[GTA V Engine]            ← ← ← Actual native execution
+
+🔍 3. SHVDN ↔ ScriptHookV Native Mapping Logic
+
+SHVDN translates high-level .NET APIs into low-level native calls via ScriptHookV.
+
+Example mapping:
+
+C# API (SHVDN)	Native Function (ScriptHookV)
+Game.Player.Character.Health = 100;	SET_ENTITY_HEALTH
+UI.ShowSubtitle("Hello World");	BEGIN_TEXT_COMMAND_PRINT, END_TEXT_COMMAND_PRINT
+World.CreateVehicle(...);	CREATE_VEHICLE
+Function.Call(Hash.SET_PED_CAN_RAGDOLL, ...)	SET_PED_CAN_RAGDOLL (via Function.Call)
+
+💡 Function.Call(...) is SHVDN's direct bridge to ScriptHookV's native system, allowing advanced users to manually invoke any native using hashes.
+
+🧰 4. Internals: SHVDN Native Dispatcher
+
+SHVDN builds a managed-to-unmanaged bridge using:
+
+ScriptDomain → Script → Function dispatcher.
+
+Marshals arguments to ScriptHookV via NativeFunction::Invoke.
+
+Each native:
+
+Is identified by a 64-bit hash.
+
+Arguments are marshaled into native memory format.
+
+Return values are captured using unsafe code and cast to .NET types.
+
+🔁 5. One-to-One Native Tracking
+
+Most C# methods in SHVDN (e.g. Ped.Kill(), Vehicle.EngineRunning) are thin wrappers around single or batched native calls. Some examples:
+
+SHVDN C# Method	ScriptHookV Native(s) Used
+Ped.Kill()	SET_ENTITY_HEALTH(0), APPLY_DAMAGE_TO_PED(...)
+Vehicle.IsOnFire	IS_ENTITY_ON_FIRE
+Entity.Position	GET_ENTITY_COORDS
+Camera.Rotation	GET_CAM_ROT
+🧬 6. Custom Native Mapping Mode
+
+To enable mapping or extraction of SHVDN → Native links:
+
+Use SHVDN source (public on GitHub) to trace wrappers to Function.Call(Hash.XXX).
+
+Optionally cross-reference with GTA5 Native DB or [alloc8or’s native dump].
+
+Use reflection or IL inspection to auto-detect native usage in .NET mods.
+
+📁 7. File-Level Mapping (Optional Task)
+
+Want me to scan your source zips or SHVDN .dlls and map all native calls used across your mod?
+
+I can:
+
+Disassemble SHVDN assemblies (ScriptHookVDotNet3.dll)
+
+Track every native invoked
+
+Map hash → function name
+
+Group by feature or mod component
+
+Say scan natives, and I’ll begin immediately.
+
+🧠 Summary
+Trait	ScriptHookV	SHVDN
+Language	C++	C# (.NET)
+Invocation	Direct via hash	Wrapped via Function.Call
+Use Case	Low-level engine control	High-level mod scripting
+Native Mapping	Hash-based	Name → Hash mapping
+Flexibility	Maximum	High, but abstracted
+🔮 Next Steps?
+
+Would you like to:
+
+Trace all native calls across a script/mod file?
+
+Generate a lookup table of all SHVDN methods → Native functions?
+
+Export ScriptHookV-style wrappers for a SHVDN mod (reverse mapping)?
+
+Or something else entirely?
+
+Let me know what level of mapping or dissection you want.

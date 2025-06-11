@@ -1,0 +1,1 @@
+List of banned memory behaviors, traits, and practices.

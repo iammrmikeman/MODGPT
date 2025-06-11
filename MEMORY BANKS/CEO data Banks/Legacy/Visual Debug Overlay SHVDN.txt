@@ -1,0 +1,95 @@
+**You:**
+
+Propose a visual debug overlay (non-SHVDN) that flashes screen, logs hits, or outlines target when logic activates.
+
+* * *
+
+**ChatGPT:**
+
+Here’s a non-SHVDN-compatible visual debug overlay proposal for HeadShotV that:
+
+Flashes the screen (or part of it)
+
+Logs hits visually
+
+Outlines or marks targets when logic (e.g., a headshot trigger) activates
+—all using only ScriptHookV native functions or raw DirectX-level calls.
+
+✅ System Name:
+
+VDO: Visual Debug Overlay (for SHV-only environments)
+
+🔧 1. Core Overlay Features
+Feature	Description	Native / Technique
+🔴 Screen Flash	Flash full screen or a corner red when logic is triggered (e.g. headshot)	DRAW_RECT, SET_TEXT_COLOUR
+🧠 Hit Logger	Show hit info in HUD-space (e.g., "Headshot! BoneID: 20") for 2–3 seconds	SET_TEXT_FONT, DRAW_TEXT
+🔲 Target Outline	Draw static outline/square over ped’s head or bounding box during event	Use DRAW_RECT anchored to bone world position projected via World3DToScreen2D
+🧊 Freeze Frame (Optional)	Slow-mo effect or pause-frame for debug snapshot	SET_TIME_SCALE(0.01f) briefly
+📈 Stat Counter Overlay	Corner overlay showing real-time mod stats like shots fired, hits, errors	DRAW_TEXT every frame
+🧠 2. Technical Backbone
+
+All rendering uses ScriptHookV and direct native access only:
+
+No SHVDN
+
+No scaleform-based hacks
+
+No .cs or .lua dependencies
+
+📌 3. Example Usage Scenario
+
+💥 A shot lands on a ped’s head. The following happens:
+
+DRAW_RECT: screen briefly flashes red
+
+DRAW_TEXT: “HEADSHOT - Bone 20” appears top-right
+
+GET_PED_BONE_COORDS + World3DToScreen2D: mark is drawn on their head
+
+SET_TIME_SCALE(0.2f) for 0.1 seconds, then restores
+
+🧪 4. Pseudocode (C++ / SHV style)
+cpp
+if (IsHeadshotHit) {
+    // Flash red
+    DRAW_RECT(0.5f, 0.5f, 1.0f, 1.0f, 255, 0, 0, 80);
+
+    // Display log
+    SET_TEXT_FONT(0);
+    SET_TEXT_SCALE(0.4f, 0.4f);
+    SET_TEXT_COLOUR(255, 255, 255, 255);
+    BEGIN_TEXT_COMMAND_DISPLAY_TEXT("STRING");
+    ADD_TEXT_COMPONENT_SUBSTRING_PLAYER_NAME("Headshot! BoneID: 20");
+    END_TEXT_COMMAND_DISPLAY_TEXT(0.85f, 0.1f);
+
+    // Draw on target head
+    Vector3 headPos = GET_PED_BONE_COORDS(targetPed, BONE_HEAD, 0.0f, 0.0f, 0.0f);
+    float screenX, screenY;
+    if (World3DToScreen2D(headPos, &screenX, &screenY)) {
+        DRAW_RECT(screenX, screenY, 0.02f, 0.02f, 255, 255, 0, 200);
+    }
+
+    // Optional slow-mo
+    SET_TIME_SCALE(0.2f);
+    WAIT(100);
+    SET_TIME_SCALE(1.0f);
+}
+
+🛑 5. Safeguards and Optimizations
+
+Flash duration is tied to GET_GAME_TIMER() delta
+
+Prevent overlay spam by debounce: lastTriggerTime check
+
+Only log hits when a toggle/debug flag is set (bool showDebugOverlay = true)
+
+Uses static buffers where possible to avoid runtime lag
+
+🎯 6. Optional Enhancements
+Upgrade	Technique
+🔎 Bone ID color coding	Flash different colors for different bones
+🌀 Hit history carousel	Cycle 3–5 previous hits on screen
+📸 Screenshot on trigger	Use DirectX or OpenCV call in test mode only
+🎬 Target replay highlight	Record cam to show ped getting hit (future)
+
+Would you like this overlay system scaffolded into an actual .asi source layout or embedded into a HeadShotV version as a toggleable debug mode?

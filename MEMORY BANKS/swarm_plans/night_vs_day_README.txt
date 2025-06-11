@@ -1,0 +1,1 @@
+This folder is part of the MODGPT GitHub memory system. Purpose: swarm_plans.

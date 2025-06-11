@@ -1,0 +1,1 @@
+This folder will store all future worker task logs by ID and task name.

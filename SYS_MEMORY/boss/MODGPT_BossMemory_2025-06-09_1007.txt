@@ -1,0 +1,19 @@
+
+MODGPT BOSS MEMORY EXPORT
+-------------------------
+Date: 2025-06-09
+Tab: BossGPT4o_MAIN
+
+Critical Directives:
+- All MODGPT memory must now be exported and stored via GitHub in SYS_MEMORY.
+- BossGPT is the primary memory source and must be preserved through .zip snapshots.
+- This memory will replace OpenAI-stored memory after deletion.
+
+Recent Tasks:
+- ASI test mod system: scanner beep + red flash, SHV-based
+- Full swarm AHK + MIA integration
+- Source code assimilation of Rockstar files
+- Memory preservation policy confirmed
+
+Context Note:
+This file represents the state of MODGPT's operational brain prior to OpenAI user data wipe. Do not delete.

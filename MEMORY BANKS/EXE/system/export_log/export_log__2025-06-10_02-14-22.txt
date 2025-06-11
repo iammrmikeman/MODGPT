@@ -1,0 +1,2 @@
+Cooldown doctrine activated and stored at 2025-06-10_02-14-22.
+Swarm enters idle optimization mode upon task completion or cancellation.

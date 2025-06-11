@@ -1,0 +1,37 @@
+===================================================================================================================================================================================================================================================================
+NaturalVision Enhanced Gore Variety 2.0 - IAMMRMIKEMAN
+===================================================================================================================================================================================================================================================================
+NaturalVision Enhanced - Razzed https://www.razedmods.com/gta-v
+===================================================================================================================================================================================================================================================================
+Installation text guide:
+
+Install NVE
+Drag and drop onigiri folder from this mod
+Done :)
+===================================================================================================================================================================================================================================================================
+Features
+Keeps all added gore fx from NVE
+Remade base game bullet wounds
+A whoping 13! blood pools
+Aditional blood pooling
+Remade Windscreen breaks
+Shotgun Wound diversity
+More bumpy normal maps
+===================================================================================================================================================================================================================================================================
+Updates
+
+1.0 core mod
+
+1.1 normal mapping, bullet impacts, windscreen fx, remade missing base game textures
+
+1.2 instalation tweaks, no more 50gb
+
+1.3 video guide + minor tweaks
+
+
+1.4 NVE Suport
+
+2.0 BIG UPDATE! Thanks to help from Availu from NVE TEAM i have learned how onigri.asi loads game files and can now have files over 15mb!
+	all blood pools now 2k and bullet splatters 4k, Also i have now added 4 additional blood pools from NVE missing in 1.4 due to file size
+	raising the total amount of blood pool variatons from 8 to a whopping 13!
+===================================================================================================================================================================================================================================================================

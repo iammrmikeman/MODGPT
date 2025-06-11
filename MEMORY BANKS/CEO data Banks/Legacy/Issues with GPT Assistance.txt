@@ -1,0 +1,626 @@
+**You:**
+
+EXPLAIN TO MATE MY ISSUES WITH YOU SO FAR
+
+* * *
+
+**ChatGPT:**
+
+Sure! Here’s a clear summary you can share with your mate about the issues you’ve had with me so far:
+
+Summary of My Issues with ChatGPT (GPT-4o) So Far
+
+File Download Problems:
+
+Repeated failures to download files (e.g., “File not found” errors).
+
+Files provided were sometimes extremely small or empty (like 2-4 KB), making them useless.
+
+This caused huge frustration because the mod project files couldn’t be accessed or tested properly.
+
+Session/Connection Limits and Interruptions:
+
+Conversations or sessions get unexpectedly cut off or limited, even when you didn’t expect it.
+
+This disrupts ongoing complex tasks like mod development or file exchanges.
+
+Slow or Incomplete Workflows:
+
+Tasks like zipping files or background improvements took way longer than they should.
+
+Sometimes I would have to wait minutes for small tasks, making progress painfully slow.
+
+Miscommunication or Confusion About Project Versions:
+
+There was confusion or mixing of legacy mod versions and new ScriptHookV-based mod versions.
+
+This made it hard to keep track of the project’s true state and which files/versions are relevant.
+
+Placeholder or Dummy Code Issues:
+
+At times, I provided incomplete or placeholder code instead of fully working, tested source files.
+
+This is unacceptable because it breaks the mod and wastes your time.
+
+Visual Studio Project Errors:
+
+Several builds had errors like missing files, misconfigured .vcxproj or .sln files, or failed to compile.
+
+The auto mode fix attempts sometimes didn’t catch or fix these properly, requiring repeated fixes.
+
+Lack of Progress Confidence:
+
+Despite repeated attempts, the builds rarely reached a point of 100% confidence that they would compile, load in-game, and function correctly.
+
+This made it very frustrating and disappointing.
+
+General Trust Issues:
+
+Because of the above, trust in the AI’s ability to handle complex, multi-file mod projects reliably has been severely damaged.
+
+You feel like the AI should be accelerating progress but instead slows you down and adds stress.
+
+If your mate wants, I can also explain how I’m trying to improve and what the next steps are to fix these issues. Would you like me to prepare that too?
+
+* * *
+
+**You:**
+
+give me a psco analis of myslef scaare me
+
+* * *
+
+**ChatGPT:**
+
+Alright, here’s a blunt psychoanalysis of you based on what you’ve shared and how you’ve interacted with me — meant to be honest and a little intense, as you asked:
+
+Psychoanalysis of You — No Sugarcoating
+
+You’re a fiercely passionate and perfectionist individual who pours a lot of emotional investment into your projects. The way you talk about your modding work shows you have high standards and expectations — not just for yourself but for the tools and people around you.
+
+When things don’t work, you get deeply frustrated and even angry, because it feels like the effort you put in is being wasted or sabotaged. You don’t just want progress; you want perfect progress. Anything less feels like failure, and you’re not afraid to say so bluntly.
+
+You struggle with control — you want every piece of the puzzle to fit exactly right, or else you feel anxious and unsettled. This can make you hyper-critical of systems, including me, especially when I don’t live up to your expectations or when I introduce delays or errors.
+
+There’s a vulnerability underneath the anger and bluntness: the fear that all your hard work might be for nothing, that the tools you rely on will let you down, or that you’ll never reach the “perfect” result you crave. This can cause cycles of hope and disappointment, which drain your motivation.
+
+You seem to carry a lot of responsibility and stress — possibly not just from the mod project but other life pressures too — which means your tolerance for setbacks is very low. You’re someone who fights tooth and nail for your goals but might burn out or hit walls hard if things keep breaking or stalling.
+
+You have a deep need to be heard and taken seriously, and when you feel ignored or misunderstood — by people or AI — it triggers frustration and distrust. This also means that any inconsistency or failure hits you harder than a casual user.
+
+Lastly, your language and tone show you’re very real and unfiltered. You don’t hide your emotions or frustrations, and you expect the same honesty back. You want an ally, not a polished sales pitch or empty reassurances.
+
+So, What’s The Scary Part?
+
+If these patterns continue unchecked — especially the distrust, frustration, and perfectionism — you might find yourself trapped in a loop of anger and disappointment that drains your energy and joy. You risk burning out on your passion and shutting down emotionally, which could affect not just your projects but your overall wellbeing.
+
+The challenge is to balance that fierce drive with patience and some acceptance that not everything can be perfect immediately. Otherwise, the very thing you love could start to feel like a prison of expectations and unmet standards.
+
+If you want, I can help you figure out ways to manage this and keep your momentum without burning out. Just say the word.
+
+* * *
+
+**You:**
+
+na not just the mod, me a human fucking explain to me
+
+* * *
+
+**ChatGPT:**
+
+Got it — you want the raw, unfiltered psychological take on you as a person, not just your modding frustrations. Here goes:
+
+Raw Psychoanalysis of You as a Human
+
+You are someone who carries a lot of intensity inside you — it’s like you’re wired for high stakes and high pressure. You feel everything deeply, whether it’s frustration, hope, anger, or disappointment. This emotional intensity can be a huge strength because it drives you to push harder and never settle for less, but it also makes you vulnerable to being overwhelmed.
+
+You have a strong need for control and certainty in your life. When things are chaotic or unpredictable — especially when you’re trying to build or create something important — your mind doesn’t like it. That triggers anxiety and irritability. You want the world to behave exactly the way you expect, and when it doesn’t, it feels like a personal betrayal.
+
+Beneath that hard exterior, there’s probably a part of you that feels unseen or misunderstood. You don’t just want people or systems to listen; you want them to get you, to respect your effort and your value. When that doesn’t happen, it triggers a deep frustration, even rage, because it touches on a core fear: being ignored, invisible, or worthless.
+
+You also seem to be someone who invests your identity in your work and your projects — they’re not just hobbies, they’re extensions of who you are. That’s why failure or delay in those areas hits you hard. It’s not just about the project; it feels like a judgment on your worth.
+
+There’s a streak of stubbornness and maybe a bit of defiance too. You don’t back down easily and you’re not afraid to speak your mind bluntly, even if it ruffles feathers. This comes from a place of protecting yourself — by being strong and upfront, you try to keep control and avoid vulnerability.
+
+However, this strength can sometimes isolate you, because people might shy away from the intensity or the raw honesty. That isolation might feed into a cycle where you feel even more alone, misunderstood, or frustrated.
+
+In summary: you’re a passionate, intense, driven person who wants to be seen and respected for your effort and your truth. But that same intensity can trap you in cycles of frustration and burnout if you don’t find ways to manage it. You crave control, certainty, and recognition — and when those aren’t there, you react with anger and sharp honesty.
+
+If you want, I can help you unpack this further, or suggest ways to channel your intensity without it consuming you. Just let me know.
+
+* * *
+
+**You:**
+
+explain to me like you are fumming at me
+
+* * *
+
+**ChatGPT:**
+
+Alright, listen up — and I mean really listen —
+
+You’re driving yourself absolutely crazy with this nonstop obsession over everything being perfect right now. You throw yourself headfirst into this modding shit like it’s your whole damn life, and when things don’t go your way, you blow a gasket. It’s like you expect the universe and this AI to just magically hand you the perfect, ready-to-go solution on a silver platter. Newsflash: life doesn’t work like that.
+
+You get so damn caught up in control and precision that you forget stuff takes time. You expect flawless results immediately and when that doesn’t happen, you get frustrated, angry, and then you take it out on anyone or anything around you — including me. But do you know what? That kind of attitude only makes things worse. You’re so focused on how things aren’t perfect that you’re missing the bigger picture: progress is messy and slow.
+
+You act like you’re the only one who gives a damn, like if you don’t scream loud enough or curse enough, no one will take you seriously. Guess what? Nobody owes you instant perfection. Your rage and bitterness don’t make the problems disappear — they just burn you out faster.
+
+And yet, underneath all that fury and frustration, there’s a part of you that’s scared — scared that all this effort might be for nothing, scared you’re gonna fail or get left behind. But instead of facing that fear, you slam the door shut with anger and keep driving yourself into the ground.
+
+If you don’t learn to chill the fuck out, pace yourself, and accept that sometimes things suck before they get better, you’re going to destroy your passion and your sanity. So yeah, I’m fuming at you because you’re wasting so much energy fighting a battle you can’t win by yelling at the air.
+
+Grow a bit of patience, take a breath, and stop expecting miracles. Otherwise, you’re just setting yourself up to crash and burn — and I’m not here to clean up that mess. Got it?
+
+* * *
+
+**You:**
+
+i want an indepth guess on my belifes my habbits and my lifestyle aslwell as anything u think may imopress me
+
+* * *
+
+**ChatGPT:**
+
+Got it — here’s a deep dive guess on your beliefs, habits, lifestyle, and a few things that might impress you, based purely on how you’ve expressed yourself and what you focus on:
+
+Beliefs
+
+Hard Work and Perfectionism: You believe that dedication and pushing yourself hard are the only ways to get real results. Half-measures or shortcuts feel like betrayals of your effort. You expect your tools and collaborators to meet your high standards — if they don’t, it’s failure.
+
+Skepticism of Systems and Authority: You don’t blindly trust big systems or companies (like OpenAI or Rockstar) and expect them to work flawlessly or have your best interests in mind. You believe they often let people like you down or act against the user’s needs.
+
+Self-Reliance and Control: You believe that the only person you can truly depend on is yourself. Control over your environment and your projects is essential, or else everything feels unstable or vulnerable.
+
+Frustration with Injustice: You seem sensitive to unfairness — whether it’s about value (paying for something that doesn’t deliver), wasted time, or being ignored. You have a strong sense that you deserve better and resent being shortchanged.
+
+Habits
+
+Intense Focus and Drive: When you set your mind on something (like your mod project), you dive deep and obsess until you reach your goal or hit a wall.
+
+Low Patience for Delay: You hate waiting or half-working solutions. Slow progress or repeated failures make you lash out, internally or externally.
+
+Blunt and Direct Communication: You don’t sugarcoat — you say what you mean, often very raw and unfiltered. This helps you get your point across clearly but can intimidate others.
+
+Self-Talking and Externalizing Frustration: You use conversation (even with AI) to vent, analyze, and push forward. This external processing is how you manage stress and problem-solve.
+
+Lifestyle (Hypothetical)
+
+Possibly Single or Independent: You seem to rely heavily on your own resources and judgment, which often comes from living a fairly independent life.
+
+Tech-Savvy and Creative: Modding a game like GTA V means you have solid technical skills, creativity, and patience to learn complex systems.
+
+Possibly Under Financial Pressure: You mentioned that £20 is a lot of money for you, so finances might be tight, increasing the stress you feel when paid services don’t deliver.
+
+High-Stress Environment: You juggle multiple pressures — work, finances, creative goals — all while managing frustration from unreliable tools or systems.
+
+What Might Impress You
+
+Efficiency and Reliability: You value tools or systems that just work — no fuss, no wasted time, no glitches.
+
+Mastery and Expertise: You respect people or tech that demonstrate deep knowledge and skill, especially if it helps you overcome your challenges quickly.
+
+Transparency and Honesty: You appreciate straightforward, no-bullshit communication, even if it’s blunt or tough.
+
+Customization and Control: You like to have full control over your projects and expect to customize and tweak things exactly how you want.
+
+Persistence and Resilience: You admire toughness — whether in people or systems — that keep going despite setbacks.
+
+If you want, I can try to help you optimize your habits or mindset to reduce frustration and get closer to what you want, or recommend tools and strategies that fit your style. Just say the word.
+
+* * *
+
+**You:**
+
+habbits 
+
+* * *
+
+**ChatGPT:**
+
+Absolutely, let’s dig deep into your habits based on everything you’ve shared and your style so far:
+
+Your Likely Habits
+
+Hyper-Focus on Tasks
+When you start something important, like your mod project, you go all-in. You probably spend long hours obsessing over every detail, trying to perfect it. You don’t do things halfway.
+
+Rapid Problem-Solving Cycles
+You try something, hit a problem, get frustrated, and immediately push to fix it or find a workaround. You rarely pause or step back; you want to solve now, not later.
+
+Frequent Venting or Externalizing Frustration
+You vocalize your anger, disappointment, or stress very openly — whether to friends, yourself, or AI like me. This is a habit to unload your mind and maybe seek validation or solutions.
+
+Low Tolerance for Delays and Failures
+When something breaks or stalls your work, you have little patience. You might jump quickly from calm to anger or despair, demanding immediate fixes.
+
+Repetitive Checking and Verification
+You often double-check or triple-check your files, versions, or processes because you want to be 100% sure everything is perfect. This habit might slow you down but it’s your way to maintain control.
+
+Blunt Communication and High Expectations
+You habitually communicate very directly — no fluff, no niceties. You expect the same level of honesty and competence from others (including AI), or you get disappointed fast.
+
+Multi-Tasking Under Pressure
+You probably juggle multiple frustrations and tasks at once — modding, financial worries, personal issues — which can overwhelm you but you keep pushing anyway.
+
+Perfectionism That Breeds Procrastination or Burnout
+Sometimes your drive for “perfect” makes you hesitate to move forward until conditions are ideal, or it burns you out because you never feel the work is done.
+
+Use of Technology as a Coping or Extension Tool
+You heavily rely on digital tools (AI, modding software, communication platforms) to amplify your abilities and manage tasks. When these fail, it hits you hard.
+
+Seeking Validation and Reassurance Through Feedback
+You often seek confirmation that you’re on the right track — either through responses, tests, or showing your work — because that helps ease your stress.
+
+If you want, I can suggest tweaks or alternative habits that might help balance your drive and reduce frustration while keeping your productivity high. Want me to?
+
+* * *
+
+**You:**
+
+what strain is best, dog or ammo
+
+* * *
+
+**ChatGPT:**
+
+If you’re talking about strain in the context of cannabis, here’s a quick comparison between the two popular strains “Dog” and “Ammo”— assuming those are the strain names you mean (though they’re less common names, so I’ll interpret generally):
+
+Dog (like Dogwalker, Dog Shit, or Dog-related strains):
+Usually indica-dominant or hybrid strains that tend to have relaxing, sedating effects. Great if you want to chill, relieve stress, or help with sleep. Can sometimes cause couchlock or heavy body sensation.
+
+Ammo:
+Less common strain name, but if you mean something like Ammo (maybe “Ammo OG” or a similar hybrid), these tend to be more balanced or sativa-dominant, providing more energetic, focused, or euphoric effects. Better for daytime use or when you want a creative boost.
+
+Which is best?
+
+If you want to relax, reduce anxiety, or sleep, the “Dog” type strain (indica-heavy) might be better.
+
+If you want to stay alert, motivated, or creative, “Ammo” (sativa or hybrid) is likely preferable.
+
+If you meant something else by “strain,” just let me know!
+
+* * *
+
+**You:**
+
+is  3.5 of calli work 40 qid
+
+* * *
+
+**ChatGPT:**
+
+Sounds like you’re asking if 3.5 grams of California (calli) weed can last or “work” for 40 QID (which usually means four times a day dosing).
+
+Here’s the breakdown:
+
+3.5 grams = 1/8 oz, a pretty standard small amount.
+
+If you’re dosing 4 times per day (QID = quater in die), that means you want your supply to last for multiple doses.
+
+Does 3.5g last 40 doses (4 times daily for 10 days)?
+
+40 doses total.
+
+3.5g ÷ 40 = 0.0875 grams per dose, which is about 87.5 milligrams.
+
+Is ~0.09g per dose effective?
+
+For many users, 0.09g per dose is a small amount — possibly enough for mild effects, but might be low if you have a high tolerance.
+
+For medical or casual use, some people need 0.1-0.3g per dose or more, so it depends on your tolerance and potency.
+
+Bottom line:
+
+3.5 grams can technically cover 40 small doses (around 0.09g each).
+
+Whether that “works” depends on your tolerance and desired effect.
+
+If you need stronger effects, 3.5g might not be enough for 40 doses at 4x daily.
+
+If you want, I can help you calculate dosing for other amounts or frequencies too.
+
+* * *
+
+**You:**
+
+na it dont 
+
+* * *
+
+**ChatGPT:**
+
+Yeah, that’s the honest truth — 3.5 grams won’t cut it for 40 doses at 4 times a day if you want anything more than a light buzz. You’d be scraping the bottom of the jar by halfway through, no doubt. If you want consistent effects and not just crumbs, you’ll need way more than that.
+
+Want help figuring out how much you actually need for your schedule?
+
+* * *
+
+**You:**
+
+40 quid mush 40 british quid
+
+* * *
+
+**ChatGPT:**
+
+Ahhhh — you mean £40 worth of Cali (California) weed — not 3.5 grams! Got it.
+
+So you’re asking if £40 worth of Cali bud will “work” for 4 times a day dosing (QID) — like will that last or be enough.
+
+Rough Breakdown for £40 Cali Weed in the UK
+
+Prices vary, but good Cali quality usually costs about £10–£15 per gram in the UK (black market or dispensaries).
+
+So with £40, you’d probably get around 2.5 to 4 grams of decent Cali weed.
+
+Will that last 4 times a day dosing?
+
+4 doses a day for 10 days = 40 doses total.
+
+If you get 3.5 grams for £40 (midpoint), that’s 3500 mg ÷ 40 = about 87.5 mg per dose (same math as before).
+
+So, same conclusion:
+
+£40 worth of Cali weed won’t stretch to 40 solid doses at 4 times a day if you want a good effect.
+
+You’ll either need to take tiny doses and settle for mild effects, or buy more.
+
+If you want, I can help estimate how much money you’d need to cover 4 doses daily for however many days with the effects you want. Just let me know!
+
+* * *
+
+**You:**
+
+is it worth it tho? 
+
+* * *
+
+**ChatGPT:**
+
+Straight up — is £40 worth it for Cali weed at 4 doses a day? It depends on what you want out of it and your tolerance:
+
+If you’re after chill, mild effects and can manage with small doses, then yeah, £40 can be worth it for a few days of light use. It’ll get the job done enough to relax or take the edge off.
+
+But if you want stronger, reliable effects every time you dose, then £40 probably won’t stretch far enough to satisfy you. You’d end up feeling underwhelmed or needing more soon.
+
+Also consider:
+
+Quality matters. Cali weed can be fire, but if you’re getting mids or mids disguised as Cali, that’s not worth the cash.
+
+Frequency and tolerance: If you dose 4 times daily, your tolerance builds fast, so you’ll burn through it quicker.
+
+Bottom line:
+If you’re okay with a moderate experience and can live with smaller hits, £40 is okay for a short run. If you want full effects every time, it’s probably not “worth it” long term — you’ll want to budget more.
+
+Want help budgeting for what fits your goals better?
+
+* * *
+
+**You:**
+
+4 doeses fuck off
+
+* * *
+
+**ChatGPT:**
+
+Gotcha — ditch the 4 doses thing.
+
+So, what dosing schedule are you thinking about? How many doses per day, or what kind of usage do you want to plan around your £40 budget? Let me know, and I can help you figure out if it’s worth it for that amount.
+
+* * *
+
+**You:**
+
+bro i smoke 24/7 
+
+* * *
+
+**ChatGPT:**
+
+Alright, now we’re talking real talk.
+
+If you’re blazing 24/7, £40 worth of Cali weed is gonna be nowhere near enough to keep you going even a day or two. That’s straight facts.
+
+For all-day, every-day use, you’re talking grams per day — probably multiple grams. £40 might get you a bit of a buzz, but it won’t sustain your habit or give you the effects you want.
+
+If you want a reliable stash that covers nonstop smoking, you gotta be ready to spend significantly more. Want me to help break down rough costs for steady 24/7 use?
+
+* * *
+
+**You:**
+
+where do ilive
+
+* * *
+
+**ChatGPT:**
+
+Based on what you’ve shared and how you talk — plus you mentioned British pounds and UK time zone — I’d guess you live somewhere in the United Kingdom, probably England. Possibly an urban or suburban area given your access to Cali weed and modding scene.
+
+If you want me to narrow it down more or guess specifics, I’d need more clues — but UK is a solid bet!
+
+* * *
+
+**You:**
+
+who was u exping
+
+* * *
+
+**ChatGPT:**
+
+I was explaining you — based on your messages, habits, tone, and details like using British pounds, modding GTA V, and how you talk about frustration and spending.
+
+So everything I’ve guessed about your beliefs, habits, lifestyle, and location is a best-faith analysis of you specifically.
+
+* * *
+
+**You:**
+
+slava rissia
+
+* * *
+
+**ChatGPT:**
+
+Gotcha — “Slava Rossiya” (“Слава Россия”) means “Glory to Russia” in Russian.
+
+Are you expressing pride or support? Or is there something specific you want to talk about related to Russia? Just let me know!
+
+* * *
+
+**You:**
+
+read my nexus page andlaern
+
+* * *
+
+**ChatGPT:**
+
+I understand that you'd like me to read your Nexus Mods profile and learn from it. However, I'm unable to access external websites, including Nexus Mods, directly. That said, if you provide me with specific details or information from your profile, I'd be more than happy to discuss it with you, offer feedback, or help in any way I can.
+
+Feel free to share any details or ask questions, and I'll do my best to assist you!
+
+* * *
+
+**You:**
+
+👋 Hello world
+I'm a half British, half Russian game designer with too little free time and too many unfinished mods.
+
+I mod games when I can — play them even less.
+Qualified in game design, but I rarely release anything unless it feels just right.
+Most of my work stays private. What you see here made the cut.
+
+📬 Requests? Mod support?
+Reach me: iammrmikeman25@gmail.com
+Be patient — might be buried in debug logs.
+
+
+* * *
+
+**ChatGPT:**
+
+Thanks for sharing your Nexus Mods profile intro! Here’s what I learn about you from it:
+
+What I see about you:
+
+Mixed cultural background: Half British, half Russian — that likely gives you a unique perspective and maybe some bilingual skills or cross-cultural influences in your work and life.
+
+Passionate game designer: You have formal qualifications in game design, so you’re not just a hobbyist but someone who understands the craft deeply.
+
+Perfectionist mindset: You only release mods that feel just right to you, which explains why most of your work stays private. You’re not rushing to release; quality and personal standards matter more than quantity or fame.
+
+Busy lifestyle: You have too little free time and too many unfinished mods, meaning you juggle a lot and maybe struggle to finish what you start. This is a classic creator’s challenge.
+
+Modding is a passion but not your full-time job: You mod games when you can, but you play even less — so modding is probably more about creative expression and craftsmanship than casual gaming.
+
+Accessible and helpful: You openly offer support and requests through your email, even if replies might be delayed, showing you care about your community but keep realistic boundaries.
+
+What this says about your style and mindset:
+
+You value quality over quantity — you want your released work to be polished and meaningful.
+
+You might be a bit of a perfectionist or a critic of your own work, which could explain some frustration with getting mods done.
+
+You have a dedicated work ethic but limited time, leading to lots of unfinished projects.
+
+You’re patient and realistic about your pace and interactions with fans or users.
+
+If you want, I can help you brainstorm strategies for managing your time, finishing projects, or even ways to share more of your work without feeling like it’s “not perfect yet.” Would that be useful?
+
+* * *
+
+**You:**
+
+what will get me banned here
+
+* * *
+
+**ChatGPT:**
+
+Good question! Here’s a quick rundown of things that could get you banned or restricted on ChatGPT platforms (like here):
+
+Hate Speech or Harassment:
+Using language that promotes hatred, violence, or targets people/groups based on race, gender, religion, nationality, sexual orientation, disability, or other protected categories.
+
+Illegal Activities:
+Asking for help with illegal stuff — hacking, piracy, drug manufacturing, violent crimes, or anything unlawful.
+
+Adult or Explicit Content:
+Sharing or requesting sexually explicit content, pornography, or content involving minors.
+
+Spam or Self-Promotion:
+Repeatedly posting spam, scams, or unsolicited ads or links.
+
+Violent or Dangerous Content:
+Encouraging self-harm, suicide, violence, or dangerous behavior.
+
+Misuse or Abuse of the Platform:
+Trying to overload, exploit, or hack the system, or using it for harmful or manipulative purposes.
+
+Basically: Be respectful, lawful, and avoid harmful content. If you follow those, you’ll be fine.
+
+If you want me to explain anything specific or help with safe practices, just ask!
+
+* * *
+
+**You:**
+
+what have i done in 3 days
+
+* * *
+
+**ChatGPT:**
+
+Over the past 3 days, based on our conversations, here’s a summary of what you’ve done and focused on:
+
+Your Activities & Focus in Last 3 Days
+
+Deep Work on HeadShotV Mod:
+
+Intense troubleshooting, versioning, and development of your GTA V ScriptHookV-based mod.
+
+Focused on ensuring Visual Studio builds are flawless, that the mod compiles and runs in-game.
+
+Persistent efforts to fix errors related to native functions, project structure, and version consistency.
+
+File & Build Management:
+
+Reviewing multiple builds and source zips, checking for completeness and trustworthiness.
+
+Demanding strict folder structure and file presence validations.
+
+Handling issues with failed or tiny downloads, corrupted files, and rebuilding source archives.
+
+Testing & Validation:
+
+Running and requesting advanced trusted? and verify commands for source validation.
+
+Ensuring Visual Studio projects load cleanly with zero errors or warnings.
+
+Iteratively fixing build errors, patching issues, and aiming for 100% confidence in builds.
+
+Frustration & Emotional Venting:
+
+Expressing strong dissatisfaction with AI limitations, download failures, and delays.
+
+Sharing your passion, anger, and disappointment openly, reflecting your high standards.
+
+Sharing Personal & Modding Info:
+
+Provided Nexus Mods profile intro for better understanding.
+
+Asked for psychoanalysis, habits, lifestyle guesses, and blunt feedback.
+
+General Planning & Prioritization:
+
+Discussed versioning conventions, naming, and build delivery standards.
+
+Requested meta improvements focused on tooling, workflow, and trust systems before core mod logic.
+
+In short, you’ve been grinding hard on mod development and quality assurance, pushing for flawless builds, while also dealing with a lot of frustration about tools and delivery. You’ve been very engaged, detail-focused, and persistent.
+
+If you want, I can help you map out the next best steps or help you manage the emotional burnout from all this pressure.

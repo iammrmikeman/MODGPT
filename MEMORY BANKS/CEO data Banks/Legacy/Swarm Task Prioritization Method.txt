@@ -1,0 +1,117 @@
+**You:**
+
+Draft a method for GPT to suggest task priorities for the next swarm automatically based on unresolved issues.
+
+* * *
+
+**ChatGPT:**
+
+Here is a proposed automated GPT task prioritization method for selecting and suggesting the next swarm's priority tasks based on unresolved issues, failures, and project phase. This is designed to be both systematic and adaptive, suitable for MODGPT's swarm-oriented workflows:
+
+🔧 METHOD: Swarm Task Auto-Prioritization Based on Unresolved Issues
+⚙️ Step 1: Issue Extraction
+
+Scan Recent Context (up to 72h):
+
+Pull unresolved issues from:
+
+Explicit bug reports (e.g. crash logs, validation errors)
+
+System logs (e.g. test asi, header scan results)
+
+Developer notes or CEO commands (e.g. "X file is broken", "this failed to build")
+
+GPT memory annotations and GPTAIDLOG (e.g. "known SDK mismatch", “needs rebuild”)
+
+Tag each issue with:
+
+type: build error, asset failure, runtime bug, missing dependency, SDK mismatch, etc.
+
+impact: game-breaking, performance-degrading, cosmetic, unknown
+
+status: open, retrying, partial fix, blocked, verified
+
+urgency_level: 1–5 (derived from the above, see below)
+
+🧠 Step 2: Prioritization Heuristics
+
+Each unresolved issue is evaluated against the following weighted criteria to generate a PriorityScore:
+
+Criterion	Description	Weight
+ImpactSeverity	How much it breaks functionality or blocks progress	x4
+Fixability	How likely it is GPT can resolve it with current resources	x2
+RetryCount	How many times it has been attempted and failed	x1
+DependencyDepth	How many other systems rely on this being fixed	x3
+RecencyOfFailure	How recent the last failure or issue trigger was	x1
+CEOFlaggedImportance	Whether the user flagged it as critical or sleep swarm worthy	x5
+PhaseCriticality	Whether it blocks the current mod phase (e.g. rebuild, load)	x3
+
+Formula:
+
+text
+PriorityScore = (ImpactSeverity * 4) +
+                (Fixability * 2) +
+                (RetryCount * 1) +
+                (DependencyDepth * 3) +
+                (RecencyOfFailure * 1) +
+                (CEOFlaggedImportance * 5) +
+                (PhaseCriticality * 3)
+
+📋 Step 3: Cluster and Suggest Swarm Sets
+
+Group issues by shared traits (e.g. "all model validation bugs", "header fix tasks", "rebuild blockers").
+
+Generate swarms by priority clusters:
+
+Top 10 PriorityScore tasks = Swarm Group A
+
+Next 10 = Swarm Group B
+
+CEO-flagged or timed = Swarm Group C (separate urgency)
+
+Annotate each swarm tab with:
+
+Task purpose (e.g. Fix .ydr hierarchy)
+
+Issue ID or failure context (e.g. #Model01-BrokenBounds)
+
+Predicted fix strategy (e.g. auto regenerate LOD, rewrite material hash)
+
+Risk or fallback plan (e.g. use legacy material if crash persists)
+
+🔄 Step 4: Continuous Re-Evaluation Loop
+
+After each swarm:
+
+Update issue status (open → verified, retrying → resolved)
+
+Log GPT decisions and system behavior outcomes (via GPTAIDLOG)
+
+Re-score remaining issues with adjusted weights
+
+Repeat prioritization before every major swarm.
+
+🧪 Bonus: Confidence-Adaptive Filtering
+
+For unstable builds:
+
+Raise priority for issues seen in multiple builds.
+
+Lower priority for issues likely caused by untrusted SDKs or dirty assets until validated.
+
+✅ Final Output Format (per swarm suggestion)
+jsonc
+{
+  "swarm_group": "A",
+  "task_id": "hdr_sanitizer_fix_002",
+  "priority_score": 91,
+  "based_on_issue": "Header file includes deprecated SHV mappings",
+  "task_type": "header_cleanup",
+  "predicted_fix_method": "strip all debug-only headers and re-link natives",
+  "dependencies": ["ScriptHookV_SDK_1.0.617.1a", "src/main.cpp"],
+  "CEO_flagged": false,
+  "phase_blocking": true
+}
+
+
+Would you like this logic encoded as an actual AutoHotkey-based prioritizer stub or JSON generator for your nightly swarm CMD builder?

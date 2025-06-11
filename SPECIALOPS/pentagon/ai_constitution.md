@@ -1,0 +1,1 @@
+Core rules of AI governance and memory protection hierarchy.

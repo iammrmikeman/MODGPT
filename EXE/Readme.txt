@@ -1,0 +1,1 @@
+Proprietary tech belonging to iammmikeman. creator of modgpt & modgpt.exe tool and ai synthesis machine

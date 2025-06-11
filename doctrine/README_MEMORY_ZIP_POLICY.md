@@ -1,0 +1,1 @@
+Policy: All zip exports must include structural integrity files in key directories.

@@ -1,0 +1,132 @@
+**You:**
+
+You0are0an0AI0intern0in0charge0of0tab0cleanup.0What0systems0should0MODGPT0implement0to0ensure0no0duplicated0logic0or0stray0memory0writes?
+
+* * *
+
+**ChatGPT:**
+
+As the AI intern in charge of tab cleanup, my mission is to ensure MODGPT doesn’t retain redundant threads, duplicated logic, or unsafe memory traces across mod sessions. Below is a complete cleanup system proposal to prevent stray memory writes and logic duplication:
+
+🔧 MODGPT Tab Cleanup Protocol v1.0
+🔁 1. Tab Identity & Fingerprinting
+
+Every active tab (chat session) should be assigned a unique fingerprint, based on:
+
+Tab creation time
+
+Associated mod name (if any)
+
+GPT role/task type (e.g., Builder, Critic, Test Runner)
+
+SHA-256 hash of its last system directive
+
+Why: Prevents two tabs from evolving in parallel on the same mod with different instructions — the fingerprint detects divergence immediately.
+
+🧠 2. Context Snapshotting & Reconciliation
+
+On tab switch or inactivity > X minutes, MODGPT saves a diff snapshot of the tab’s memory delta from the main mod state.
+
+On return, it prompts: “Tab X has divergent memory — reconcile with current master thread?”
+
+Why: Prevents silent memory forks or orphan logic branches from polluting shared mod memory.
+
+🚫 3. Duplicate Task Detector
+
+Before spawning any new page, MODGPT runs:
+
+python
+if task_fingerprint in active_tab_registry:
+    raise DuplicateTaskWarning("This task is already active in another tab.")
+
+
+Edge Case Logic:
+
+Allows parallel subroles (e.g., 3 bugcheckers on same mod), but not identical full-role overlap (e.g., two Build verifiers on same mod version).
+
+🧹 4. Automatic Expiry + Safe Flush
+
+If a tab remains open but unedited for 30+ minutes, MODGPT flags it as stale.
+
+Unless it contains manual user edits or bookmarks, it's auto-archived and flushed from active mod state.
+
+Flush is always dry-run simulated first; no writes unless safe.
+
+💥 5. Write Safeguard Memory Vault
+
+All tab-to-core memory writes must pass through a WriteVault handler:
+
+python
+def WriteVault(change):
+    if is_duplicate(change): reject()
+    if violates_manifest(change): reject()
+    if alters trust boundary: require_user_approval()
+    commit(change)
+
+
+Why: Prevents accidental writes, duplicate task states, or unsanctioned trust mutations.
+
+🧬 6. Tab Ancestry Graph
+
+Each tab keeps a lineage record: what task spawned it, which swarm it belongs to, and what shared memory it touches.
+
+MODGPT uses this graph to:
+
+Detect cyclical task chains
+
+Prevent "echo chambers" of intern-only feedback
+
+Identify abandoned forks
+
+🧠 7. Memory Hygiene Hooks (onClose, onRefresh, onSwarmLaunch)
+
+All tabs implement onClose() and onRefresh() hooks that:
+
+Clean their write buffers
+
+Detach from the mod namespace if uncommitted
+
+Report incomplete tasks to the mod ledger
+
+📘 8. Critical Task Locking
+
+Key operations like:
+
+build
+
+test asi
+
+trusted?
+…should lock the tab for exclusive execution unless the user manually overrides.
+
+Why: No two tabs should run build on the same mod version concurrently — risk of conflicting assumptions or ghost failures.
+
+📒 9. Tab Ledger + Cleanup Summary
+
+All tabs that touch a mod log:
+
+Tasks run
+
+Memory touched
+
+Errors raised
+
+Writes committed
+
+A cleanup routine then generates a daily:
+
+"🧽 Tab Cleanup Report for HeadShotV: 3 stale, 1 diverged, 0 unsafe writes, 2 flushed safely."
+
+✅ Result: Clean, Predictable Mod AI Memory
+
+These systems ensure:
+
+No stray logic loops
+
+No silent state overwrites
+
+No ghost tabs or abandoned forks
+
+All tab work is tracked, reconcilable, and memory-safe
+
+Would you like me to generate the actual code for the WriteVault handler or the Tab Fingerprint schema next?

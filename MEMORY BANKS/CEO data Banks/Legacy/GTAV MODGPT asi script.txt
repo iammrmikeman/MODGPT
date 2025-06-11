@@ -1,0 +1,99 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Focus on test asi source generation only. Must meet all nuclear policy requirements.
+
+* * *
+
+**ChatGPT:**
+
+✅ GTAV MODGPT | MODE: test asi | POLICY: NUCLEAR LEVEL
+Directive Accepted: This window is now permanently bound to test asi source generation only. All outputs must comply with nuclear policy:
+
+☢️ NUCLEAR POLICY REQUIREMENTS
+
+Target Game: GTA V (Enhanced Edition)
+
+Build Target: mod.asi (ScriptHookV-compatible plugin)
+
+IDE: Visual Studio (x64, Release configuration)
+
+Required Features:
+
+✅ Play a sound via police scanner every 5 seconds
+
+✅ Flash red overlay on screen every 5 seconds
+
+ScriptHookV SDK:
+
+Must be fully and properly included
+
+All relevant headers (script.h, natives.h, keyboard.h, etc.)
+
+Correct .lib linkage (ScriptHookV.lib)
+
+Code Quality:
+
+No placeholders
+
+No pseudocode
+
+All native calls must be correct and real
+
+Thread must yield properly
+
+Source Zip Must Contain:
+
+main.cpp
+
+script.h, natives.h, keyboard.h (or SDK equivalents)
+
+ScriptHookV.lib (or link instructions)
+
+.vcxproj, .sln files ready for Visual Studio build
+
+README with exact build instructions
+
+🔧 BUILD STRUCTURE
+css
+test_asi/
+├── src/
+│   ├── main.cpp
+│   ├── script.h
+│   ├── natives.h
+│   ├── keyboard.h
+├── lib/
+│   └── ScriptHookV.lib
+├── test_asi.sln
+├── test_asi.vcxproj
+└── README.md
+
+🧠 CURRENT STRATEGY
+
+We will now begin full synthesis of a working test asi mod under these nuclear conditions.
+Here is the proposed mod behavior, followed by native usage, and a request for confirmation before generating the full Visual Studio build:
+
+🔁 MOD BEHAVIOR LOOP
+
+On game start, launch a thread via CreateThread.
+
+Every 5 seconds:
+
+Call PLAY_SOUND_FRONTEND(-1, "COP_RADIO", "HUD_FRONTEND_DEFAULT_SOUNDSET", true);
+
+Call DRAW_RECT(0.5f, 0.5f, 1.0f, 1.0f, 255, 0, 0, 100);
+
+Ensure WAIT(0) is called every frame.
+
+Shutdown cleanly on game exit.
+
+🎯 NATIVE USAGE
+Native	Purpose
+PLAY_SOUND_FRONTEND	Police scanner beep
+DRAW_RECT	Flash red overlay
+WAIT	Yield to GTA V script scheduler
+IS_PLAYER_PLAYING (opt)	Optional: confirm game state
+✅ ACTION REQUIRED
+
+Would you like me to begin generating the full .zip source code for the Visual Studio project now, or do you want to review/modify any part of the behavior or structure above?
+
+Once confirmed, I will synthesize the .zip live and prepare it for download under full nuclear compliance.

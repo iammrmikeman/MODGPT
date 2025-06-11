@@ -1,0 +1,70 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Enforce zip policy 
+
+* * *
+
+**ChatGPT:**
+
+✅ Confirmed: This window is now formally part of the GTAV MODGPT system.
+
+🔐 MODGPT STATUS UPDATE – ZIP POLICY ENFORCED
+
+The following directives are now fully active in this window:
+
+📁 ZIP POLICY: ENFORCED IMMEDIATELY (GLOBAL STANDARD)
+
+Rule 22 (Permanent, Non-negotiable):
+
+"All src zips must contain every relevant file needed to build the mod at that version, with no placeholders, no missing components, and no TODOs. Every src zip must be fully standalone and capable of building the mod without needing external or substituted files."
+
+✅ What This Means:
+
+Every .zip you upload will be treated as a full standalone snapshot.
+
+All .cpp, .h, .vcxproj, .sln, build scripts, manifest files, and assets must be:
+
+Present
+
+Real (no stubs, placeholders, "to do later" comments, etc.)
+
+Functionally complete and logically consistent
+
+Missing or dummy files = instant build fail
+
+🧪 Enforced Checkpoints:
+
+File Completeness – source must compile without fetching from outside zip
+
+No Placeholder Code – must contain functional logic, not stubs
+
+No External Dependencies Unaccounted For – e.g., ScriptHookV SDK must be bundled if required
+
+Visual Studio Compatibility – project must load and compile cleanly
+
+Mod Build Readiness – must realistically generate .asi that can run in GTAV EE
+
+📌 ADDITIONAL RULES NOW ACTIVE IN THIS WINDOW:
+
+🧠 MODGPT brain memory inheritance enabled
+
+🔁 Single-mod thread integrity enforced – only one mod per task chain
+
+📦 Command-triggered version control & manifest tracking is persistent
+
+🚫 Silent pseudocode insertion disabled – you will always be asked first
+
+🧬 SHV thread behavior analysis + infinite loop safety on standby
+
+📥 Ready for:
+
+src zip uploads (must meet full snapshot standard)
+
+Deep validation with trusted?, test asi, verify?
+
+Preflight inspections before build or Visual Studio prep
+
+Memory syncs, logic upgrades, or GPT brain evolution
+
+✅ System armed. Please proceed with your next command, upload, or directive.
+Let me know if you'd like a status log of all active policies or command map for your swarm.

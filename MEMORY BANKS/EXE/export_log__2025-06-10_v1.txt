@@ -1,0 +1,2 @@
+# Export Log
+This ZIP contains decoded EXE references from high-value projects for SwarmLauncher design.

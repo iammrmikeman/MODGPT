@@ -1,0 +1,9 @@
+# 📦 MODGPT Memory Update Log — 2025-06-10_v1
+
+Export Type: 🔁 Combined EXE + NON-EXE SCR_REFERENCE Update
+CEO Override: ✅ YES
+Includes:
+- Full EXE logic map + source ref system under `/EXE/scr_reference/`
+- New NON-EXE GTA5 mod logic mapping under `/code_modules/scr_reference/`
+- Snapshot, log, policy compliance
+- Ready for GitHub drag-and-drop upload

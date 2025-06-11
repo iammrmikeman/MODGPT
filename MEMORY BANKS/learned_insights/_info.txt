@@ -1,0 +1,3 @@
+# Memory Bank/Learned Insights
+
+This folder stores MODGPT data related to memory_bank/learned_insights.

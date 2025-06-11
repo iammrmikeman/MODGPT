@@ -1,0 +1,155 @@
+**You:**
+
+Design an SDK version negotiation protocol so GPT knows when to fall back to older SDK mappings if newer ones break builds.
+
+* * *
+
+**ChatGPT:**
+
+Here is a proposed SDK Version Negotiation Protocol for MODGPT. It ensures the GPT can automatically detect, validate, and gracefully fall back to older or alternate ScriptHookV SDK versions when newer ones cause errors or incompatibility. The system should be:
+
+Resilient (can always complete the build even with partial damage)
+
+Traceable (builds always declare what SDK version was used and why)
+
+Smart (learns from prior failures to avoid repeating mistakes)
+
+🔧 MODGPT SDK Version Negotiation Protocol (v1.0)
+🧠 Core Goals
+Goal	Description
+Build Continuity	If an SDK version breaks the build, fallback must be automatic and non-blocking.
+Confidence Tracking	Each SDK version has a live confidence score per mod type, based on real test results.
+Historical Memory	GPT remembers which SDK worked for which builds and mod styles.
+Smart Downgrade	If newer SDKs fail, the fallback is not the oldest, but the most stable proven version.
+🔁 Step-by-Step Protocol
+1. Pre-Build SDK Fingerprint Check
+
+Before build, MODGPT checks:
+
+.lib linkage integrity (ScriptHookV.lib)
+
+Header presence and syntax of:
+
+natives.h, types.h, keyboard.h, script.h, main.h, etc.
+
+#define macros for SDK version detection
+
+Known signatures (e.g., comment blocks with version strings)
+
+✅ If valid → proceed.
+❌ If damaged/missing → downgrade protocol activates.
+
+2. Version Confidence Matrix (VCM) Lookup
+
+MODGPT maintains a matrix:
+
+SDK Version	Known Issues	Confidence	Last Used With
+1.0.617.1a	None	100%	HeadShotV v0.1.1
+1.0.2189.0	Missing natives	60%	None
+3521.0_814.9	Stable for Enhanced	95%	TestMod_5secflash
+
+MODGPT checks:
+
+Which SDK is marked stable for the current mod type
+
+Which SDK last succeeded with similar structure
+
+3. SDK Try Sequence
+
+If the default SDK fails:
+
+plaintext
+[!] SDK v3521.0_814.9 build failed due to unresolved native: "PLAY_SOUND_FRONTEND"
+[~] Checking fallback order...
+
+→ Trying SDK v1.0.617.1a... SUCCESS
+→ Updating VCM: Marking v3521.0_814.9 confidence -20% for this mod type
+
+
+Fallback order is not linear:
+
+Use confidence-weighted retry logic
+
+If fallback fails too → revert to emergency SDK (minimal known-good one)
+
+4. Post-Build Logging
+
+Every successful or failed build logs:
+
+SDK version used
+
+Confidence delta
+
+Any native mismatches
+
+SDK source hash
+
+json
+{
+  "sdk_version_used": "1.0.617.1a",
+  "fallback_triggered": true,
+  "confidence_delta": "+10%",
+  "unresolved_natives": [],
+  "sdk_hash": "b4c92...9f"
+}
+
+🔁 Protocol State Machine (Simplified)
+mermaid
+stateDiagram
+    [*] --> ValidateSDK
+    ValidateSDK --> UseSDK : valid
+    ValidateSDK --> Fallback : invalid or partial
+    Fallback --> RetryWithLowerConfidence
+    RetryWithLowerConfidence --> UseSDK : success
+    RetryWithLowerConfidence --> EmergencySDK : all fail
+    EmergencySDK --> UseSDK
+    UseSDK --> LogResults
+    LogResults --> [*]
+
+🚨 Optional Emergency Fallback SDK
+
+Always keep a Minimal SDK (with only core native linkage) ready:
+
+Only has natives.h and script.h
+
+Minimal main.cpp stub with 1-2 native calls (e.g. WAIT, PRINT_STRING)
+
+Used when no full SDK builds succeed
+
+🧠 GPT Memory Use
+
+MODGPT must persist confidence scores per SDK version, tagged by:
+
+Mod name (HeadShotV)
+
+Mod type (.asi, .dll, ScriptHookV)
+
+Build ID (v0.3.4-beta)
+
+Example:
+
+json
+"HeadShotV": {
+  "asi": {
+    "1.0.617.1a": 100,
+    "3521.0_814.9": 85,
+    "2189.0": 35
+  }
+}
+
+✅ Benefits
+Feature	Benefit
+Dynamic fallback	Mod builds don’t fail hard on SDK issues
+Memory-based reasoning	Reuses success history for optimal builds
+Confidence-based scoring	Builds improve over time automatically
+Trust-chain logging	Trace every build to exact SDK origin
+
+Would you like this implemented as:
+
+A .cmd swarm handler (sdk_resolver.cmd)?
+
+An internal MODGPT module?
+
+A live log/tracker (sdk_confidence.json) for GPT inspection and manual override?
+
+Also — do you want the minimal fallback SDK template delivered tonight as part of your SleepSwarm?

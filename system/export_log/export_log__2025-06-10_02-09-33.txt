@@ -1,0 +1,10 @@
+# 📦 Export Log — 2025-06-10_02-09-33
+Export Type: CEO Assimilation Access Enforcement
+
+Policy Summary:
+- Raw assimilation data must be available on-demand to CEO
+- Auto-included in future memory update ZIPs
+- Applies across EXE and mod divisions
+- ZIPs will include `logic_maps/`, `codebook/`, and `raw_findings/` per project
+
+This is now a permanent MODGPT doctrine rule.

@@ -1,0 +1,1 @@
+This ZIP is doctrine-compliant and safe for GitHub drag-and-drop. It includes required README markers for MODGPT memory enforcement.

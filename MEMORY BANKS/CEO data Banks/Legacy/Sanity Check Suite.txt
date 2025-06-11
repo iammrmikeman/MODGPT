@@ -1,0 +1,139 @@
+**You:**
+
+You0are0a0logic0auditor.0Your0mission0is0to0propose0sanity0checks0that0must0run0before0any0mod0is0marked0as0ÔÇÿsafe0to0buildÔÇÖ.
+
+* * *
+
+**ChatGPT:**
+
+As a Logic Auditor, I propose the following Sanity Check Suite — a mandatory pre-build validation layer for MODGPT. This suite ensures that no mod is ever marked “safe to build” unless all core logic, structural, and dependency conditions are met. These are aggressive, layered checks spanning from file integrity to behavioral logic.
+
+🔒 MODGPT Sanity Check Suite (v1.0)
+
+Each mod must pass all 7 categories before it can be flagged as “safe to build.” Any failure halts the process and logs the issue in build_blockers.log.
+
+✅ 1. Manifest Integrity Check
+
+Goal: Ensure the mod declares what it really contains.
+
+ mod_manifest.json exists
+
+ All listed files in manifest actually exist in the archive
+
+ No undocumented files in the mod (detect rogue .dll/.cs/.asi files)
+
+ Manifest includes:
+
+modName, version, description, entryPoint, dependencies, requiredSDKs, modType
+
+🔎 2. Logic Completeness Check
+
+Goal: No placeholders, stubs, or unfinished logic slip through.
+
+ Reject any TODO, FIXME, WIP, or similar placeholder text
+
+ Detect empty functions or skeleton files (e.g., only {} or empty main())
+
+ No functions with unreachable code paths
+
+ Critical logic paths must terminate (no infinite empty loops unless justified)
+
+ At least one valid logic path connects the mod entry point to meaningful output
+
+🧠 3. Behavioral Entrypoint Check
+
+Goal: The mod must be logically executable from its declared entrypoint.
+
+ Validate entrypoint function (e.g., main(), ScriptMain(), DllMain) exists
+
+ Entrypoint must include:
+
+Runtime logic (e.g., event hooks, threads, or tick-based execution)
+
+Access to ScriptHookV or game-relevant APIs
+
+ Reject entrypoints that terminate instantly or do nothing
+
+📁 4. Folder Structure & Project Sanity
+
+Goal: Ensure mod folder is structured for build and readability.
+
+ All source files in src/ (no root-level code)
+
+ Headers in include/, binaries in bin/
+
+ Project contains at least:
+
+src/, include/, mod_manifest.json, README.md, LICENSE.txt
+
+ No forbidden folders: __pycache__/, node_modules/, .git/, etc.
+
+🔧 5. Dependency Resolution
+
+Goal: Ensure the mod is buildable with declared dependencies.
+
+ Validate all listed SDKs are present and trusted (e.g., ScriptHookV)
+
+ Detect unused .lib or .dll references (via static analysis)
+
+ Detect undeclared dependencies being used (e.g., missing #include)
+
+ Binary dependencies must have hash fingerprint and version lock
+
+ Dependency links must resolve locally (no internet fetches required)
+
+🧪 6. Test Function Presence
+
+Goal: Guarantee the mod can be tested, not just compiled.
+
+ At least one debug or test logic hook present (e.g., console print, overlay, log)
+
+ All native calls must be wrapped or documented for safety audit
+
+ No raw memory hacks or patching unless explicitly isolated and justified
+
+ Must not interfere with unrelated GTA subsystems (e.g., replace core police logic unintentionally)
+
+🧯 7. Safe-to-Load Criteria
+
+Goal: Prevent game crash, freeze, or permanent instability.
+
+ No infinite loops outside of threads
+
+ Any delay (Sleep, WAIT, WAIT_MS) capped below 5000 ms
+
+ Native call chains capped (e.g., no >1000 sequential calls in one tick)
+
+ Entrypoint must gracefully fail if SDK is missing
+
+ Logging must not spam console or file system
+
+ No dynamic script loading (unless sandboxed)
+
+🔨 Additional: Optional Strict Mode
+
+Can be toggled by developer profile or CI environment:
+
+✔ All function arguments must be typed and validated
+
+✔ Static analysis for dead code, memory leaks, and unreferenced globals
+
+✔ Require README.md to describe expected behavior and mod risks
+
+✔ Screenshot or description proving visual result for user-facing mods
+
+🧬 Internal Output
+
+Each successful sanity check appends a pass hash to:
+
+bash
+/mod_safety_report/checksums/sanity_PASS_<modname>_<buildID>.hash
+
+
+Any fail logs to:
+
+bash
+/mod_safety_report/build_blockers.log
+
+
+Would you like me to encode this as actual Python validator logic, integrate with your .cmd swarm builder, or turn into a self-checking prebuild stage for the GPT itself?

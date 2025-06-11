@@ -1,0 +1,11 @@
+# MODGPT.EXE Export Log — 2025-06-10_v1
+
+Export Type: 📦 Memory Update
+Trigger: 🧠 New directive shift from AHK to native EXE launcher (C#)
+Boss: EXE Division GPT-4.0
+Includes:
+- Snapshot
+- Policy file compliance
+- Task table
+- Doctrine structure for `/EXE/swarm_launcher/`
+

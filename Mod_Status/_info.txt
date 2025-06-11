@@ -1,0 +1,3 @@
+# Mod Status
+
+This folder stores MODGPT data related to mod_status.

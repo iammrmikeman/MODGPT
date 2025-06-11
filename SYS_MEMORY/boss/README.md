@@ -1,0 +1,1 @@
+This folder stores the operational state of BossGPT (4.o), including insights, strategy logs, and prompt injection rules.

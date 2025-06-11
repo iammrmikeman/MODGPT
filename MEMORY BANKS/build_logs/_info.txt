@@ -1,0 +1,3 @@
+# Build Logs
+
+This folder stores MODGPT data related to build_logs.

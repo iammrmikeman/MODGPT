@@ -1,0 +1,1 @@
+MIA handles polling, logging, swarm detection, and report organization.

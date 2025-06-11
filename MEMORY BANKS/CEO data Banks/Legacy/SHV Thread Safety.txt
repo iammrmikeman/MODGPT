@@ -1,0 +1,130 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Study SHV thread behavior, infinite loop safety, and yield correctness.
+
+* * *
+
+**ChatGPT:**
+
+✅ MODGPT: SHV Thread Behavior & Infinite Loop Safety Analysis Initialized
+Thread Safety / Yield Analysis Mode — Nuclear Certainty Level Target: 100%
+
+🧠 MODGPT OBJECTIVE
+
+Study and formalize ScriptHookV (SHV) script thread behavior and determine safe practices for:
+
+Thread startup/shutdown
+
+Infinite loop safety
+
+WAIT() and yield() correctness
+
+Mod runtime stability
+
+Avoiding game hangs / crashes / freezes
+
+📘 SHV Thread Architecture – Core Principles
+🔁 SHV Script Lifecycle:
+
+Each .asi mod running under SHV typically follows a simple infinite loop pattern:
+
+cpp
+void ScriptMain()
+{
+    while (true)
+    {
+        // your logic here
+        WAIT(0);  // essential yield
+    }
+}
+
+
+ScriptMain() is the entry point for the mod thread.
+
+This loop is not a real OS thread, but a fiber managed by ScriptHookV.
+
+WAIT(ms) is a cooperative yield, not a passive delay. It tells SHV's internal fiber scheduler to pause your script and resume others.
+
+🧵 THREADING RULES & RISKS
+🔒 Rule	Explanation
+✅ Always use WAIT() in your main loop	Prevents softlocks. Without it, your code runs forever and SHV (and GTA V) can become unresponsive.
+⛔ Never block with real OS sleep or infinite loops	Sleep(), while(1){} without WAIT() will hang the game — SHV does not preempt fibers.
+✅ ScriptMain() must never return	SHV expects it to run forever. If it exits, behavior is undefined.
+⛔ Never create custom threads in .asi mods (unless expert-level workaround used)	SHV mods are expected to live on their fibered runtime, not raw threads.
+⚠️ Yield responsibly	Using WAIT(0) every frame is good, but for logic that happens every second, use WAIT(1000) appropriately.
+⚙️ WAIT() VS yield()
+
+WAIT(ms)
+
+Macro that maps to scriptWait(ms)
+
+Defined in ScriptHookV SDK headers
+
+Essential for yielding control to SHV's scheduler
+
+yield()
+
+Not part of SHV by default, but some devs define it for better semantics:
+
+cpp
+#define yield() WAIT(0)
+
+💣 CRASH SCENARIOS TO AVOID
+Scenario	Result
+while (true) {} (no WAIT)	GTA V freeze or crash
+while (true) { Sleep(1); }	Total hang, SHV thread won't yield
+ScriptMain() exits	Crashes on reload, no re-entry supported
+Using native functions outside main SHV fiber	May cause access violations or instability
+Calling WAIT() from the wrong thread	May cause scheduler corruption
+🔍 INTERNAL SHV SCHEDULING (Decompiled Insight)
+
+SHV hooks into GTA V's script engine and allocates a fiber per loaded mod
+
+Every tick, SHV swaps fibers between mods using the WAIT() value to determine delay before next resume
+
+Stack unwinding is unsafe: do not throw C++ exceptions across WAIT() calls
+
+Each WAIT(ms) effectively triggers:
+SwitchToFiber(nextFiber);
+
+✅ CORRECT PATTERN (Safe Infinite Loop)
+cpp
+void ScriptMain()
+{
+    while (true)
+    {
+        // Example: blink screen every second
+        if (GetGameTimer() % 1000 < 16)
+        {
+            DRAW_RECT(0.5f, 0.5f, 1.0f, 1.0f, 255, 0, 0, 100);  // Example visual
+        }
+
+        WAIT(0);  // <== critical to prevent softlock
+    }
+}
+
+🧪 MODGPT THREADED SIMULATION TEST CASES (SUGGESTED)
+Test ID	Goal	PASS Condition
+T1	Infinite loop w/ no WAIT	Game locks up immediately
+T2	Loop w/ Sleep(1)	Game freezes but SHV remains loaded
+T3	ScriptMain() returns	Mod unloads or crashes silently
+T4	WAIT outside ScriptMain()	Log warning or crash
+T5	High-frequency WAIT(0) usage	Stable, smooth FPS
+T6	Mixed yield durations	Stable behavior, staggered logic confirmed
+🔧 RECOMMENDATIONS FOR ALL MODS
+
+Do NOT trust OS threads. Always code for SHV's fiber model.
+
+Use WAIT() consistently. Never assume it's optional.
+
+Centralize all logic inside ScriptMain().
+
+Wrap any high-complexity loop with explicit WAIT()
+
+Ensure ScriptMain() is treated as eternal — treat exit as a critical failure.
+
+Would you like a real .asi mod now that demonstrates each of these behaviors (both safe and unsafe) for visual in-game testing?
+
+Or shall I embed the logic into a diagnostic testing framework inside MODGPT for all future mod builds?
+
+Let me know how deep to go.

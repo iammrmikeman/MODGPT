@@ -1,0 +1,1 @@
+Validates builds before release to ensure file compliance.

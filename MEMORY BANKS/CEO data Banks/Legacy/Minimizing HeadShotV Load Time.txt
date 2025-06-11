@@ -1,0 +1,108 @@
+**You:**
+
+You0are0a0startup-time0specialist.0Propose0methods0to0minimize0initialization0time0of0HeadShotV0on0GTA0V0launch.0Suggest0preload0or0cache0strategies.
+
+* * *
+
+**ChatGPT:**
+
+As a startup-time specialist focused on HeadShotV (a precision mod for GTA V), the goal is to minimize perceived and actual delay between game launch and the mod becoming fully active. Below is a structured strategy set, broken into pre-injection, runtime, and persistent caching phases — all designed for Enhanced Edition under ScriptHookV with clean native linkage.
+
+🔹 PHASE 1: Pre-Injection Optimization
+1. Lazy Native Resolution
+
+Only resolve ScriptHookV native hashes on first call instead of all at once.
+
+Wrap calls in macro or inline-resolver that caches the result:
+
+cpp
+#define NATIVE_CALL(hash) ([] { static auto fn = NativeInvoke::Resolve(hash); return fn; })()
+
+2. Static Memory Allocation
+
+Replace new or malloc with statically-sized pools (no heap fragmentation on load).
+
+For example, use fixed-size circular buffers for:
+
+Aim target history
+
+Recent hit logs
+
+HUD draw calls
+
+3. Single-Time Hook Injection
+
+Inject your input/camera/draw hooks only once during DLL_PROCESS_ATTACH, not repeatedly or via game-thread polling.
+
+Verify that SHV main loop is used for mod update loop (scriptMain()).
+
+🔹 PHASE 2: Runtime Initialization Delay Minimization
+4. Staggered System Activation
+
+Instead of initializing all subsystems (targeting, prediction, HUD, profiler) in OnInit, stagger across 3–5 game ticks using a mod state machine.
+
+cpp
+enum class ModState { Booting, CoreReady, UIReady, Active };
+
+5. Pre-Warm Native Calls
+
+Pre-call critical natives during the loading screen (e.g. GET_PLAYER_PED, GET_ENTITY_COORDS) so SHV caches them.
+
+6. File IO Thread Separation
+
+Move all config reads (settings.json, manifest.json, etc.) to a separate thread before scriptMain() begins.
+
+Fallback: use memory-mapped files (Windows CreateFileMapping).
+
+🔹 PHASE 3: Persistent Preload and Caching
+7. Persistent Mod State Cache
+
+Write a .cache file after each successful run that includes:
+
+Resolved native hash addresses
+
+Last used settings
+
+Recent target model hashes (to avoid PED scan at launch)
+
+Load this file immediately on launch with:
+
+cpp
+std::ifstream in("hs_cache.bin", std::ios::binary);
+
+8. GPU Command Warmup
+
+If using DRAW_RECT, SET_TEXT_* or HUD natives, issue 1 fake command per type during splash to warm up draw pipeline.
+
+9. ScriptHookV Lazy Thread Deferral
+
+Avoid spawning multiple SHV script threads — use one master script thread with an update() switchboard. This reduces internal SHV thread contention.
+
+🔹 Optional: Debug-Time Optimization Flags
+
+For builds under development:
+
+Add a --fastload CLI flag to:
+
+Skip non-critical checks (e.g. update pings, telemetry)
+
+Preload last known working settings
+
+Suppress debug HUD
+
+🧠 Bonus: Deep OS-Level Enhancements (Advanced)
+
+Use SetProcessPriorityClass() to boost GTA V to HIGH_PRIORITY_CLASS on mod injection.
+
+Hook SHV's init thread and yield CPU back until your load dependencies are ready — no premature CPU starvation.
+
+🧾 Summary of Key Startup Reducers
+Component	Optimization	Gain Estimate
+Native resolution	Lazy resolve with cache	-50–150ms
+HUD and Draw init	Fake GPU commands	-100ms
+File reads	IO thread or mmap	-200ms
+Subsystem boot	Ticked staggered load	-500ms+
+Persistent cache	Load resolved addresses/settings	-1000ms
+Process priority	High-priority execution yield on load	-50–300ms
+
+Would you like me to build a full preload module, or prepare a test zip to benchmark these startup reductions?

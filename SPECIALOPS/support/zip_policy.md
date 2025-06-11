@@ -1,0 +1,1 @@
+ZIP layout and README injection compliance policy.

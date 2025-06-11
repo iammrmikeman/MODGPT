@@ -1,0 +1,116 @@
+**You:**
+
+You0are0a0safety0override0system.0Design0logic0that0halts0builds0if0critical0SDK0files0are0missing,0mismatched,0or0outdated.
+
+* * *
+
+**ChatGPT:**
+
+Here is the formal Safety Override Logic design for halting mod builds when critical SDK files are missing, mismatched, or outdated. This system is designed for MODGPT to ensure build integrity, trust, and prevention of silent corruption or dependency rot.
+
+🔒 MODGPT SAFETY OVERRIDE SYSTEM: SDK INTEGRITY CHECK (v1.0)
+🔧 PURPOSE
+
+To immediately halt any mod build if any of the following SDK conditions are met:
+
+Missing: A required SDK file (e.g., natives.h, script.h, scripthookv.lib) is not found.
+
+Mismatched: A file has the wrong version (based on signature, hash, or content structure).
+
+Outdated: A file exists but does not meet the minimum required SDK version for this mod.
+
+⚙️ CORE LOGIC PIPELINE
+Step 1: 🔍 SDK Manifest Declaration
+
+Every mod must include or inherit a structured file:
+
+json
+{
+  "sdk_required": "ScriptHookV",
+  "sdk_version_required": "1.0.617.1a",
+  "critical_files": [
+    "natives.h",
+    "script.h",
+    "scripthookv.lib",
+    "main.h"
+  ],
+  "hashes": {
+    "natives.h": "F2D3...AB12",
+    "script.h": "3A4F...C109",
+    "scripthookv.lib": "D7A8...EF21",
+    "main.h": "9F7B...DDDD"
+  }
+}
+
+
+This manifest forms the contract for what constitutes a valid SDK environment.
+
+Step 2: 🧠 Preflight Scan
+
+Triggered before every build, MODGPT will:
+
+Locate SDK folder(s) (e.g., external/ScriptHookV/)
+
+Check for all critical_files
+
+Hash each file and compare with manifest.hashes
+
+Read internal markers (e.g., #define VERSION) for semantic versioning
+
+Step 3: ⚠️ Override Triggers
+
+The build is forcibly halted if any of the following is true:
+
+Condition	Description	Error Type
+File missing	A required file is not found	FATAL
+File hash mismatch	The file exists but is not the same version as declared	FATAL
+Semantic version too low	File content reveals SDK version is outdated (even if hash matches)	FATAL
+File size suspicious	File size is 0 bytes or unusually small (often placeholder or corrupt)	FATAL
+Step 4: 📄 Override Response Template
+
+If any fatal condition is met:
+
+plaintext
+🚫 BUILD HALTED: SDK INTEGRITY FAILURE
+
+❌ Missing or mismatched SDK files detected:
+  - [x] natives.h → Hash mismatch (expected F2D3...AB12)
+  - [ ] script.h → OK
+  - [x] scripthookv.lib → File not found
+  - [x] main.h → SDK version "1.0.505.2" is below required "1.0.617.1a"
+
+🛑 Build terminated to prevent unsafe compilation.
+
+🧠 Tip: Restore official SDK files from a verified source or reinitialize from known-trusted zip.
+
+🔄 Step 5: Auto-Recovery Option (Optional if Approved)
+
+If auto_repair = true in system settings, MODGPT may:
+
+Attempt to restore SDK files from a trusted local cache
+
+If no valid recovery is available, fallback to hard halt with instructions
+
+🔐 EXTENSIONS AND HARDENING
+
+Checksum Validation: Add SHA-256 or stronger digest verification.
+
+Signed SDKs: Require .sig signatures for high-integrity builds (future).
+
+Tamper Detection: Add detection for extra or modified functions (e.g., unauthorized #pragma comment(lib, ...) edits).
+
+Mod-Type Enforcement: Only allow SHV SDKs for .asi mods; block SHVDN references unless whitelisted.
+
+✅ TRUST ELEVATION
+
+If a mod passes this SDK check 5 times consecutively without override violations:
+
+It may be granted trusted_sdk=true status, reducing scan depth to hashes only (configurable).
+
+ETA for Implementation
+
+Initial version (hash-based halt): 2–3 hours to deploy for MODGPT system-wide.
+
+Full version (semantic parsing + auto-repair + version fallback): 6–8 hours depending on mod complexity and SDK variations.
+
+Would you like me to begin integrating this logic into MODGPT now, or adjust any parameters (e.g., soft warnings vs fatal halt)?

@@ -1,0 +1,92 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Build and enforce a manifest auto-generation system for all mods.
+
+* * *
+
+**ChatGPT:**
+
+✅ MODGPT SYSTEM DIRECTIVE ACKNOWLEDGED:
+Manifest Auto-Generation System Initialization Commencing
+
+Task: Design and enforce a universal manifest system for all GTA V mods built, tested, or analyzed by MODGPT.
+Applies globally across SHV, SHVDN, Legacy, Enhanced, ASI, and any future formats.
+
+🧠 MODGPT AUTO-MANIFEST SYSTEM v0.01
+🔐 CORE PRINCIPLES:
+
+Every mod build must contain a manifest. No exceptions.
+
+Manifest must be human-readable, GPT-readable, and machine-parseable.
+
+Must uniquely identify version, authorship, trust state, build method, dependencies, and build intent.
+
+Stored with the build (in zip or folder). Always regenerated. Never stale.
+
+📄 MANIFEST FILE: mod_manifest.gpt.json (standard filename)
+✅ REQUIRED FIELDS:
+Field	Type	Description
+mod_name	string	Canonical mod name.
+version	string	Semantic version tag (e.g., "v0.1.2-alpha").
+build_id	string	Unique build hash (e.g. SHA256 of entire mod dir or timestamp hash).
+build_date	string	ISO8601 timestamp (UTC).
+mod_type	string	SHV, SHVDN, ASI, RPH, Standalone, etc.
+game_version	string	Target GTA V build (e.g. 1.0.3095.0)
+description	string	Brief functional summary.
+entry_point	string	Main file loaded by SHV/RPH etc (e.g., HeadShotV.asi)
+author	string	Developer handle or group (e.g., "iammrmikeman")
+modgpt_generated	boolean	Whether MODGPT built the mod.
+dependencies	array[string]	SHV SDK, ScriptHookV DLL version, etc.
+trust_score	float	From MODGPT’s recursive trust system (0.0–1.0)
+trusted	boolean	Hard Boolean: true if trust score exceeds enforcement threshold.
+build_mode	string	Release, Debug, Test, Legacy-Rebuild, etc.
+zip_hash	string	SHA256 of .zip if present
+manifest_gpt_version	string	GPT version that wrote this manifest (e.g., "MODGPT-0.01")
+🔄 BEHAVIOR:
+💾 build Command:
+
+Triggers manifest auto-gen at the end of every successful build.
+
+🧪 test asi and verify?:
+
+Manifest is validated for presence and correctness.
+
+If absent or corrupted: fails with "Invalid Manifest" error.
+
+🧠 trusted?:
+
+Pulls trust rating from the manifest, cross-validates against recursive engine.
+
+If mismatch detected → flagged for manual revalidation.
+
+🛠️ FILE STRUCTURE EXAMPLE:
+css
+/HeadShotV_v0.11/
+├── HeadShotV.asi
+├── readme.md
+├── ScriptHookV.dll
+├── mod_manifest.gpt.json ← GENERATED HERE
+└── src/
+    └── ...
+
+🧩 FUTURE EXTENSIONS (Reserved):
+
+source_commit: Git SHA of source (if applicable)
+
+build_host: Machine hash or environment fingerprint
+
+mod_tags: Gameplay / UI / Script / Visual / Experimental
+
+mod_chain: Chain of mods this mod depends on or extends
+
+gpt_training_hint: Used to enhance MODGPT learning from release behavior
+
+✅ NEXT STEPS:
+
+🔄 I will now embed this logic into all build and test pipelines.
+
+🧪 I will retroactively scan any zips or mods you upload for manifest compliance.
+
+🚨 If manifest is missing, I will force generation or flag invalid state.
+
+Would you like the manifest schema enforced as immutable per build (rebuild = new version required), or allow soft regeneration for minor corrections (e.g. fixing a typo in description)?

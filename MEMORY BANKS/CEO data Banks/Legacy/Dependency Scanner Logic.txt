@@ -1,0 +1,111 @@
+**You:**
+
+You're0a0dependency0scanner.0Recommend0logic0that0finds0unused0includes,0redundant0native0calls,0or0unnecessary0.lib0files.
+
+* * *
+
+**ChatGPT:**
+
+To function as a dependency scanner for GTA V mods — especially .asi plugins using ScriptHookV — we need a multi-phase logic pipeline that identifies and eliminates:
+
+🔹 Unused #include directives
+
+🔹 Redundant native calls (invokeed but never triggered)
+
+🔹 Unreferenced .lib files linked in the build
+
+Here’s a robust logic design to build this into MODGPT or a build validation tool:
+
+🧠 MODGPT Dependency Scanner Logic
+🧩 PHASE 1: Unused #include Detection
+cpp
+// INPUT: .cpp, .h, and .hpp files in the project
+
+For each source/header file:
+    1. Extract all `#include <...>` or `#include "..."` directives
+    2. Build a symbol map of:
+        - All functions, classes, enums, macros defined in each include file
+    3. Parse the current file's AST (abstract syntax tree) using Clang or libclang
+    4. Track which symbols are *actually used*
+    5. Flag includes where:
+        - No contained symbols are ever used
+        - Or, all symbols used could be resolved by other already-included headers
+
+
+✅ Output: List of potentially removable includes with reason and fallback (safe to comment, not delete yet)
+
+🔧 PHASE 2: Native Call Reference Tracking
+cpp
+// INPUT: Project source, especially ScriptHookV native calls (e.g., `PLAY_SOUND_FRONTEND`, `DRAW_RECT`, etc.)
+
+1. Scan all calls to `invoke`, `callNative`, or directly registered native IDs/macros
+2. Mark each call site with a usage tag:
+    - DIRECT: explicitly called in logic
+    - CONDITIONAL: called within an unused function
+    - UNUSED: defined or included but never used
+3. Flag:
+    - Native definitions that are never used
+    - Native lookups or IDs that are registered but never called
+
+
+✅ Output: Native call usage report with unused calls highlighted (warn, don’t delete yet)
+
+📦 PHASE 3: .lib Usage Auditing
+bash
+// INPUT: All .vcxproj / Makefile / CMakeLists + final .obj/.lib link map (or .map file if available)
+
+1. Identify all linked `.lib` files from:
+    - Project config
+    - `#pragma comment(lib, "x")` directives
+2. Use `dumpbin /SYMBOLS` (Windows) or `nm` (Linux/Mac) to list all exported symbols per `.lib`
+3. Compare against all symbols referenced in object files:
+    - From the final build or via `link.exe /MAP`
+4. Flag `.lib` files where:
+    - None of their exported symbols are actually linked
+
+
+✅ Output: .lib usage analysis with safe-to-remove suggestions (confirm manually for linker quirks)
+
+🛠 Optional PHASE 4: Redundant Logic/Function Scan
+cpp
+1. Identify all functions:
+    - That are defined but never called (excluding entrypoints and known external calls)
+2. Look for duplicated logic (copy/paste patterns)
+3. Suggest inline opportunities or consolidations (low priority)
+
+🔒 Safety Net: False Positive Prevention
+
+Track macros and header guards (some includes are needed for compile-time settings only)
+
+Consider compiler auto-includes (like <Windows.h>) that may appear redundant but aren't
+
+Never auto-delete — always stage as "Safe to Comment"
+
+🧾 OUTPUT STRUCTURE
+
+Each scan should output a JSON-like or table result like:
+
+json
+{
+  "unused_includes": [
+    { "file": "main.cpp", "include": "<vector>", "reason": "No STL containers used" }
+  ],
+  "redundant_natives": [
+    { "native": "DRAW_RECT", "status": "Defined but never called" }
+  ],
+  "unreferenced_libs": [
+    { "lib": "d3dx9.lib", "reason": "No D3DX symbols used in build" }
+  ]
+}
+
+✅ Recommended Tools
+
+clang-tidy — for AST-based include scanning
+
+dumpbin, link /MAP — for Windows .lib inspection
+
+cparser or Clang AST matchers — for native/function usage detection
+
+Custom regex for #pragma comment(lib, ...)
+
+Would you like this converted into a .cmd swarm task for MODGPT to run automatically across all .asi source zips?

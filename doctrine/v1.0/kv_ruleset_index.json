@@ -1,0 +1,17 @@
+{
+  "rules": [
+    {
+      "id": "kv_001",
+      "description": "High-value JSON logic should be <2KB, reused often",
+      "kv_score": 9.8,
+      "used_by": ["logic_bank", "config_synth"],
+      "last_verified": "2025-06-09"
+    },
+    {
+      "id": "kv_002",
+      "description": "Doctrines over 3.5KB must be split for readability",
+      "kv_score": 9.4,
+      "used_by": ["doc_synth", "docs_autowriter"]
+    }
+  ]
+}

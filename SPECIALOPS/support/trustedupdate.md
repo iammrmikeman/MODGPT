@@ -1,0 +1,1 @@
+Validates incoming memory updates against trust schema.

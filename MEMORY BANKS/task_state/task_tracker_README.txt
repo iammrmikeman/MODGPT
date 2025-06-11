@@ -1,0 +1,1 @@
+This folder is part of the MODGPT GitHub memory system. Purpose: task_state.

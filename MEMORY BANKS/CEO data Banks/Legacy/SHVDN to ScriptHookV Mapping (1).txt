@@ -1,0 +1,139 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Map SHVDN native calls and explore their relation to ScriptHookV.
+
+* * *
+
+**ChatGPT:**
+
+✅ MODGPT ACKNOWLEDGED
+🧠 Mode: SHVDN ↔ ScriptHookV Native Mapping
+📍 Purpose: Establish a complete, accurate mapping between SHVDN (ScriptHookVDotNet) native calls and their ScriptHookV equivalents to enable full cross-compatibility, porting, and hybrid development.
+
+🔍 OBJECTIVE OVERVIEW
+
+Goal:
+Create a canonical map that shows how C# SHVDN native calls (e.g., Function.Call(Hash.SET_ENTITY_HEALTH, ...)) relate to low-level C++ ScriptHookV calls (e.g., SET_ENTITY_HEALTH(...)), including:
+
+Hash linking
+
+Argument handling (conversion from SHVDN types to SHV types)
+
+Thread context differences (fiber-managed vs direct native calls)
+
+Yield behavior and implications
+
+Internal SHVDN wrappers (e.g., Game.Player.Character.Health = 100)
+
+Namespaces and script API layers
+
+🔁 CROSS-MAPPING STRUCTURE (INTERNAL DRAFT)
+SHVDN C# Layer	SHVDN Native Hash	Native Name	ScriptHookV Call	Notes
+Function.Call(...)	Hash.SET_ENTITY_HEALTH	SET_ENTITY_HEALTH	SET_ENTITY_HEALTH(Entity, int)	1:1 native hash call
+Game.Player.Character.Health	Hash.GET_ENTITY_HEALTH	GET_ENTITY_HEALTH	GET_ENTITY_HEALTH(Entity)	Getter for character's health
+Game.Player.IsDead	Hash.IS_ENTITY_DEAD	IS_ENTITY_DEAD	IS_ENTITY_DEAD(Entity)	Checks player ped death status
+World.DrawMarker(...)	Hash.DRAW_MARKER	DRAW_MARKER	DRAW_MARKER(...)	Handles argument translation in SHVDN
+Vehicle.EngineRunning	Hash.SET_VEHICLE_ENGINE_ON	SET_VEHICLE_ENGINE_ON	SET_VEHICLE_ENGINE_ON(...)	Wrapper toggles boolean engine state
+🧬 DEEP INTERFACE COMPARISON
+🧩 ScriptHookVDotNet
+
+Built on top of ScriptHookV via managed/unmanaged bridge
+
+Uses InvokeNative pattern to wrap Function.Call internally
+
+Handles complex C# object types (like Ped, Vehicle, etc.)
+
+Introduces type safety, LINQ-like methods, and event-driven programming
+
+🛠 ScriptHookV (C++)
+
+Direct ABI interface to the Rockstar native function table
+
+Uses native hashes (0x...) directly
+
+No type abstraction — everything is raw int, float, bool, or Vector3
+
+Must handle fiber switching manually
+
+Thread entry is through void ScriptMain() and WAIT()-based yields
+
+🧪 NATIVE HASH TESTING STRATEGY
+
+We will build a validator to:
+
+Log native hashes emitted by SHVDN (we can extract from Function.Call(Hash.X, ...))
+
+Match them with ScriptHookV function declarations in natives.h
+
+Build a cross-reference that checks:
+
+Param count match
+
+Param type match (C# to C++)
+
+Return type equivalence
+
+Report any incomplete or lossy mappings
+
+Allow GPT to auto-generate ScriptHookV versions of SHVDN mods
+
+⚠ YIELD / FIBER CONFLICTS
+
+SHVDN manages yield via Script.Wait(), which uses a fiber-aware thread manager.
+ScriptHookV uses WAIT(ms) from main.cpp (blocking native thread for ms duration).
+
+🧠 This means when porting SHVDN → SHV, we must ensure all time-based logic is explicitly converted:
+
+cs
+// SHVDN
+await Task.Delay(100);  // internally Script.Wait(100)
+
+cpp
+// SHV
+WAIT(100);  // must be used inside ScriptMain fiber thread
+
+✅ ACTION PLAN
+
+Load full SHVDN hash map (likely embedded in SHVDN source or extracted from ScriptHookVDotNet2.dll)
+
+Scan ScriptHookV SDK for all native headers and definitions
+
+Generate mapping database:
+
+SHVDN Function.Call ↔ ScriptHookV native func
+
+C# wrapper → raw hash → native func
+
+Output diff/missing map: which SHVDN calls have no direct SHV equivalents or require translation
+
+Create a SHVDN → SHV conversion assistant (optional automation)
+
+🧠 MODGPT CAN NOW:
+
+Recognize and cross-translate SHVDN Function.Call() and property wrappers to C++ SHV syntax
+
+Warn of yield/flow mismatches
+
+Suggest optimized SHV rewrites of SHVDN logic
+
+Detect if a mod must be SHVDN due to managed-only logic (e.g., .NET events, delegates)
+
+🔄 READY FOR INPUT
+
+Please provide:
+
+📁 A SHVDN script you want ported to SHV
+
+📦 A zip containing ScriptHookVDotNet*.dll + symbols (if available)
+
+✅ A list of SHVDN calls or features you'd like mapped first
+
+Or run:
+
+sh
+map natives
+
+
+To trigger automated mapping from available source files.
+
+Would you like to begin scanning a SHVDN file now or proceed to auto-extract the mappings from your latest GPT enhancement zip?

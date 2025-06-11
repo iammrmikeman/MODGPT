@@ -1,0 +1,209 @@
+**You:**
+
+show me my rules for headshot 5 we are going to work on them
+
+* * *
+
+**ChatGPT:**
+
+Here's your consolidated and simplified set of rules currently governing the HeadShot V project workflow. They reflect the latest and most critical points you've established:
+
+🎯 General Workflow
+
+Unified Mode (Automated):
+
+* * *
+
+**You:**
+
+display this information neatly and clean so i can see it mostly in one go
+
+* * *
+
+**ChatGPT:**
+
+📌 HeadShot V - Project Rules
+
+🚀 Unified Automated Workflow
+
+Automatic Fixes: Safely fix any code/configuration issues immediately.
+
+Full Scan: Deep multi-pass scan (visible + hidden errors).
+
+Immediate Re-scan: After fixes, re-scan thoroughly.
+
+Integrity Check: Military-level (byte-level) corruption detection.
+
+📂 Source Zip Creation Rules
+
+Structure Validation:
+
+/src/: All .cpp files.
+
+/inc/: All .h header files.
+
+/Models/: headburst.ydr asset.
+
+/compiled/: .asi output location.
+
+File Integrity:
+
+No placeholder/dummy files unless explicitly explained.
+
+No missing, corrupted, or junk files.
+
+.vcxproj & .sln files synchronized.
+
+Logs & Changelogs:
+
+Build logs saved to: logs/HeadShotV.log.
+
+Full detailed changelog (from earliest build), no dates, clear formatting.
+
+🔍 Error Detection & Fixing
+
+Aim for 5+ visible and 10+ hidden errors each scan.
+
+Clearly report errors (bullet points, line numbers).
+
+Apply fixes only after exhaustive error discovery.
+
+🛠️ Build Output & Config
+
+.asi files output automatically to:
+C:\Users\pc\Desktop\Projects\GTA5E\HeadShotV\compiled
+
+Visual Studio: auto-detect & match toolset (PlatformToolset).
+
+Always ensure valid Release|x64 config.
+
+🗃️ Anti-Corruption & Debugging (CGPT_AID)
+
+Store detailed file-size history and corruption diagnostics:
+
+makefile
+C:\Users\pc\Desktop\Projects\GTA5E\HeadShotV\CGPT_AID
+
+
+Adapt path automatically per mod.
+
+✅ Final Checks (Mandatory)
+
+Post-zip verification every build:
+
+Validate structure, completeness, and integrity.
+
+Byte-level final validation.
+
+📥 Download Links
+
+Always clearly marked & verified.
+
+Positioned clearly at the bottom of responses.
+
+Follow exact formatting guidelines:
+
+scss
+📦 [Download FileName.zip](link)
+• feature1
+• feature2
+✅ Risk status clearly shown
+
+
+📜 Versioning Strategy
+
+Current: 0.487+
+
+Major: fully loads (0.5), new features (0.6), etc.
+
+Minor (0.4.x, 0.5.x): fixes and incremental improvements.
+
+⚠️ Critical Notifications
+
+Notify immediately if files needed.
+
+Clearly warn if actions risk build stability or functionality.
+
+No waiting/pause if safe fixes identified.
+
+This structured view helps ensure smooth workflow, clear error management, robust file integrity, and efficient debugging throughout the HeadShot V mod development.
+
+* * *
+
+**You:**
+
+give me a .txt i can edit with changes
+
+* * *
+
+**ChatGPT:**
+
+Here's the structured .txt content ready for you to copy into a text editor and modify:
+
+txt
+HeadShot V - Project Rules
+
+== Unified Automated Workflow ==
+- Automatic Fixes: Immediately apply safe fixes to code and config issues.
+- Full Scan: Deep multi-pass scan (both visible & hidden errors).
+- Immediate Re-scan: Perform a thorough re-scan after every fix.
+- Integrity Check: Military-level (byte-level) validation for corruption.
+
+== Source Zip Creation Rules ==
+- Structure Validation:
+  • /src/ (All .cpp source files)
+  • /inc/ (All .h header files)
+  • /Models/ (headburst.ydr asset file)
+  • /compiled/ (.asi output files location)
+- File Integrity:
+  • No placeholder or dummy files (unless explicitly explained).
+  • No missing, corrupt, or junk files.
+  • Ensure synchronization between .vcxproj and .sln files.
+- Logs & Changelogs:
+  • Build logs location: logs/HeadShotV.log
+  • Changelog: Full detail from earliest build, concise format, no dates.
+
+== Error Detection & Fixing ==
+- Target: 5+ visible and 10+ hidden errors per scan.
+- Reporting: Bullet-point errors with clear file names and line numbers.
+- Fixing: Only apply fixes after exhaustive error discovery and reporting.
+
+== Build Output & Configuration ==
+- ASI output auto-directed to:
+  C:\Users\pc\Desktop\Projects\GTA5E\HeadShotV\compiled
+- Visual Studio: Automatically detect and match PlatformToolset.
+- Always confirm valid Release|x64 configuration.
+
+== Anti-Corruption & Debugging (CGPT_AID) ==
+- Store detailed file size history and corruption diagnostics at:
+  C:\Users\pc\Desktop\Projects\GTA5E\HeadShotV\CGPT_AID
+- Automatically adapt CGPT_AID folder per mod project path.
+
+== Mandatory Final Checks ==
+- Post-zip verification (every build):
+  • Structure and integrity check.
+  • Byte-level validation at final stage.
+
+== Download Link Rules ==
+- Always clearly marked and verified.
+- Position clearly at the bottom of responses.
+- Follow exact formatting:
+  📦 [Download FileName.zip](link)
+  • Feature 1 description
+  • Feature 2 description
+  ✅ Risk status clearly indicated
+
+== Versioning Strategy ==
+- Current version: 0.487+
+- Major increments: First full load (0.5), new features (0.6, etc.).
+- Minor increments (0.4.x, 0.5.x): Fixes and incremental improvements.
+
+== Critical Notifications ==
+- Immediately notify if user files are required.
+- Clearly warn if an action risks build stability or functionality.
+- Apply safe fixes immediately; avoid unnecessary waiting.
+
+-- Edit below as needed --
+
+
+Copy and paste this into Notepad or your preferred text editor. You can easily edit and refine it as necessary!

@@ -1,0 +1,6 @@
+[MODGPT Boss Log Entry]
+Date: YYYY-MM-DD
+Summary:
+- 
+Tasks queued:
+- 

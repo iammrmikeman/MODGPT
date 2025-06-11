@@ -1,0 +1,84 @@
+[MODGPT MEMORY BANK ARCHIVE]
+Filename: MODGPT_SwarmDeployer.ahk
+Archived: 2025-06-09
+Purpose: Launches multiple GPT worker tabs for MODGPT swarm operations.
+Type: AutoHotkey v2 Script
+
+---- BEGIN SCRIPT ----
+
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+
+global MaxWorkers := 150
+global LaunchDelay := 10000 ; 10 seconds
+global PollInterval := 300000
+global GPTURL := "https://chat.openai.com/chat"
+global LogFile := A_ScriptDir "\MIA_Report_Log.txt"
+global PromptList := []
+global MIAActive := true
+
+TrayTip "MODGPT Swarm", "Launching GPT windows every 10 seconds. Numpad0 = Emergency Stop", 10
+
+; File safety checks
+if !FileExist("Swarm_150_Workers.txt") {
+    MsgBox "ERROR: Swarm_150_Workers.txt not found. Place it in the same folder as this script.", "Missing File", 16
+    ExitApp
+}
+
+promptText := FileRead("Swarm_150_Workers.txt")
+if (Trim(promptText) = "") {
+    MsgBox "ERROR: Swarm_150_Workers.txt is empty. Add your worker prompts before launching.", "Empty File", 16
+    ExitApp
+}
+
+PromptList := StrSplit(promptText, "---")
+
+; Launch 150 windows, one every 10 seconds
+Loop MaxWorkers {
+    Run GPTURL
+    Sleep 12000
+    if (A_Index <= PromptList.Length) {
+        A_Clipboard := PromptList[A_Index]
+        Sleep 500
+        Send "^v"
+        Sleep 500
+        Send "{Enter}"
+    }
+    Sleep LaunchDelay
+}
+
+Sleep 15000
+SetTimer PollMIAReports, PollInterval
+
+PollMIAReports(*) {
+    if (!MIAActive)
+        return
+
+    TrayTip "MODGPT", "Polling each window for MIA reports...", 10
+    Loop MaxWorkers {
+        A_Clipboard := ""
+        SendText "MIA REQUEST: Please submit your latest ---SWARM WORKER REPORT---.`n"
+        Sleep 20000
+        Send "^a"
+        Sleep 200
+        Send "^c"
+        Sleep 500
+        report := A_Clipboard
+        timestamp := FormatTime(A_Now, "yyyy-MM-dd HH:mm:ss")
+        if InStr(report, "---SWARM WORKER REPORT---") {
+            FileAppend "--- REPORT FROM WORKER " A_Index " [" timestamp "] ---`n" report "`n`n", LogFile
+        } else {
+            FileAppend "--- NO RESPONSE FROM WORKER " A_Index " [" timestamp "] ---`n", LogFile
+        }
+        Send "^{Tab}"
+        Sleep 1000
+    }
+}
+
+Numpad0:: {
+    MIAActive := false
+    TrayTip "MODGPT", "Swarm halted. MIA monitoring cancelled by CEO.", 10
+    ExitApp
+}
+
+---- END SCRIPT ----

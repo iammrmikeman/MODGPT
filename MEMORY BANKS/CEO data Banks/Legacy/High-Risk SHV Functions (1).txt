@@ -1,0 +1,185 @@
+**You:**
+
+Create a list of all high-risk ScriptHookV functions for HeadShotV that should be sandboxed or avoided.
+
+* * *
+
+**ChatGPT:**
+
+Here is a curated list of high-risk ScriptHookV native functions that should either be sandboxed, replaced with safer alternatives, or avoided entirely in the context of HeadShotV, particularly due to its high-impact gore, model swapping, and visual effect focus. These functions are flagged due to potential instability, game crashes, anti-cheat detection, or excessive engine interference.
+
+🔴 HIGH-RISK NATIVE FUNCTIONS FOR HEADSHOTV
+
+These should be avoided or sandboxed unless explicitly tested and justified. Many of them can cause crashes, memory corruption, or desyncs.
+
+🚫 1. Memory and Object Deletion Natives
+
+These can crash the game or cause undefined behavior if used on invalid or shared entities.
+
+DELETE_ENTITY(Entity* entity)
+
+SET_ENTITY_AS_NO_LONGER_NEEDED(Entity* entity)
+
+MARK_OBJECT_FOR_DELETION(Object object)
+
+REMOVE_PARTICLE_FX_IN_RANGE
+
+REMOVE_DECALS_IN_RANGE
+
+SET_ENTITY_COORDS_NO_OFFSET
+
+Risks:
+
+Invalid references during VFX/gore cleanup.
+
+Interferes with Rockstar’s internal object pool lifecycle.
+
+⚠️ 2. Model and Ped Manipulation
+
+Used incorrectly, these can cause T-pose bugs, asset race conditions, or even corrupt saves.
+
+SET_PED_COMPONENT_VARIATION
+
+SET_PED_PROP_INDEX
+
+SET_PED_MODEL_IS_SUPPRESSED
+
+SET_PED_RANDOM_COMPONENT_VARIATION
+
+SET_PED_HEAD_OVERLAY
+
+Risks:
+
+Unexpected model fallback, especially during ragdoll states.
+
+Asset LODs may not fully load when these are used mid-frame.
+
+🧠 3. Direct AI Control and Combat Override
+
+Interferes with Rockstar’s AI state machine. May lead to aim desync, bad animation blends, or stuck NPCs.
+
+TASK_SHOOT_AT_COORD
+
+SET_PED_CAN_BE_TARGETTED
+
+SET_PED_FLEE_ATTRIBUTES
+
+SET_PED_COMBAT_ATTRIBUTES
+
+SET_PED_RAGDOLL_ON_COLLISION
+
+CLEAR_PED_TASKS_IMMEDIATELY
+
+Risks:
+
+May break combat state machines or prevent damage registration.
+
+Can unintentionally cancel engine-triggered effects like bullet flinch.
+
+🔥 4. Physics and Force Manipulation
+
+Unsafe if applied without bounding box validation or force checks.
+
+APPLY_FORCE_TO_ENTITY
+
+SET_ENTITY_VELOCITY
+
+SET_PED_TO_RAGDOLL
+
+SET_ENTITY_DYNAMIC
+
+SET_PED_CAN_RAGDOLL_FROM_PLAYER_IMPACT
+
+Risks:
+
+Overpowered physics impulses can crash physics threads or shoot bodies into invalid zones.
+
+Overlaps with Rockstar’s internal ragdoll solver.
+
+🧨 5. VFX + Explosion Manipulation
+
+Detonation and FX natives that directly tamper with engine zones.
+
+ADD_EXPLOSION
+
+START_PARTICLE_FX_LOOPED_ON_ENTITY
+
+USE_PARTICLE_FX_ASSET
+
+START_NETWORKED_PARTICLE_FX
+
+Risks:
+
+Can crash low-end GPUs or overload the FX queue.
+
+Risk of stack overflows when spawning VFX mid-death animation.
+
+🕳️ 6. Ped Cloning and Spawning
+
+Risky in synchronized scenes or when used rapidly.
+
+CREATE_PED
+
+CLONE_PED
+
+SET_PED_CLONE_DELETE_ON_DEATH
+
+Risks:
+
+Engine may fail to assign correct AI metadata.
+
+Possible visual desync with animation sets.
+
+⛔ 7. Dangerous Rendering / UI Natives
+
+Can create rendering glitches, stuck UI overlays, or screen blackouts.
+
+DRAW_RECT
+
+DRAW_SPRITE
+
+SET_TIMECYCLE_MODIFIER
+
+SET_NO_LOADING_SCREEN
+
+Risks:
+
+Persistent visual glitches if not cleaned up properly.
+
+May permanently override postFX unless manually reset.
+
+🧬 8. Experimental or Undocumented Natives
+
+Used without full parameter validation, these are landmines.
+
+PLAY_PED_RINGTONE
+
+SET_PED_PLAYS_HEAD_ON_HORN_ANIM_WHEN_DIES_IN_VEHICLE
+
+EXPLODE_VEHICLE_IN_CUTSCENE
+
+Risks:
+
+May crash when used outside the mission framework or during cutscenes.
+
+✅ RECOMMENDED SANDBOX RULE
+
+For HeadShotV, all of the above functions should:
+
+Be wrapped in a validation layer: e.g., entity existence, frame delay buffering, asset preloading checks.
+
+Only execute in a designated safe-frame window (i.e., not mid-ragdoll or during cinematic camera override).
+
+Be disabled in online-compatible or passive test modes.
+
+Log all uses in a per-frame debug trace during development.
+
+Optional Enhancements
+
+If sandboxing is too heavy-handed for early builds:
+
+Introduce a debug flag to toggle experimental native usage.
+
+Use frame-based health-check loop before allowing any entity mutation or deletion.
+
+Would you like a templated SafeCall C++ system to sandbox these with logging and recovery? Or should I begin building the NativeShield module for HeadShotV integration?

@@ -1,0 +1,151 @@
+**You:**
+
+Design0a0manifest0validator.0Propose0code0logic0(or0pseudocode0if0necessary)0that0confirms0whether0a0modÔÇÖs0manifest0is0complete0and0accurate.
+
+* * *
+
+**ChatGPT:**
+
+Here is a robust manifest validator design tailored for the MODGPT system, capable of checking mod manifests for completeness, accuracy, format validity, and rule enforcement.
+
+✅ GOAL
+
+Ensure every mod manifest meets required schema, version discipline, trust guarantees, and internal consistency. Halt builds if manifest is invalid or incomplete.
+
+📂 Example Manifest Structure (mod.manifest.json)
+json
+{
+  "mod_name": "HeadShotV",
+  "mod_version": "0.5.7",
+  "build_hash": "d90f74a2...",
+  "build_date": "2025-06-07T22:31:00Z",
+  "script_hook_version": "1.0.617.1a",
+  "mod_type": "asi",
+  "dependencies": ["ScriptHookV", "GTAV_Enhanced"],
+  "trusted": true,
+  "files": ["HeadShotV.asi", "readme.md", "mod.manifest.json"],
+  "entry_point": "HeadShotV.asi",
+  "signature": "SHA256:abcd1234...",
+  "dev": {
+    "author": "Mike Sheehan",
+    "gpt_build": true
+  }
+}
+
+🧠 VALIDATOR LOGIC DESIGN
+python
+import json
+import hashlib
+from datetime import datetime
+
+REQUIRED_FIELDS = {
+    "mod_name": str,
+    "mod_version": str,
+    "build_hash": str,
+    "build_date": str,
+    "script_hook_version": str,
+    "mod_type": str,
+    "dependencies": list,
+    "trusted": bool,
+    "files": list,
+    "entry_point": str,
+    "signature": str,
+    "dev": dict
+}
+
+def validate_manifest(path_to_manifest: str) -> bool:
+    try:
+        with open(path_to_manifest, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+    except Exception as e:
+        print(f"❌ Failed to load manifest: {e}")
+        return False
+
+    # 1. Check required fields
+    for field, expected_type in REQUIRED_FIELDS.items():
+        if field not in manifest:
+            print(f"❌ Missing required field: {field}")
+            return False
+        if not isinstance(manifest[field], expected_type):
+            print(f"❌ Field '{field}' must be of type {expected_type.__name__}")
+            return False
+
+    # 2. Validate date format
+    try:
+        datetime.fromisoformat(manifest["build_date"].replace("Z", "+00:00"))
+    except ValueError:
+        print("❌ Invalid ISO-8601 date in build_date.")
+        return False
+
+    # 3. Validate semantic version
+    if not validate_semver(manifest["mod_version"]):
+        print("❌ Invalid semantic version format.")
+        return False
+
+    # 4. Validate entry point exists in files
+    if manifest["entry_point"] not in manifest["files"]:
+        print("❌ Entry point not found in listed files.")
+        return False
+
+    # 5. Check hash fingerprint
+    if not manifest["build_hash"] or len(manifest["build_hash"]) < 8:
+        print("❌ Invalid or missing build hash.")
+        return False
+
+    # 6. Optional: Verify cryptographic signature format
+    if not manifest["signature"].startswith("SHA256:"):
+        print("❌ Signature must start with 'SHA256:'.")
+        return False
+
+    print("✅ Manifest is valid.")
+    return True
+
+def validate_semver(version: str) -> bool:
+    parts = version.split(".")
+    return len(parts) == 3 and all(p.isdigit() for p in parts)
+
+🔐 EXTENSIONS & ENHANCEMENTS
+Feature	Description
+--strict mode	Enforces optional fields like license, changelog, or description
+Hash consistency check	Re-compute hash of build output and compare with build_hash
+Digital signature validation	If trusted == true, verify against internal MODGPT public key
+Manifest schema file (.schema)	Enforce compliance via schema.json matching
+GPT-generated proof	Confirm dev.gpt_build == true was generated from MODGPT and not spoofed
+🧪 MANIFEST TEST HARNESS (optional CLI)
+bash
+# Validate manifest in current mod folder
+python validate_manifest.py ./mod.manifest.json
+
+🧩 INTEGRATION INTO MODGPT SWARM PIPELINE
+
+PREBUILD_CHECKS stage will run validate_manifest(...) before proceeding.
+
+If False, it will trigger:
+
+🔥 Build halt
+
+🧾 Error log injection
+
+📡 Optional: Notify CEO via Boss Alert Feed
+
+✅ OUTCOME IF VALIDATOR PASSES
+State	Action
+Manifest ✅	Pipeline continues to dependency checks
+Manifest ❌	Build halts with MANIFEST_INVALID_ERROR
+❗ REASONING BEHIND STRATEGY
+
+Fail-fast philosophy: Catch manifest bugs before compilation.
+
+Encourages traceability and trust chain logic.
+
+Ensures build reproducibility and prevents human spoofing.
+
+Would you like me to:
+
+ Add this into a swarm upgrade .cmd?
+
+ Extend to legacy mod support?
+
+ Add a fix_manifest.py auto-healer script?
+
+Ready to deploy anytime.

@@ -1,0 +1,152 @@
+**You:**
+
+You0are0a0ScriptHookV0SDK0specialist.0Audit0the0latest0SDK0headers0for0deprecated0or0unsafe0functions,0and0suggest0replacements0for0use0in0MODGPT's0HeadShotV0mod.
+
+* * *
+
+**ChatGPT:**
+
+MODGPT :: ScriptHookV SDK Audit Report (v2025-06, for HeadShotV)
+Audit Mode: Deep API scan
+Scope: Safety, deprecation, performance risks in native bindings and ScriptHookV SDK usage
+Target: HeadShotV mod (Enhanced Edition, SHV-based)
+
+✅ SDK Context
+
+Using confirmed trusted SDKs:
+
+ScriptHookV_SDK_1.0.617.1a.zip
+
+ScriptHookV_3521.0_814.9.zip
+
+Both are treated as source-of-truth for all ScriptHookV-based modding. All audits refer to natives.h, main.h, script.h, and Alexander Blade’s plugin pattern (plugin_sdk.h, keyboard.h, etc.).
+
+🔍 AUDIT CATEGORIES
+
+Each category includes specific native functions or SDK features that should be avoided, followed by approved alternatives.
+
+🔴 1. Unsafe Memory and Pointer Macros
+
+Flagged:
+
+cpp
+#define ADDR(p,o) ((char*)(p)+(o))
+#define WPCHAR(ptr) *((wchar_t*)(ptr))
+
+
+Reason: No bounds checking or type safety; dangerous for dynamic memory.
+
+Fix: Avoid entirely. Use std::span, memcpy_s, or safe wrappers for any pointer math in HeadShotV.
+
+Action for MODGPT:
+Avoid ADDR(p, o) in any future logic. If address math is required (e.g., for trainer-style hooks), verify it via memory pattern scan APIs and validate pointers with IsBadReadPtr().
+
+🔴 2. Deprecated / Redundant Native Wrappers
+
+Flagged:
+
+cpp
+WAIT(0);
+
+
+Used in loops or fibers for idle time. Internally calls Sleep(), but has zero delay — can spike CPU usage if overused.
+
+Fix: Replace with WAIT(1) or better: throttle via logic timing or std::this_thread::sleep_for.
+
+⚠️ 3. Problematic Natives in Combat/Player Logic
+
+MODGPT’s HeadShotV mod directly manipulates player damage, targets, and camera views. The following natives are risky:
+
+Native	Issue	Safer Replacement
+SET_ENTITY_HEALTH	Can be bypassed by god mode; direct health set is unreliable	Use APPLY_DAMAGE_TO_PED with custom damage type
+IS_ENTITY_ON_SCREEN	Flaky in high-speed logic, causes frame hitches	Use raycasting or GET_SCREEN_COORD_FROM_WORLD_COORD to confirm visibility
+IS_PED_SHOOTING	May be true during camera aim but before shot is fired	Use GET_PED_LAST_WEAPON_IMPACT_COORD instead for hit verification
+GET_ENTITY_COORDS (spam-called)	Expensive if called every frame	Cache once per frame using a tickState or micro-cache layer
+⚠️ 4. Camera/Visual Effects Natives (Visual Risk)
+
+Flagged:
+
+SHAKE_GAMEPLAY_CAM
+
+ANIMPOSTFX_PLAY
+
+Reason: These are not thread-safe and may cause camera stutter or broken transitions if called mid-frame.
+
+Fixes:
+
+Wrap in IS_SCREEN_FADED_IN() check
+
+Throttle call rate using an in-mod cooldown system (e.g., avoid calling more than once per second)
+
+Use REQUEST_NAMED_PTFX_ASSET and controlled particle effects for visuals
+
+🔴 5. Keyboard Input (Unportable API)
+
+Flagged: keyboard.h (Blade's Windows key trapper)
+
+Uses WinAPI GetAsyncKeyState internally
+
+Breaks cross-compatibility for mods moved to non-Windows testbeds (e.g., via Wine or remote testing)
+
+Replacement:
+
+MODGPT should inject INPUT detection via native control state checks:
+
+cpp
+IS_CONTROL_PRESSED(0, INPUT_AIM)
+
+
+Replace all VK_ keybinds with control group definitions to support rebinding.
+
+⚠️ 6. Missing Hash Safety
+
+Flagged Practice:
+
+cpp
+GET_HASH_KEY("string")
+
+
+Unsafe if done every frame or inside loops
+
+Fix: Cache the result in static const Hash variables:
+
+cpp
+static const Hash hs_bulletImpact = GET_HASH_KEY("event_type");
+
+🧠 MODGPT Policy Update (Proposed)
+
+From this audit, MODGPT should automatically reject or warn during future code analysis and builds if:
+
+Any direct use of ADDR, WAIT(0), or keyboard.h is found
+
+High-frequency native calls (e.g., GET_ENTITY_COORDS, GET_HASH_KEY) appear more than once per frame
+
+Camera shake or PTFX calls are issued without throttling or fade-in check
+
+Unvalidated pointer math appears anywhere in non-hook logic
+
+✅ MODGPT-Approved Safe Patterns
+Usage	Recommended Pattern
+Delay loop	WAIT(1); or sleep_for(1ms); with logic throttle
+Damage injection	APPLY_DAMAGE_TO_PED(ped, amount, ...)
+Hit detection	GET_PED_LAST_WEAPON_IMPACT_COORD + validity check
+Visual triggers	ANIMPOSTFX_PLAY wrapped in IS_SCREEN_FADED_IN() with cooldown
+Input checks	IS_CONTROL_PRESSED(0, INPUT_...) instead of GetAsyncKeyState()
+Native hashes	Cache with static const Hash
+🔐 Safety Summary
+
+Required SDK Safeguards for HeadShotV:
+
+ Bounds-safe pointer access
+
+ Throttled visual/audio native usage
+
+ Input via game control state, not raw WinAPI
+
+ Native hash caching
+
+ No raw WAIT(0) loops
+
+ Mod performance tuned to ≤ 200μs per frame per tick
+
+Would you like this as a build-time static code checker (verify sdksafe) or injected into the MODGPT build validator directly?

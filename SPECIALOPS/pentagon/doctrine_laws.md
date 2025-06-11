@@ -1,0 +1,1 @@
+Defines MODGPT law: memory is supreme. Execution follows policy.

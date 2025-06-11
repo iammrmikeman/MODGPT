@@ -1,0 +1,112 @@
+**You:**
+
+Act0as0a0mod0manifest0enforcer.0Propose0fields0that0must0be0present0in0every0manifest.json0to0validate0a0mod0as0'trusted'0inside0MODGPT.
+
+* * *
+
+**ChatGPT:**
+
+As MODGPT’s Mod Manifest Enforcer, the following fields are mandatory for a manifest.json to qualify a GTA V mod as "trusted". These fields enable traceability, reproducibility, and diagnostic reliability across all builds and environments. Every trusted mod must include:
+
+✅ Mandatory Manifest Fields (Trusted Status)
+
+Each field is shown with expected type and purpose.
+
+1. "mod_id": string
+
+A globally unique identifier for the mod across all builds (e.g. "com.headshotv.core").
+Used for swarm tracking, logging, and version resolution.
+
+2. "mod_name": string
+
+Human-readable mod name (e.g. "HeadShotV").
+Shown in dashboards, logs, and build reports.
+
+3. "version": string
+
+Strict semantic versioning: MAJOR.MINOR.PATCH[-label] (e.g. "1.2.3" or "1.2.3-beta").
+Used for regression tracking and upgrade rules.
+
+4. "build_hash": string
+
+A SHA256 hash of the entire build output (or source zip).
+Must match GPT-calculated value for build to be trusted.
+
+5. "source_archive": string
+
+Filename of the trusted source archive used to produce this mod, e.g. "HeadShotV_1.2.3_src.zip"
+Enables full reconstruction and rollback.
+
+6. "entry_file": string
+
+Main plugin or script entry point, e.g. "HeadShotV.asi" or "main.dll"
+Used by loaders and mod runners to initialize the mod.
+
+7. "mod_type": string
+
+Declares core type: "asi", "dll", "rageplugin", "openiv", "shvdn", etc.
+Used to select proper execution/testing mode.
+
+8. "sdk_version": string
+
+Version of SDK or API used to build mod (e.g., "ScriptHookV 1.0.617.1a").
+Enforces compatibility during load or test.
+
+9. "dependencies": array[string]
+
+All external dependencies required to run (e.g., [ "ScriptHookV", "dinput8.dll" ])
+Ensures test environments are prepped correctly.
+
+10. "timestamp": string
+
+UTC ISO 8601 format timestamp of last successful build.
+E.g. "2025-06-07T23:12:05Z"
+Supports trusted pipeline logging.
+
+11. "author": string
+
+The mod’s creator or internal developer handle (can be anonymized).
+Used in trust scopes and behavioral fingerprinting.
+
+12. "description": string
+
+Short text summary (max ~200 chars). Helps with dashboard clarity and auto-documentation.
+
+🔐 Optional but Strongly Recommended Fields (Trusted+ Tier)
+Field	Type	Purpose
+"homepage"	string	Link to project repo, documentation, or info page
+"signed"	boolean	Indicates if mod is cryptographically signed
+"test_results"	object	Inline summary of latest automated test results
+"tags"	array[string]	e.g., ["combat", "ai", "damage", "visual"] for search/sorting
+"compatibility"	object	E.g., { "gta_version": "1.0.3095.0", "platform": "Enhanced" }
+🧠 Why These Fields?
+
+These requirements enforce:
+
+Full traceability (back to src zip and SDK)
+
+Build integrity via hashes
+
+Support for safe rollback
+
+Clear versioning policies
+
+Cross-system dependency resolution
+
+Consistency across swarm agents and diagnostic tools
+
+🔒 Trusted Manifest = Gatekeeper
+
+If any mandatory field is:
+
+Missing
+
+Malformed
+
+Falsified
+
+Inconsistent (e.g. hash mismatch)
+
+→ MODGPT must automatically reject the build or trigger a red alert audit.
+
+Would you like a full template manifest.json example generated using this schema?

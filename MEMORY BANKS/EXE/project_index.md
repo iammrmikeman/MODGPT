@@ -1,0 +1,27 @@
+# Project Index for High-Value EXE Study
+
+- flowlauncher_master
+- fluentterminal_master
+- gavilya_master
+- freelauncher_master
+- holocure-launcher_master
+- gml.launcher_main
+- xtermsharp_master
+- consoleappframework_master
+- bflat_master
+- gacha-plus-launcher_master
+- sharpbypasusuac_master
+- open-shell-master
+- cosmos_master
+- launchy_plugin_support_master
+- asuite_master
+- openlauncher_master
+- squirrel.windows_master
+- jc_windowsservice_gui_master
+- mandarin_launcher_master
+- terminal_gui_master
+- appetizer_dock_master
+- proaltis_launcher_master
+- conemu_terminal_master
+- powertoys_master
+- open_live_writer_master

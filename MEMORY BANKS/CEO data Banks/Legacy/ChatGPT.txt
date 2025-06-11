@@ -1,0 +1,111 @@
+**You:**
+
+You0are0a0cleanup0engineer.0What0should0MODGPT0automatically0delete0after0each0test0build0to0avoid0build0cache0bloat?
+
+* * *
+
+**ChatGPT:**
+
+As MODGPT’s cleanup engineer, the goal is to preserve deterministic traceability while preventing disk bloat from test builds. The key rule is:
+
+❗ If it can be regenerated deterministically, it can be deleted. If it can’t, it must be versioned and stored.
+
+✅ MODGPT Should Automatically Delete After Each Test Build:
+🔧 Intermediate Build Artifacts
+
+*.obj, *.pch, *.ilk, *.exp, *.idb
+
+*.tlog, *.log, *.lastbuildstate
+
+Visual Studio debug cache folders like:
+
+ipch/
+
+vc.db
+
+.vs/ (partial deletion, see below)
+
+📦 Temporary Package Outputs
+
+build/tmp/
+
+intermediate/
+
+dist/ (if not final or tagged)
+
+Any .asi or .dll built during an untagged test, unless marked KEEP_FOR_DEBUG
+
+⚙️ IDE-Specific Cache
+
+.vs/ (delete everything except solution configs if they're human-maintained)
+
+.idea/, *.suo, *.user
+
+📋 Auto-generated Headers or Natives Cache
+
+Re-parsed natives.h or preprocessed stubs
+
+Auto-generated function tables unless manually curated
+
+🧪 Untracked Test Outputs
+
+Test .log files from last run (unless KEEP_LOGS=1 set)
+
+*.dmp, *.pdb for untrusted or failed builds
+
+Sandbox test folders like sandbox_*
+
+❌ MODGPT Should NOT Delete:
+🛠 Trusted Build Outputs
+
+.asi, .dll, .exe from a build marked TRUSTED
+
+PDB files for builds marked DIAGNOSTIC_READY
+
+Test logs for builds that:
+
+Failed
+
+Produced warnings
+
+Show behavior divergence
+
+🧠 Reproducibility Data
+
+Final .manifest.json
+
+Version hash metadata
+
+Dependency graph cache (for rebuild diffing)
+
+Native call trace snapshot (optional, but useful)
+
+🧹 Recommended MODGPT Cleanup Policy Summary
+json
+{
+  "auto_cleanup": true,
+  "delete_patterns": [
+    "**/*.obj", "**/*.pdb", "**/*.tlog", "**/*.idb", "**/*.pch",
+    "**/*.log", "**/*.lastbuildstate", "**/intermediate/", "**/tmp/",
+    "**/.vs/", "**/sandbox_*/", "**/build/*.exp", "**/*.ilk",
+    "**/*.asi (if not TRUSTED)", "**/*.dll (if not TRUSTED)"
+  ],
+  "preserve_if": [
+    "build is TRUSTED",
+    "pdb is marked DIAGNOSTIC_READY",
+    "manifest or version trace exists",
+    "logs contain FAIL, WARN, or NONDETERMINISM"
+  ]
+}
+
+🔄 Optional: Add a --keep Flag for Dev Override
+
+To avoid dangerous deletions during debugging:
+
+bash
+build test --keep=all
+build test --keep=logs
+build test --keep=asi
+
+
+Would you like this implemented as a .cmd, Python, or CMake post-build cleanup script?

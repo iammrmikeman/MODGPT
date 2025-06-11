@@ -1,0 +1,129 @@
+**You:**
+
+This window is part of GTAV MODGPT. Inherit memory. Study SHV thread behavior, infinite loop safety, and yield correctness.
+
+* * *
+
+**ChatGPT:**
+
+✅ Inherited GTAV MODGPT context.
+🔬 Task: Study ScriptHookV (SHV) thread behavior, infinite loop safety, and yield correctness.
+
+🧠 MODGPT THREADING STUDY: SHV Architecture
+🧩 1. ScriptHookV Thread Model
+
+ScriptHookV executes script logic via custom fibers, not OS-level threads. Each script gets its own IScriptThread derivative (e.g., CScriptThread), and SHV manages the thread's lifecycle.
+
+SHV calls the Run() method of your custom thread repeatedly in a tight loop, yielding between calls.
+
+The internal tick handler is bound to OnTick inside the main loop.
+
+The core loop runs approximately once per frame (~60 FPS), but this is not guaranteed.
+
+🔁 2. Infinite Loop Risk
+
+Because the Run() method is executed inside a repeating loop (SHV’s scheduler), an infinite loop inside Run() will:
+
+Stall the main ScriptHookV thread.
+
+Freeze other scripts, including the SHV native context.
+
+Potentially crash the game or cause watchdog-triggered exceptions.
+
+Unsafe pattern:
+
+cpp
+void Run() override {
+    while (true) {
+        // NEVER DO THIS in SHV
+    }
+}
+
+
+Safe pattern:
+
+cpp
+void Run() override {
+    while (true) {
+        // safe code
+        WAIT(0);  // yields control
+    }
+}
+
+🔂 3. WAIT() and yield Correctness
+✅ WAIT(ms) Macro
+
+Internally maps to:
+
+cpp
+#define WAIT(ms) scriptWait(ms)
+
+
+Which instructs SHV to yield execution for ms milliseconds (though this is not real-time accurate).
+
+🔍 How it works:
+
+scriptWait() stores the delay and returns control to SHV’s scheduler.
+
+SHV will not resume your script until the requested delay has passed.
+
+You must call WAIT() or some yielding function at least once every Run() cycle to prevent CPU lock.
+
+Yieldable Calls:
+
+WAIT(ms)
+
+yield() (explicitly in fiber-based scripts)
+
+Native blocking calls like TASK_PAUSE, AI_WAIT, etc. do not yield ScriptHookV control — they only affect game entities.
+
+🔐 4. MODGPT Policy: Loop & Yield Enforcement
+
+All SHV-based GTA V mods must include:
+
+A WAIT() call or equivalent inside every loop iteration.
+
+A yield-safe shutdown path.
+
+No yield-skipping on tick-bound logic.
+
+Maximum loop iteration time per frame: <10ms ideal, hard cap <16ms.
+
+🧪 5. Diagnostics Strategy
+
+To verify thread safety in .asi mods:
+
+Trace all loop bodies for WAIT presence.
+
+Static analysis of Run() or custom thread methods.
+
+Look for unbounded calls (e.g., while(true) or for(;;)) with no yield.
+
+Measure impact via injected benchmark timers or profiler hooks.
+
+🧰 6. Sample Fixable Offender
+
+Before (unsafe):
+
+cpp
+void Run() override {
+    while (true) {
+        // Update logic
+    }
+}
+
+
+After (safe):
+
+cpp
+void Run() override {
+    while (true) {
+        // Update logic
+        WAIT(0);
+    }
+}
+
+
+Would you like a diagnostic tool that can scan SHV source for infinite loops or missing yields in .cpp files or zips you upload?
+
+Or should I now scan previously uploaded zips (like ALLGPTFILESEVER(KINDASORTED)_2.zip) for violations of this thread policy?

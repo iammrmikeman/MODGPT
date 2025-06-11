@@ -1,0 +1,8 @@
+{
+  "legacy_dismember_v1": {
+    "source": "legacy_gpt_data/gore_logic_v1.md",
+    "type": "template",
+    "features": ["bone snap", "blood FX"],
+    "compatible": ["SHV"]
+  }
+}

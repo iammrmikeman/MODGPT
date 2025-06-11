@@ -1,0 +1,18 @@
+MODGPT Custom License v2.0 (AI-Enabled, Closed-Use)
+
+Copyright © 2025 Mike Sheehan
+
+This software, codebase, and all associated assets (collectively “MODGPT”) are licensed for private, closed-use development under the following conditions:
+
+You MAY:
+- Use MODGPT privately for educational or research purposes
+- Temporarily publish MODGPT (e.g. on GitHub) for the purpose of AI-assisted development
+- Allow GPT-based assistants (including OpenAI GPT-4.o and MODGPT-specific tools) to read and learn from MODGPT for the express purpose of supporting the CEO (iammrmikeman)
+
+You MAY NOT:
+- Reuse, fork, or redistribute MODGPT content for unrelated projects
+- Train AI models on MODGPT content outside the MODGPT AI ecosystem
+- Republish MODGPT or derivative mods/tools for commercial or public use without explicit CEO approval
+- Present MODGPT as your own original IP
+
+All other rights reserved.

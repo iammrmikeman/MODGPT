@@ -1,0 +1,79 @@
+**You:**
+
+Act0as0a0code0structure0critic.0Suggest0a0high-performance0folder0structure0for0long-term0GTA0V0mod0projects0with0rapid0rebuild0support.
+
+* * *
+
+**ChatGPT:**
+
+Certainly. Here's a high-performance folder structure tailored for long-term GTA V mod development, optimized for ScriptHookV-based projects, rebuild speed, and mod integrity across dozens of iterations. This structure is engineered for traceability, modular upgrades, trusted builds, and compatibility with automated systems like MODGPT.
+
+🧠 MODGPT-Optimized Folder Structure: GTA_ModProject_Root/
+bash
+📁 GTA_ModProject_Root/
+├── 📁 src/                        # 💻 All source code (C++, headers, utilities)
+│   ├── 📁 core/                   # Main mod logic
+│   ├── 📁 sdk/                    # ScriptHookV SDK (locked, versioned)
+│   ├── 📁 natives/                # Native wrappers and helpers
+│   ├── 📁 systems/                # Subsystems (e.g., DamageEngine, AILogic)
+│   └── 📁 shared/                 # Cross-mod/shared utilities (e.g., Math, Logging)
+│
+├── 📁 include/                   # Exported headers for testing or integration
+│   └── *.h
+│
+├── 📁 lib/                       # Static or dynamic libraries (prebuilt)
+│   └── *.lib / *.dll
+│
+├── 📁 build/                     # ⚙️ Build outputs (cleared/repopulated per build)
+│   ├── *.obj / *.pdb / *.log
+│   └── *.asi                    # ✅ Final plugin
+│
+├── 📁 tools/                     # Custom CLI tools/scripts (e.g., asset packers)
+│   └── *.py / *.bat / *.sh
+│
+├── 📁 assets/                    # Optional external assets (audio, textures, data)
+│   ├── 📁 audio/
+│   └── 📁 fx/
+│
+├── 📁 test/                      # 📐 Unit + integration tests (mock natives, etc.)
+│   ├── 📁 fixtures/
+│   ├── 📁 native_mocks/
+│   └── test_main.cpp
+│
+├── 📁 trusted_builds/           # 🏅 All human-verified output builds (.asi, .pdb, manifest)
+│   └── HeadShotV_v1.3.asi
+│
+├── 📁 manifests/                # 🔐 Build metadata, manifests, changelogs
+│   ├── build_manifest.json
+│   └── trust_log.yaml
+│
+├── 📁 docs/                     # 📝 Design docs, diagrams, notes
+│   └── README.md
+│
+├── 📁 swarm/                    # 🧬 AI enhancement scripts, auto-upgrade logic
+│   └── *.cmd / *.json
+│
+├── GTA_ModProject.sln          # Visual Studio solution (central entrypoint)
+└── CMakeLists.txt              # Optional CMake support for CLI/CI builds
+
+✅ Structural Benefits for Rapid Rebuilds
+Feature	Explanation
+Isolated src/ and sdk/	Prevents accidental pollution of core logic with SDK files.
+Precompiled lib/ and shared/	Supports incremental linking and fast rebuilds.
+Clean build/ directory	Separate from src/; enables CI/CD and temp file purges.
+trusted_builds/ archive	Enables mod regression testing and rollbacks.
+Modular subsystems (systems/)	Encourages replaceable, upgradable modules (AI, HUD, audio).
+Native mocks in test/	Speeds up unit testing without launching GTA V.
+Swarm upgrade-ready	Supports AI-enhanced tooling, MODGPT integrations.
+Multiple build systems	Ready for both Visual Studio and CMake builds.
+🧩 Optional Enhancements (For Huge Projects)
+
+📁 scripts/: If integrating SHVDN or Lua in non-enhanced builds.
+
+📁 versions/: Snapshot folder for diffs between builds.
+
+📁 crash_dumps/: Auto-collected logs from ASI crashes (with symbols).
+
+📁 legacy/: Place older builds here only if manually preserved for research.
+
+Would you like a ready-to-use folder scaffold .zip or a Visual Studio project template preconfigured for this structure? I can generate it on request.

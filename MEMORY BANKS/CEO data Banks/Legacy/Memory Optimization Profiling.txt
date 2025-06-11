@@ -1,0 +1,165 @@
+**You:**
+
+Focus0on0memory0usage0optimization.0Recommend0techniques0to0profile0and0reduce0per-frame0native0call0overhead0inside0HeadShotV0mod0runtime.
+
+* * *
+
+**ChatGPT:**
+
+To optimize memory usage and per-frame native call overhead in the HeadShotV mod runtime, here is a detailed strategy broken into three categories:
+
+🔍 PHASE 1: Profiling Native Call Overhead (Per-Frame)
+✅ 1. Native Call Timing Profiler
+
+Create a micro-profiler that runs per-frame, logging duration (in microseconds) of each native call:
+
+cpp
+LARGE_INTEGER start, end;
+QueryPerformanceCounter(&start);
+DRAW_RECT(...);
+QueryPerformanceCounter(&end);
+double duration = (end.QuadPart - start.QuadPart) * 1000000.0 / frequency.QuadPart;
+
+
+Log into a ring buffer (std::deque) with a fixed size (e.g., 256 frames) to avoid memory bloat.
+
+Automatically report the slowest native calls with tags (DRAW_RECT@overlay, IS_PED_SHOOTING@targetcheck, etc.).
+
+✅ 2. Native Call Count Tracker
+
+Track how often each native is called per frame:
+
+cpp
+std::unordered_map<Hash, int> nativeCallCount;
+nativeCallCount[GET_HASH_KEY("DRAW_RECT")] += 1;
+
+
+Use this data to:
+
+Spot accidental multiple calls (e.g., unnecessary IS_ENTITY_DEAD checks).
+
+Flag overused or redundant natives.
+
+✅ 3. Frame Impact Heatmap (optional overlay)
+
+Visualize CPU cost of sections:
+
+Green: negligible
+
+Yellow: moderate
+
+Red: heavy (often loops or bad logic)
+Use this to prioritize rewriting slow loops or delayed conditions.
+
+🧠 PHASE 2: Reducing Native Call Overhead
+✅ 4. Cache Native Results Temporarily
+
+If the result of a native won't change within the same frame or during a short window:
+
+cpp
+static bool wasAiming = false;
+static DWORD lastChecked = 0;
+
+if (GetTickCount() - lastChecked > 5) {
+   wasAiming = IS_PLAYER_FREE_AIMING(playerId);
+   lastChecked = GetTickCount();
+}
+
+
+Apply this to:
+
+Aiming
+
+Ped state
+
+Health
+
+Wanted level
+
+✅ 5. Avoid Rechecking Unchanged Entities
+
+Instead of checking every ped every frame, mark peds that:
+
+Are already dead
+
+Were flagged as irrelevant last check
+
+Are too far (cache their distance squared from player)
+
+cpp
+struct TrackedPed {
+  Ped ped;
+  Vector3 lastKnownPos;
+  bool shouldSkip;
+};
+
+✅ 6. Inline Native Logic for Simple Checks
+
+Where possible, replace natives with local computation:
+
+Replace GET_DISTANCE_BETWEEN_COORDS with squared math.
+
+Replace IS_PED_SHOOTING with weapon state flag if already monitored.
+
+💾 PHASE 3: Memory Usage Optimization
+✅ 7. Use Pool Allocators for High-Frequency Objects
+
+Avoid per-frame new/delete:
+
+cpp
+ObjectPool<HitData, 128> hitDataPool;
+HitData* h = hitDataPool.allocate();
+
+
+Especially for:
+
+Shot result containers
+
+Target state records
+
+Frame-specific debug overlays
+
+✅ 8. Reuse Overlay/UI Buffers
+
+Don't recreate overlays each frame. Store:
+
+Precomputed DRAW_RECT vertex data
+
+Cached screen coordinates
+
+Hit markers or debug lines
+
+✅ 9. Compress Runtime Logs in Memory
+
+If you're tracking hit/miss data:
+
+Use bitfields or structs with packed layout
+
+Store only diffs from last frame where possible
+
+✅ 10. Static Buffers for Raycasts
+
+Avoid per-frame allocation for:
+
+cpp
+RaycastResult ray;
+static RaycastResult cachedRay;
+
+
+Consider pooling raycasts with their targets to skip memory pressure.
+
+🧪 Final Tool: HSV_Optimizer_Report()
+
+Build a runtime dev command that shows:
+
+Native call count per frame (top 10)
+
+Total native time in µs per frame
+
+Number of tracked entities
+
+Estimated RAM use (debug)
+
+Warnings on excessive allocs or missed cache opportunities
+
+Would you like a working C++ header for NativeCallProfiler and MemoryOptimizer modules? I can generate modular code with logging integration, safety flags, and plugin hooks ready for use in HeadShotV.

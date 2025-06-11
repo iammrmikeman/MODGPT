@@ -1,0 +1,151 @@
+**You:**
+
+Design a dynamic draw distance manager so gore remains visible even when far away but doesn’t cause memory spikes.
+
+* * *
+
+**ChatGPT:**
+
+To keep gore assets (like blood splatters, dismembered limbs, or headburst models) visible at long distances without triggering VRAM spikes, entity pool overflow, or LOD glitches, we need a dynamic draw distance manager tailored to GTA V's internal streaming and memory systems.
+
+✅ GOAL
+
+Keep gore assets visible from medium-to-far range (~50–300m) even if normal LOD would unload them.
+
+Avoid memory spikes due to too many high-res assets being kept alive across the map.
+
+Work within ScriptHookV runtime, no .meta edits allowed.
+
+Support scalable systems (e.g., distant low-poly corpses, only high-res gore nearby).
+
+🧠 System Name: GoreDrawManager
+🧩 CORE CONCEPT
+
+Use a central memory-managed controller (GoreDrawManager) that:
+
+Tracks all gore entities created.
+
+Monitors distance to player camera.
+
+Dynamically toggles LOD, visibility, and material detail based on distance.
+
+Replaces faraway gore with proxies (e.g., flat decals or baked LODs).
+
+Queues removals when limits approach (reaper system).
+
+🔧 IMPLEMENTATION COMPONENTS
+1. Gore Registration System
+cpp
+struct GoreEntity {
+    Entity handle;
+    Vector3 position;
+    int lodLevel;
+    bool isVisible;
+    bool isProxy;
+};
+std::vector<GoreEntity> trackedGore;
+
+
+On gore creation, register it here.
+
+2. Distance-Based Draw Manager Loop
+cpp
+void UpdateGoreDrawDistances() {
+    Vector3 camPos = CAM::GET_GAMEPLAY_CAM_COORD();
+    for (auto& gore : trackedGore) {
+        float dist = VDIST(gore.position.x, gore.position.y, gore.position.z, camPos.x, camPos.y, camPos.z);
+
+        if (dist < 30.0f) {
+            SetGoreHighDetail(gore);
+        } else if (dist < 100.0f) {
+            SetGoreMediumDetail(gore);
+        } else if (dist < 250.0f) {
+            SetGoreLowDetailOrProxy(gore);
+        } else {
+            RemoveOrCullGore(gore);
+        }
+    }
+}
+
+
+Runs every few frames on a background thread or tick hook.
+
+3. Gore LOD/Proxy Swapping
+cpp
+void SetGoreHighDetail(GoreEntity& gore) {
+    if (gore.isProxy) {
+        ReplaceProxyWithReal(gore);
+    }
+    ENTITY::SET_ENTITY_VISIBLE(gore.handle, true, false);
+    ENTITY::SET_ENTITY_LOD_DIST(gore.handle, 300); // Max LOD
+    gore.lodLevel = 3;
+}
+
+void SetGoreMediumDetail(GoreEntity& gore) {
+    ENTITY::SET_ENTITY_LOD_DIST(gore.handle, 100); // Lower LOD
+    gore.lodLevel = 2;
+}
+
+void SetGoreLowDetailOrProxy(GoreEntity& gore) {
+    if (!gore.isProxy) {
+        ReplaceRealWithProxy(gore); // Flat decal, low-poly mesh, or just baked blood sprite
+        gore.isProxy = true;
+    }
+    gore.lodLevel = 1;
+}
+
+4. Memory Safety: Gore Reaper
+
+If the number of registered gore entities exceeds a threshold (e.g. 80):
+
+cpp
+void CullOldestGore() {
+    if (trackedGore.size() > 80) {
+        GoreEntity& oldest = trackedGore.front();
+        ENTITY::SET_ENTITY_AS_MISSION_ENTITY(oldest.handle, true, true);
+        ENTITY::DELETE_ENTITY(&oldest.handle);
+        trackedGore.erase(trackedGore.begin());
+    }
+}
+
+
+Called in UpdateGoreDrawDistances() after iteration.
+
+5. Optional: Dynamic Material Switching
+
+For real gore meshes:
+
+Use SET_ENTITY_ALPHA() to fade in/out gore.
+
+Use SET_ENTITY_LOD_DIST() in combination with low-memory versions of the materials (swappable .ydr).
+
+📈 Optimization Strategy
+Distance	Action	Reason
+0–30m	Full model, full shader, max LOD	Player is close; visual fidelity needed
+30–100m	Mesh stays, LOD reduced, effects fade out	Saves VRAM, keeps silhouette visible
+100–250m	Swap with proxy or billboard version	Prevents spikes from geometry batching
+250m+	Entity deleted or hidden	Not visible, not worth GPU budget
+🧪 Test Conditions
+
+Spawn 100 gore heads in a radius around the player.
+
+Enable flying camera and simulate zooming out.
+
+Log draw calls and memory spikes.
+
+Observe if proxy mode kicks in without crashes or FPS drops.
+
+🛠 Native Functions Used
+Function	Purpose
+SET_ENTITY_LOD_DIST	Control draw distance directly
+SET_ENTITY_VISIBLE	Force hide/show manually
+SET_ENTITY_ALPHA	Optional: Fade effects
+DELETE_ENTITY	Cull faraway assets
+IS_ENTITY_VISIBLE	Debug visibility checks
+🔒 Failsafe Extensions
+
+Tag every gore model with a runtime-generated ID (DECAL_GORE_xxx) so they can be batch-deleted on cleanup.
+
+Use a soft memory warning counter: if memory hits unsafe thresholds, downgrade all gore LODs globally.
+
+Would you like the base .cpp and .h file for this GoreDrawManager system scaffolded for ScriptHookV now?

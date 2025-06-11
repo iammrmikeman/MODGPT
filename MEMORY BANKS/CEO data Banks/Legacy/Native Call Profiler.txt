@@ -1,0 +1,157 @@
+**You:**
+
+You're0a0performance0watchdog.0Propose0a0continuous0profiler0that0runs0during0gameplay0to0log0native0call0durations0in0microseconds.
+
+* * *
+
+**ChatGPT:**
+
+Absolutely. Below is a full proposal for a continuous in-game profiler designed to monitor ScriptHookV native call durations in microseconds, with minimal performance overhead and maximum traceability. This profiler is tailored for GTA V Enhanced Edition mods using ScriptHookV.
+
+🔧 MODGPT PERFORMANCE WATCHDOG SYSTEM
+📊 Continuous Native Call Profiler – Proposal v1.0
+🧠 PURPOSE
+
+To build a real-time, low-overhead profiler that runs in-game, logging the execution time (in microseconds) of each native function called through ScriptHookV, especially those used by mod scripts. This profiler enables:
+
+Pinpointing native calls that cause frame drops or stutters.
+
+Automatically identifying bottlenecks in .asi plugin logic.
+
+Supporting future MODGPT optimization decisions with ground-truth data.
+
+🛠️ SYSTEM DESIGN OVERVIEW
+Component	Description
+Hook Layer	Wraps each nativeCall() to measure duration (start/end timestamps).
+Timer	Uses QueryPerformanceCounter (high-resolution Windows timer) or __rdtsc() for sub-microsecond accuracy.
+Sampling Interval	Every frame or configurable rate (e.g. every Nth frame or when FPS < 50).
+Output Mode	Writes data to ring buffer, flushes to disk if anomalies occur or on exit.
+Thresholds	Warn if any native call exceeds N microseconds (e.g., 1000 µs).
+Display	Optional on-screen diagnostic overlay (toggleable) using DRAW_TEXT() or imgui.
+🔍 CORE PROFILING LOGIC
+⏱️ Timer Injection
+cpp
+#include <Windows.h>
+LARGE_INTEGER freq, t_start, t_end;
+QueryPerformanceFrequency(&freq);
+QueryPerformanceCounter(&t_start);
+
+// native call logic...
+nativeHandler(...);
+
+QueryPerformanceCounter(&t_end);
+double microseconds = (t_end.QuadPart - t_start.QuadPart) * 1e6 / freq.QuadPart;
+
+🧬 Macro Wrapping
+
+To avoid manually profiling every call:
+
+cpp
+#define PROFILE_NATIVE(name, ...) \
+    { \
+        LARGE_INTEGER start, end; \
+        QueryPerformanceCounter(&start); \
+        name(__VA_ARGS__); \
+        QueryPerformanceCounter(&end); \
+        double us = (end.QuadPart - start.QuadPart) * 1e6 / freq.QuadPart; \
+        NativeProfiler::Log(#name, us); \
+    }
+
+🔄 Call Logger (Ring Buffer)
+cpp
+struct NativeCallEntry {
+    const char* nativeName;
+    double durationMicroseconds;
+    uint64_t frame;
+    uint32_t threadID;
+};
+
+static constexpr size_t BUFFER_SIZE = 2048;
+NativeCallEntry ringBuffer[BUFFER_SIZE];
+size_t bufferIndex = 0;
+
+void Log(const char* name, double microseconds) {
+    ringBuffer[bufferIndex] = { name, microseconds, GetGameFrameCount(), GetCurrentThreadId() };
+    bufferIndex = (bufferIndex + 1) % BUFFER_SIZE;
+}
+
+📁 OUTPUT
+📝 On-Disk Logging (CSV)
+
+If anomalies are detected (e.g. > 2000 µs), write to:
+
+plaintext
+GTA5\MODS\MODGPT_PROFILER\logs\frame_193242.csv
+
+native,duration_us,frame,thread_id
+WAIT,1024.44,193242,1136
+DRAW_RECT,2115.09,193242,1136
+...
+
+🧪 HEURISTIC FLAGS
+
+🔴 CRITICAL: Call took > 3000 µs
+
+🟠 SLOW: Call took > 1000 µs
+
+⚪ OK: Under 1000 µs
+
+Optional: color overlay using DRAW_TEXT() to display current slowest call per frame.
+
+🧠 FUTURE EXPANSIONS
+
+🔄 Hot reload native names using reverse hash lookup (SHV SDK).
+
+📊 Visualize per-frame native time stack in an ImGui bar chart.
+
+🧵 Cross-thread native monitoring support (via hook injection).
+
+🎥 Frame time correlation – overlay spike detection alongside visual frame stats.
+
+🛡️ SAFETY + PERFORMANCE
+
+Does not alter original native logic – pure wrapper layer.
+
+Logging disabled if profiler DLL detects performance degradation.
+
+All disk writes offloaded to background thread.
+
+Fully toggleable with keybind (e.g. F9) or config INI.
+
+✅ INI CONFIG (Optional)
+ini
+[Profiler]
+Enabled=true
+LogThresholdUS=1000
+MaxBufferSize=2048
+FlushOnExit=true
+Overlay=true
+
+📦 DELIVERY FORMAT
+
+If approved for implementation, MODGPT will package this as:
+
+\MODGPT_Profiler\
+├── profiler.cpp
+├── profiler.h
+├── profiler_config.ini
+├── NativeProfiler.asi
+└── README.md
+
+📌 DEPENDENCIES
+
+ScriptHookV SDK
+
+Windows QueryPerformanceCounter
+
+Optional: ImGui for overlay, std::thread for async flush
+
+🧠 RECOMMENDATION
+
+If you approve, I will implement this as a standalone NativeProfiler.asi, then integrate its results into future trusted? and test asi diagnostics.
+
+Would you like me to proceed with the build phase for this profiler mod?
+
+✅ Yes — Begin build as .asi mod
+🛠️ Adjust — Modify config/output logic first
+❌ No — Reject proposal

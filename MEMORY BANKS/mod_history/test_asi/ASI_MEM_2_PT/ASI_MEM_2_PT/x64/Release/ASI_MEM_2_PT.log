@@ -1,0 +1,5 @@
+﻿  dllmain.cpp
+  main.cpp
+  Generating Code...
+main.obj : error LNK2019: unresolved external symbol DRAW_RECT referenced in function "void __cdecl MainThread(void)" (?MainThread@@YAXXZ)
+C:\Users\pc\Desktop\ASI_MEM_2_PT\x64\Release\ASI_MEM_2_PT.dll : fatal error LNK1120: 1 unresolved externals

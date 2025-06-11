@@ -1,0 +1,14 @@
+{
+  "generated": "2025-06-09T07:18:09.405733Z",
+  "memory_files": [
+    "directives/memory_policies.md",
+    "logs/mia/mia_bootstrap_log.txt",
+    "logs/swarm/swarm_bootstrap_log.txt",
+    "mod_history/headshotv/headshotv_init.md",
+    "task_state/task_history.md",
+    "config/gpt_instance_tracker.md",
+    "system_checks/compliance_report.md",
+    "swarm_plans/launch_strategy.md",
+    "open_source_projects/source_list.md"
+  ]
+}

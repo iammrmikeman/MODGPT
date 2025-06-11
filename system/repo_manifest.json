@@ -1,0 +1,11 @@
+{
+  "Swarms/config.ahk": {"type": "config", "priority": "critical"},
+  "Swarms/swarm.ahk": {"type": "launcher", "priority": "critical"},
+  "Swarms/swarm_worker.ahk": {"type": "worker", "priority": "critical"},
+  "Swarms/inputs/": {"type": "task_input", "priority": "operational"},
+  "Swarms/outputs/": {"type": "task_output", "priority": "operational"},
+  "Swarms/logs/": {"type": "log", "priority": "debug"},
+  "system/memory/": {"type": "memory", "priority": "critical"},
+  "system/ai_bootstrap.md": {"type": "doctrine", "priority": "critical"},
+  "system/repo_manifest.json": {"type": "index", "priority": "critical"}
+}

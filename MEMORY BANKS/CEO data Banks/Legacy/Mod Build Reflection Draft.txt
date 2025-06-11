@@ -1,0 +1,121 @@
+**You:**
+
+Draft GPT behavior for post-build self-reflection: it must document how it built the mod and what decisions were made.
+
+* * *
+
+**ChatGPT:**
+
+Here is a draft of MODGPT post-build self-reflection behavior, suitable for integration into the HeadShotV mod pipeline or any future GTA V .asi mod:
+
+🔄 MODGPT Post-Build Self-Reflection Protocol (v1.0)
+
+Trigger: Automatically runs immediately after a successful build command.
+
+Purpose:
+To create a full, structured log of GPT’s reasoning, decisions, and contextual factors that influenced the build. This ensures accountability, version traceability, and allows intelligent regression analysis or replay of past builds.
+
+🧠 STRUCTURE OF REFLECTION OUTPUT
+
+Saved as:
+/build_logs/BUILD_<timestamp>_REFLECTION.md
+(also embedded in /mod_manifest.json under the "gpt_last_reflection" key)
+
+🧾 HEADER
+markdown
+## 🧠 MODGPT POST-BUILD REFLECTION
+**Mod Name:** HeadShotV  
+**Build Timestamp:** 2025-06-08T02:14Z  
+**Build ID (Hash):** abc1234def567890  
+**GPT Version:** MODGPT v0.01 (Boss 4.o)  
+**Swarm Mode:** Active (SleepSwarm[30])  
+**Human Confirmed:** False  
+
+🔍 BUILD CONTEXT
+markdown
+### CONTEXT SNAPSHOT
+
+- **Mod Objective:** Enable cinematic headshot reactions using physics + VFX
+- **Supplied Assets:** 
+  - `headburst_model.ydr`
+  - `ScriptHookV.lib`
+  - No config or XML files present
+- **Assumptions Made:**
+  - Missing XML will be dynamically generated
+  - Only Enhanced GTA V is targeted
+  - No legacy compatibility required
+
+⚙️ GPT DECISIONS MADE
+markdown
+### CORE DECISIONS (AUTOMATED)
+
+1. ✅ **SDK Fallback Activated:** 
+   - Used ScriptHookV 1.0.617.1a due to build conflicts with 3521.0
+
+2. ✅ **Dynamic Asset Injection:**
+   - No `.meta` or config files were provided
+   - Default config values injected using INIT_FALLBACK protocol
+
+3. ✅ **Header Sanitation Pass:**
+   - Stripped deprecated or unused headers: `dbg.h`, `placeholder_func.h`
+
+4. ✅ **Native Usage Review:**
+   - Only validated natives used: `PLAY_SOUND_FRONTEND`, `DRAW_RECT`
+   - No risky or deprecated functions detected in final call tree
+
+5. ✅ **Visual Output Mapping:**
+   - Red-screen flash triggered using `DRAW_RECT` timed to 5s intervals
+   - Police scanner sound triggered with `SOUND::PLAY_SOUND_FRONTEND`
+
+🧠 GPT REFLECTION
+markdown
+### SELF-EVALUATION
+
+- **Confidence Score:** 92.3%
+- **Potential Instability:** Medium-low (risk from missing model LODs not yet verified)
+- **Most Fragile Logic Path:** Damage condition → Bone mapping → Trigger → VFX chain
+- **Most Robust Path:** Timer → Audio trigger → ScriptHookV validation
+
+**GPT Believes:**
+> This build represents a minimal but working form of the HeadShotV core loop. The build is stable, but lacks detailed VFX layering and per-weapon variation logic. Next iteration should include full VFX chain testing and real-time config reload support.
+
+GPT made no blind guesses. All decisions had a fallback policy or known assumption path.
+
+📁 FILE STRUCTURE SNAPSHOT
+markdown
+### FINAL FILE STRUCTURE
+
+- /src/
+  - main.cpp
+  - logic_headshot.cpp
+  - vfx_trigger.cpp
+- /assets/
+  - headburst_model.ydr
+- /headers/
+  - script_hookv_sdk/
+- /manifest/
+  - mod_manifest.json
+- /build_logs/
+  - BUILD_20250608_REFLECTION.md
+
+🧩 NEXT RECOMMENDED STEPS
+markdown
+1. Validate `.ydr` with mesh + LOD inspector
+2. Add `weapons.meta` overrides for projectile types
+3. Expand trigger logic to distinguish between pistol, rifle, shotgun
+4. Add runtime config reload toggle (keybind: INSERT?)
+
+
+This reflection log will now be:
+
+Saved to disk and linked to mod version hash
+
+Readable in any future regression test
+
+Searchable for decision audits or trust tracking
+
+Embedded in mod manifest for release tracking
+
+✅ END REFLECTION
+
+Would you like this converted into a formal .md template, or should I prepare an .ini/.json-based lightweight variant for non-markdown environments (e.g., internal game logging)?

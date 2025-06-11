@@ -1,0 +1,176 @@
+**You:**
+
+Design a full mod manifest.json structure for HeadShotV. Include version hash, assets used, GPT decisions, and trusted SDKs.
+
+* * *
+
+**ChatGPT:**
+
+Here is a complete manifest.json design for the HeadShotV mod, tailored for MODGPT’s strict forensic and build-tracking systems. It captures all essential metadata, GPT traceability, and dependency validation. This is meant to survive recursive rebuilds, regression checks, and even legal audits.
+
+✅ STRUCTURE: manifest.json
+json
+{
+  "mod_name": "HeadShotV",
+  "mod_type": "GTAV_ASI",
+  "version": "0.8.2-beta",
+  "version_hash": "b3fd6fc4b928fe1a8e75e2cdcb7b6a4ecfb3d17a",
+  "build_timestamp": "2025-06-08T02:00:00Z",
+  "trusted": true,
+  "trusted_since": "2025-06-07",
+  "verified_by": "MODGPT v0.01",
+  "author": "Mike Sheehan",
+  "gpt_generated": true,
+  "gpt_model": "gpt-4o",
+  "mod_id": "headshotv-core",
+  "entrypoint": "HeadShotV.asi",
+
+  "assets": {
+    "models": [
+      {
+        "name": "headburst.ydr",
+        "hash": "ab3c0f4278f7c1cfa81e2351d4a73edb39e7b442",
+        "lods": true,
+        "embedded_collision": true
+      }
+    ],
+    "audio": [
+      {
+        "source": "police_scanner_beep.wav",
+        "fallback": true,
+        "type": "frontend"
+      }
+    ],
+    "textures": [],
+    "xml_meta": [
+      {
+        "file": "dlc_patch/meta/headshotv.meta",
+        "syntax_valid": true,
+        "pseudo_rpf": true
+      }
+    ]
+  },
+
+  "code": {
+    "entry_file": "src/HeadShotV.cpp",
+    "total_source_files": 9,
+    "native_calls": [
+      "PLAY_SOUND_FRONTEND",
+      "DRAW_RECT",
+      "GET_ENTITY_COORDS",
+      "IS_PED_HEADSHOT",
+      "SET_ENTITY_VISIBLE"
+    ],
+    "script_dependencies": [
+      "ScriptHookV",
+      "MinHook"
+    ]
+  },
+
+  "sdk": {
+    "primary_sdk": {
+      "name": "ScriptHookV SDK",
+      "version": "1.0.617.1a",
+      "source": "ScriptHookV_SDK_1.0.617.1a.zip",
+      "hash": "54dc8f921b9f5ab2899938c6fcd076e3"
+    },
+    "fallback_sdk": {
+      "name": "ScriptHookV SDK",
+      "version": "3521.0_814.9",
+      "source": "ScriptHookV_3521.0_814.9.zip",
+      "hash": "7bdcd912af993b1824aa77ef2ce3904f"
+    }
+  },
+
+  "gpt_decisions": [
+    {
+      "reason": "Missing XML file detected",
+      "action": "Injected dynamic fallback config in C++ constructor",
+      "approved": true,
+      "confidence": 0.98
+    },
+    {
+      "reason": "No gore sound assets found",
+      "action": "Replaced with frontend beep fallback",
+      "approved": true,
+      "confidence": 0.99
+    },
+    {
+      "reason": "LOD metadata missing in .ydr",
+      "action": "Fallback bounding box check added",
+      "approved": false,
+      "notes": "CEO pending manual verification"
+    }
+  ],
+
+  "safety_checks": {
+    "null_pointer_check": true,
+    "placeholder_logic_removed": true,
+    "native_linkage_verified": true,
+    "manifest_syntax_valid": true
+  },
+
+  "testing": {
+    "test_status": "PASSED",
+    "tests_run": [
+      "sandbox_game_start",
+      "frame_timing_test",
+      "screen_flash_timer",
+      "audio_beep_test",
+      "headshot_trigger_test"
+    ],
+    "crash_reports": [],
+    "fps_impact": "Minimal",
+    "frame_time_ms_avg": 1.7
+  },
+
+  "integrity": {
+    "signed": true,
+    "signature": "MODGPT-AUTH-v0.01",
+    "build_environment": "VS2022 | x64 | Release",
+    "hash_algorithm": "SHA1",
+    "source_zip": "HeadShotV_v0.8.2-src.zip"
+  },
+
+  "rebuild_guidance": {
+    "minimum_files_required": [
+      "HeadShotV.cpp",
+      "headburst.ydr",
+      "ScriptHookV.lib"
+    ],
+    "emergency_rebuild_protocol": "fallback_headshot_mode_enabled",
+    "sandbox_ready": true
+  },
+
+  "notes": [
+    "This version uses fallback systems in place of gore audio.",
+    "Model validation confirmed LODs and bounding boxes via GPTAID_YDR_SANITY.",
+    "Next build should test real-time gore splatter overlay."
+  ]
+}
+
+🔒 Required Sanity Checks Before Trusting
+
+This file is only valid if:
+
+All hashes are cryptographically confirmed.
+
+The .asi is reproducible from the zipped source.
+
+At least one GPT-approved decision exists with confidence > 0.95.
+
+Native calls are all mapped and not deprecated.
+
+ScriptHookV.lib is linked with correct version.
+
+📦 Next Steps
+
+Would you like me to:
+
+Generate a template manifest.json ready for editing?
+
+Auto-fill one from your latest .zip build?
+
+Create a manifest validator tool that enforces these rules?
+
+Let me know which you'd prefer — this manifest schema is production-ready for HeadShotV v0.8.2 and beyond.

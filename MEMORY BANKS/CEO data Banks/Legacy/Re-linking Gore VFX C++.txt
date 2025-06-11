@@ -1,0 +1,160 @@
+**You:**
+
+Design an SDK version negotiation protocol so GPT knows when to fall back to older SDK mappings if newer ones break builds.
+
+* * *
+
+**ChatGPT:**
+
+Here is a proposed SDK Version Negotiation Protocol for MODGPT, optimized for GTA V mod development using ScriptHookV. This protocol ensures safe fallback, accurate build compatibility, and long-term GPT adaptability in the face of SDK or game version mismatches.
+
+🧠 MODGPT SDK VERSION NEGOTIATION PROTOCOL
+
+Purpose: Automatically determine the optimal ScriptHookV SDK version to use for any given mod build, including fallbacks, patches, or SDK-specific overrides.
+
+🔹 STEP 0: DEFINITIONS
+Term	Description
+TARGET_GAME_VERSION	The GTA V build the mod is designed to run on (e.g., 1.0.2845.0).
+SDK_VERSION	The version of ScriptHookV SDK currently selected for the build.
+KNOWN_GOOD_SDKS	List of validated ScriptHookV SDKs confirmed by GPT to produce trusted .asi builds.
+NATIVE_HASH_TABLE	The mapping of function hashes → native names, often version-dependent.
+MOD_REQUIREMENTS	The mod’s explicit requirements from its manifest.json or enforced by logic.
+BUILD_FAILURE_LOG	Internal GPT record of failures per SDK version, including causes.
+🔹 STEP 1: INITIAL SDK RESOLUTION
+
+Input Sources:
+
+manifest.json
+
+Inferred game version from resource paths
+
+Developer directive (e.g. “must support 2699.16 and 2802.0+”)
+
+HashMap file used in mod
+
+Logic:
+
+pseudo
+if manifest specifies SDK_VERSION:
+    use that
+elif manifest specifies TARGET_GAME_VERSION:
+    match it to closest KNOWN_GOOD_SDK
+else:
+    default to LATEST_TRUSTED_SDK
+
+🔹 STEP 2: PREBUILD COMPATIBILITY CHECK
+
+Check all:
+
+Native hashes used in code must exist in selected SDK’s natives.h
+
+Linker paths must match SDK structure (e.g. ScriptHookV.lib compatibility)
+
+Structures (e.g. Vector3, Ped, Entity) must match expected layout
+
+Runtime assumptions (like fiber usage or VFTs) must match SDK variant
+
+If any fail, proceed to fallback resolution.
+
+🔹 STEP 3: FALLBACK RESOLUTION TREE
+🔁 Standard fallback order:
+pseudo
+try current SDK
+if fail:
+    try immediate previous trusted SDK (one version lower)
+    if fail:
+        try oldest compatible SDK from known-good list
+        if fail:
+            try SDK used in last trusted build of this mod
+            if fail:
+                alert: no compatible SDK found
+
+🔧 Special cases:
+
+If native mismatch caused failure, remap from older SDK’s hash map if possible
+
+If build fails due to .lib mismatch, attempt manual patching or force-linking
+
+If runtime crash detected post-build, flag SDK as semi-broken and test next fallback
+
+🔹 STEP 4: SDK LOGGING AND MEMORY
+
+For every build attempt:
+
+Store SDK version, hash mappings used, and result status (success, link error, runtime crash, etc.)
+
+Link result to build hash for replayability
+
+If SDK fails 3+ times for different builds, demote it from KNOWN_GOOD_SDKS and alert for manual review
+
+🔹 STEP 5: AUTO-PATCH AND MAP REPAIR
+
+If known hashes from current build are missing from the SDK:
+
+Search previous SDK hash tables for match
+
+If found:
+
+Suggest temporary #define overrides (e.g. #define OLD_NATIVE 0xAABBCCDD)
+
+Log as HYBRID_SDK_BUILD
+
+Mark for deeper rebuild pass later
+
+🔹 STEP 6: MOD-LOCAL OVERRIDE
+
+Allow mod’s manifest.json to explicitly override:
+
+json
+{
+  "sdk": {
+    "version": "1.0.617.1a",
+    "fallbacksAllowed": true,
+    "forceHashOverride": true
+  }
+}
+
+
+This prevents unwanted SDK drift in trusted builds.
+
+✅ OUTPUTS
+
+Each build includes a build.sdk.json:
+
+json
+{
+  "used_sdk": "1.0.617.1a",
+  "fallback_used": false,
+  "fallback_chain": [],
+  "hash_map_used": "sdk_hashes_6171a.json",
+  "build_result": "success"
+}
+
+
+Failures log:
+
+json
+{
+  "used_sdk": "1.0.2845.0",
+  "fallback_used": true,
+  "fallback_chain": ["1.0.2845.0", "1.0.2699.16", "1.0.2372.2"],
+  "last_successful_sdk": "1.0.2372.2",
+  "error": "unresolved extern 'GET_ENTITY_HEALTH'",
+  "fix_suggested": "use native remap from sdk_hashes_2372.json"
+}
+
+🛡️ SAFETY FLAGS
+
+trusted_only: only use SDKs previously verified by developer
+
+strict_native_match: abort if any native not found in SDK
+
+allow_patch: allow hash redefinitions from past mappings
+
+🧩 FUTURE INTEGRATION
+
+Tie this protocol into test asi, build, and verify? commands
+
+Eventually allow GPT-rewritten SDK variants with only required natives
+
+Would you like this formalized into an actual .cmd-triggerable negotiation script or integrated as a memory policy into the swarm engine?

@@ -1,0 +1,125 @@
+**You:**
+
+Propose a lazy-load memory system that auto-forgets minor swarm output but permanently stores game-breaking discoveries.
+
+* * *
+
+**ChatGPT:**
+
+Here’s a GPT-LazyLoad Memory System optimized for mod dev swarms like MODGPT. It balances lightweight storage of swarm output with permanent preservation of critical mod discoveries (e.g. broken RPF structures, native mismatches, crash triggers).
+
+🧠 GPT-LazyLoad Memory System v1.0
+
+"Forget the noise. Remember the breakthroughs."
+
+🔹 Goals
+
+Avoid bloating memory with 100s of nightly swarm runs.
+
+Detect and permanently log any mod-breaking insight.
+
+Enable smart recall of relevant past attempts if a similar situation arises.
+
+Remain transparent: CEO can always force-persist any memory.
+
+📦 Memory Architecture
+Layer	Description
+LazySwarmCache	Stores temporary results of all swarms for ~24-48 hours (or 5 run cycles).
+CriticalCore	Long-term vault for all game-breaking or mod-evolutionary discoveries.
+RecallIndex	Index of keywords/contexts that allow dynamic re-loading of prior swarm logs.
+CEOForcestick	Manual override layer — anything stored here never auto-forgets.
+⚙️ Logic Flow
+✅ Swarm Completion
+
+Each swarm task is evaluated using a 3-pass memory filter:
+
+Critical Pattern Match
+
+Does the swarm hit a known red flag?
+
+Native ID mismatch
+
+ScriptHookV.lib linkage failure
+
+Corrupted .rpf structure
+
+Model failed to bind to ped bone
+
+SDK header regression
+
+If yes → push summary + full swarm log to CriticalCore.
+
+Mod Intelligence Gain
+
+Did the mod learn something it didn’t know before?
+
+e.g. “Model works if LODs are disabled” or “Only works with ATTACH_ENTITY_TO_ENTITY_BONE”
+
+If yes → store summary only + link to lazy full log in RecallIndex.
+
+Noise or Redundant?
+
+Did the swarm only repeat a known failure or success?
+
+If yes → store short log in LazySwarmCache, mark for auto-forget unless recalled within 24h.
+
+🧩 Data Retention Rules
+Output Type	Stored In	Retention	Recallable?
+Mod-breaking discovery	CriticalCore	Permanent	✅ Yes
+New behavior or fix	RecallIndex	Until overwritten	✅ Yes
+Minor fail or dupe test	LazySwarmCache	24–48h max	⚠️ No
+CEO-marked “keep”	CEOForcestick	Forever	✅ Yes
+🛠️ Auto-Forget Mechanism
+
+LazySwarmCache holds full logs tagged with TTL (time-to-live).
+
+Every 6 hours, GPT purges expired logs.
+
+Before purge, if similar context is detected in new swarm → extend TTL by 24h.
+
+Exception: if a new swarm directly contradicts a previous conclusion, both versions are migrated to CriticalCore as a conflict record.
+
+📡 GPT-Awareness Logic
+
+When a new swarm begins, GPT scans:
+
+CriticalCore for related breakage patterns.
+
+RecallIndex for behaviorally similar conditions.
+
+GPT will adapt the swarm prompt using this intel — e.g., "Last attempt failed due to .ydr missing collision mesh."
+→ "Test with dummy collision added."
+
+💬 CEO Commands
+
+mark important: Permanently stores a swarm's finding.
+
+recall last: Summarizes the last successful swarm.
+
+recall topic "native mismatch": Searches memory for relevant failures or insights.
+
+flush cache: Force-purges the LazySwarmCache.
+
+audit memory: Shows what’s stored in each layer.
+
+🧠 Example Scenario
+
+Swarm #17:
+Fails to load gore model due to RPF subfolder naming bug.
+→ Matched as a critical mod-blocker.
+→ CriticalCore:
+
+json
+{
+  "id": "RPF-BUG-053",
+  "cause": "inside.rpf uses pseudo-fs logic, OpenIV invalid",
+  "fix": "Rebuild using Codewalker unpack, rename pseudo subdirs",
+  "originSwarm": 17
+}
+
+
+Swarm #18:
+Just re-tests same .ydr with no fix.
+→ Stored in LazySwarmCache, TTL: 24h.
+
+Would you like a sample .cmd swarm script that enables this behavior with tab-by-tab tracking? Or a log viewer for CriticalCore?

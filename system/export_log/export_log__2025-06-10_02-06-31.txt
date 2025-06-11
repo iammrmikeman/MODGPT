@@ -1,0 +1,9 @@
+# 📦 Export Log — 2025-06-10_02-06-31
+Export Type: Assimilation Mode Switching Logic Update
+
+New Features:
+- Mode: auto-switching between Standard and Nuclear
+- Based on prompt context and system state
+- Ensures correct assimilation depth every time
+
+Ready for GitHub push and doctrine enforcement.

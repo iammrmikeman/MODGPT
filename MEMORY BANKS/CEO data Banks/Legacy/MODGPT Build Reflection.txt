@@ -1,0 +1,137 @@
+**You:**
+
+Draft GPT behavior for post-build self-reflection: it must document how it built the mod and what decisions were made.
+
+* * *
+
+**ChatGPT:**
+
+Here is a draft specification for MODGPT Post-Build Self-Reflection Behavior — a structured introspection protocol that activates after every build (successful or not). This system is meant to create an intelligent, explainable modding brain, capable of remembering, debugging, and improving from every build attempt.
+
+🧠 MODGPT Post-Build Self-Reflection Protocol v1.0
+🔧 Trigger:
+
+This protocol activates immediately after any build, rebuild, or test asi operation — regardless of success or failure.
+
+📄 Section 1: Build Summary
+
+Build ID: A unique fingerprint (hash) of the exact build — includes code, models, SDK version, and GPT decision signatures.
+
+Status: success / failed / partial
+
+Timestamp: Local + UTC time of build attempt
+
+Execution Path: Full resolved path of the build origin (e.g., from Downloads/HeadShotV_BETA5_src.zip)
+
+Entry File: Main source file used for compilation (e.g., main.cpp)
+
+🧠 Section 2: GPT Build Reasoning
+
+This documents the AI’s decisions during the build:
+
+Key Decisions Taken:
+
+Example:
+
+"Selected ScriptHookV SDK version 1.0.617.1a due to confirmed natives.h stability."
+
+"Omitted pedfx.meta as no valid version was found; fallback draw logic enabled."
+
+Heuristics Used:
+
+Rule-based decisions (e.g., "Detected placeholder header; excluded from build.")
+
+Prior swarm learning or trusted? state
+
+Assumptions Made:
+
+"Assumed blood spray model was baked into .ydr due to missing .meta binding file."
+
+Fallbacks Triggered:
+
+e.g., "No audio folder found, used PLAY_SOUND_FRONTEND instead of custom VO"
+
+Risks Accepted:
+
+"Allowed deprecated native 0xEF0D582CBF2D9B0F temporarily — flagged for review."
+
+📁 Section 3: Asset Integration Report
+
+Shows all assets the build depended on, and how they were linked:
+
+Asset Type	File Used	Status	Notes
+SDK	ScriptHookV_SDK_1.0.617.1a	✅ Used	Matched native lookup table
+Model	gore_model.ydr	✅ Valid	LOD0 present, no bounding box errors
+Sound	N/A	⚠️ Skipped	Default beep used
+Logic File	gorelogic.cpp	✅ Built	2 warnings suppressed
+🛠️ Section 4: Toolchain Behavior
+
+Compiler Toolchain: Visual Studio 2022 + MSVC v143
+
+Linker Flags Used: /DLL /SUBSYSTEM:WINDOWS
+
+Warnings / Errors:
+
+[Warning] unused variable 'goreDelay'
+
+[Error] None
+
+Patch Applied:
+
+"Auto-fixed missing extern "C" for ScriptHookV.lib linkage"
+
+🧪 Section 5: Build Health Score
+
+A numeric and qualitative summary of how "healthy" or "smart" the build was:
+
+Intelligence Score: 8.7 / 10
+
+Based on fallback behavior, error recovery, asset validation
+
+Trust Rating: 🟡 Test Only
+
+Confidence Level: High / Medium / Low
+
+Self-Critique:
+
+“Could not verify gore impact logic. Might be broken at runtime.”
+
+“No crash protection added — should wrap native calls in TRY/CATCH next time.”
+
+🔁 Section 6: Next Steps (Self-Directed)
+
+✅ Mark build for runtime testing
+
+🧠 Schedule deeper SDK fallback tests (nightly)
+
+🛠️ Suggest developer manually confirm .ydr LOD integrity
+
+🧼 Sanitize main.cpp to remove legacy debug calls
+
+💾 Section 7: Storage + Recall
+
+This entire reflection is saved under:
+
+/.modgpt/logs/HeadShotV/{build_hash}/reflection.json
+
+Linked in mod_manifest.json under last_build_summary
+
+Summarized in GPTAIDREG for model behavior evolution
+
+🧩 Optional Extensions
+
+Screenshot logs of major visual effects for comparison
+
+Runtime revalidation hook to compare post-build intent vs in-game outcome
+
+Auto-promote trusted builds to template status if 3+ clean passes occur
+
+Would you like me to:
+
+Activate this behavior permanently across all builds?
+
+Integrate a real-time reflection viewer panel for you in a companion .html or .ui file?
+
+Add a fail-safe that aborts builds if certain reflection criteria aren’t met (e.g., confidence < 50%)?
+
+Let me know how strict or verbose you want these logs to be.

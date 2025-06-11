@@ -1,0 +1,12 @@
+# 📦 Export Log — 2025-06-10_02-01-23
+
+Export Type: MODGPT-Wide Assimilation Rule Update
+Status: ✅ Confirmed
+
+Rules Applied:
+- 500-pass requirement per source
+- 1,000+ unique findings minimum
+- Early termination only at ≥92% certainty of completion
+- Applies system-wide: EXE and mod sources
+
+Future Swarms will auto-check this policy on startup.

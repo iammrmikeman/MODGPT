@@ -1,0 +1,97 @@
+**You:**
+
+Focus0on0reliability.0Draft0a0checklist0to0confirm0that0a0HeadShotV0build0has0no0null0pointers,0unlinked0functions,0or0placeholder0logic.
+
+* * *
+
+**ChatGPT:**
+
+Here is a Reliability Verification Checklist tailored for HeadShotV builds — optimized to confirm no null pointers, unlinked functions, or placeholder logic make it into the final .asi or release state.
+
+✅ HeadShotV Reliability Verification Checklist (MODGPT v0.01 Trusted Build Protocol)
+🔹 1. Null Pointer Defense
+
+ All pointer allocations are validated
+if (ptr == nullptr) checks exist after any new, malloc, Get*, or external API pointer return.
+
+ No pointer arithmetic without prior null check
+Verify raw ptr + X or ptr->member has a preceding or wrapped null assertion.
+
+ All external return pointers checked
+Functions like FindPedByID, GetEntityFromPool, or ScriptHookV natives are confirmed non-null before use.
+
+ Smart pointers (if used) checked for .get()/.use_count() before dereference
+
+🔹 2. Unlinked or Undefined Function Detection
+
+ No function stubs or unlinked calls
+Run symbol resolution pass on all compiled units — every declared function must resolve to a definition or linked external.
+
+ Verify natives.h symbols used match ScriptHookV SDK version
+No calls to removed/renamed or misspelled native functions.
+
+ No unresolved external symbols on final link pass
+Run with /VERBOSE:UNUSED and /FORCE:UNRESOLVED suppressed — report must show no missing entry points.
+
+ All .cpp files compiled and linked in .vcxproj
+Audit for orphaned logic or files excluded from build.
+
+🔹 3. Placeholder / Incomplete Logic Sweep
+
+ Zero TODO, FIXME, or PLACEHOLDER comments present
+Enforced via grep or regex on all source files:
+
+regex
+\b(TODO|FIXME|PLACEHOLDER|XXX|STUB|UNIMPLEMENTED)\b
+
+
+ No empty if/else/switch blocks
+Every control structure must have at least minimal logic (LOG_DEBUG, assertion, or fail-safe).
+
+ No return; or return 0; in functions marked // temp or // stub
+
+ No commented-out legacy code with uncertain purpose
+Clear commented blocks must be either removed or annotated with // PRESERVED BY DESIGN.
+
+ Critical functions (e.g., headshot damage, trigger detection, angle checks) must not contain default returns or fake logic for testing.
+
+🔹 4. MODGPT Static Rule Checks (Automated Pass)
+
+ Run modgpt_staticcheck.py (or internal logic auditor)
+✓ Confirms all native call signatures match SDK
+✓ Reports use of unsafe or deprecated API
+✓ Logs unreachable code paths
+✓ Detects overly broad try/catch blocks or silent failure modes
+
+🔹 5. Behavioral Sanity Audit
+
+ Enable runtime logging for target build (--diagnostic true)
+
+ Confirm all hooks (e.g., Ped OnHit, Weapon Fire, Bone Checks) are invoked during at least 1 gameplay scenario
+
+ Force test with intentionally null entities or out-of-bounds IDs
+Must not crash. Should log clean error with unique code.
+
+🔹 6. Release Readiness Final Checks
+
+ Manifest contains version, hash, changelog, and all required fields (trusted? protocol)
+
+ Build passes MODGPT trusted preflight:
+
+No placeholders
+
+All natives resolved
+
+All headers used and valid
+
+No obvious simulation-only logic (e.g., simulateHitResult())
+
+⚠️ BONUS (Optional but Recommended)
+
+ Use AddressSanitizer in debug mode to catch memory issues.
+
+ Run with ScriptHookV log hook enabled to confirm all native failures throw alerts.
+
+ Inject nullptr on all GameEntity* accessors at least once — ensure fallback logic works.
+
+Would you like this formalized into a .checklist.json, a CI test suite, or tracked in swarm memory per build?

@@ -1,0 +1,1 @@
+Registry of SpecialOps unit activations and command changes.

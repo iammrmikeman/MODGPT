@@ -1,0 +1,7 @@
+# worker_roles.yaml
+- worker_0:
+    model: gpt-4.1
+    role: launcher
+- worker_1:
+    model: gpt-3.5
+    role: lifecycle

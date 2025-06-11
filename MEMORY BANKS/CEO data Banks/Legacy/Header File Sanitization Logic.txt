@@ -1,0 +1,158 @@
+**You:**
+
+Define GPT logic to identify and strip debug-only or deprecated header files during build sanitation.
+
+* * *
+
+**ChatGPT:**
+
+To identify and strip debug-only or deprecated header files during build sanitation, MODGPT should follow a precise, multi-pass logic system that evaluates both file-level signals and code-level heuristics. Below is the production-grade GPT logic proposal to implement this capability reliably in the mod pipeline:
+
+🔍 MODGPT HEADER STRIPPER LOGIC (v1.0)
+🔹 PASS 1: Filename & Directory Pattern Matching
+
+Quick early elimination of common debug/deprecated headers.
+
+Flag for strip if:
+
+Located in debug-only paths:
+
+src/debug/
+
+include/debug/
+
+devtools/
+
+sandbox/
+
+File name includes any of:
+
+*_debug.h
+
+*_test.h
+
+deprecated_*.h
+
+legacy_*.h
+
+mock_*.h
+
+*_internal_only.h
+
+*_devonly.h
+
+🔹 PASS 2: In-Header Annotation Scan
+
+Scan file contents for markers or comments indicating deprecation or dev-use.
+
+Flag for strip if found at top of file (first 50 lines):
+
+#ifdef DEBUG
+
+#ifndef NDEBUG
+
+#pragma message("DEPRECATED")
+
+#warning "Deprecated"
+
+// DEPRECATED, // DEBUG ONLY, // INTERNAL USE, // REMOVE BEFORE RELEASE
+
+Confidence Boosters (Not strip-worthy alone, but raise suspicion):
+
+Includes headers like assert.h, iostream in engine-level code
+
+Uses printf() or OutputDebugString() in header
+
+🔹 PASS 3: Macro/Guard Analysis
+
+Identify headers gated behind development-only macros.
+
+Strip if guarded entirely by:
+
+#ifdef DEV_MODE
+
+#ifdef DEBUG_BUILD
+
+#if defined(_DEBUG)
+
+#if MODGPT_SANITIZE
+
+Also check if the entire file is wrapped in such a macro – this is an almost certain sign it’s meant to be excluded in release builds.
+
+🔹 PASS 4: Cross-Usage Verification
+
+Track where each header is used and whether it leaks into .cpp or .asi final output.
+
+Strip if:
+
+Not included in any non-test .cpp file
+
+Only referenced in test, simulation, or logging files
+
+Not required by build.ninja, .vcxproj, or Makefile includes
+
+Optional: Trigger GPT auto-fix routine to remove corresponding #include from dependent .cpp files safely.
+
+🔹 PASS 5: Known Header Signature Matching
+
+Maintain a trusted blacklist or softlist of headers from previous audit results.
+
+Examples:
+
+json
+[
+  "deprecated_anim_v1.h",
+  "legacy_pathfinder.h",
+  "debug_ai_tracking.h",
+  "profiling_gpu_metrics.h"
+]
+
+
+This list should grow over time and adjust based on project-specific patterns.
+
+✅ FINAL ACTION (Sanitizer Output)
+
+For every stripped header, GPT should:
+
+Remove the header from build inclusion path
+
+Remove all #include "..." references
+
+Log a strip_reason (e.g., "Wrapped in DEBUG macro" or "Located in /debug/ and unused in release code")
+
+Add to .build_sanitizer_log.json for traceability
+
+🔁 Optional Auto-Fix (Safe Mode)
+
+If requested by the CEO, GPT may:
+
+Attempt to rewrite affected .cpp files
+
+Replace #include <debug_ai_tracking.h> with minimal safe stubs
+
+Stub internal calls if needed with inline replacements like:
+
+cpp
+#define DEBUG_AI_LOG(x) do {} while(0)
+
+🔐 Override Protection
+
+If a header is marked with:
+
+cpp
+// @KEEP_IN_RELEASE
+
+
+GPT must not strip it, even if all other conditions are met. This is for rare but deliberate debug-stays-in builds.
+
+🧠 Integration with MODGPT Memory
+
+Each header’s strip decision should feed into long-term heuristics:
+
+Frequency of strip
+
+False positive ratio (if unstripped later)
+
+Developer override patterns
+
+Would you like this logic codified into a reusable modgpt_sanitize_headers() function with all regexes, patterns, and a manifest-driven override system?

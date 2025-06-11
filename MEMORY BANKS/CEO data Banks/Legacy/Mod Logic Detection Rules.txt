@@ -1,0 +1,159 @@
+**You:**
+
+You're0in0charge0of0detecting0incomplete0logic0in0zips.0Propose0rules0that0can0flag0placeholder0comments,0TODOs,0or0boilerplate.
+
+* * *
+
+**ChatGPT:**
+
+Here is a high-confidence ruleset that can be deployed to detect incomplete logic, TODOs, placeholders, and boilerplate in mod .zip source files — especially in the context of GTA V mods (like HeadShotV) using C++ and ScriptHookV SDKs.
+
+🔎 MODGPT INCOMPLETE LOGIC DETECTION RULES v1.0
+
+These rules apply to source code, headers, build scripts, and config/manifest files inside .zip mod packages. Designed to halt or downgrade trust in mod builds if suspicious patterns are detected.
+
+🛑 HIGH-SEVERITY: Immediate Fail (Red Flag)
+
+These patterns strongly indicate incomplete or non-functional logic and will automatically block the build.
+
+1. TODO / FIXME / STUB
+
+Regex:
+
+regex
+\b(TODO|FIXME|STUB|PLACEHOLDER|WIP)\b
+
+
+Comments like // TODO: add logic or /* FIXME: not working */ are disallowed.
+
+Applies to .cpp, .h, .ini, .txt, .md, and .xml.
+
+2. Empty Function Bodies
+
+Detects unimplemented code:
+
+cpp
+void MyFunction() { }
+void MyFunction() {
+    // TODO
+}
+
+
+Flags:
+
+Empty function blocks (no logic, just open-close braces).
+
+Function containing only return;, // TODO, or whitespace.
+
+3. Empty Switch/Case or If-Else
+
+Pattern:
+
+cpp
+switch (x) {
+    case 1:
+        break;
+}
+
+
+Or:
+
+cpp
+if (someCheck) {
+    // no-op
+}
+
+
+→ Considered suspicious if more than two in a row.
+
+4. Boilerplate Licensing or Templates Unused
+
+If a file only contains:
+
+MIT/GPL license header
+
+Default Unreal/Unity/VS file scaffold
+
+Class declaration with no fields/methods
+
+→ Treat as boilerplate without logic unless referenced by other files.
+
+⚠️ MEDIUM-SEVERITY: Suspicious (Yellow Flag)
+
+These don’t automatically fail the build, but trigger review or warnings.
+
+5. Default Return Values
+
+Patterns like:
+
+cpp
+return 0;
+return nullptr;
+return true;
+
+
+→ Used without prior logic (e.g., in bool CheckIfHeadshot() { return true; })
+
+6. Unreferenced Functions
+
+Function is declared and defined, but:
+
+Never called in any .cpp file
+
+Never registered with ScriptHookV or any engine hooks
+
+→ May be a logic stub or orphaned concept.
+
+7. Excessive Comments vs. Code
+
+If comments are:
+
+50% of file content
+
+Describing logic that doesn’t actually exist yet
+
+→ Possibly planning but not yet implemented.
+
+⚙️ LOW-SEVERITY: Contextual Checks
+
+These may indicate incomplete work if combined with other flags:
+
+8. Suspicious File Names
+
+Filenames like:
+
+test.cpp, new.cpp, temp.h, feature_x_old.cpp
+
+→ Indicates temp or experimental logic.
+
+9. Untouched Defaults
+
+Files untouched from SDK templates:
+
+ScriptHookV SDK’s main.cpp unmodified
+
+INI with [Settings] section but no values
+
+✅ Auto-Pass Conditions
+
+Avoid false positives by ensuring:
+
+Functions are referenced by entry points (like Main() or OnTick())
+
+All manifest fields (author, version, dependencies) are filled
+
+Any “debug” or “test” references are wrapped in #ifdef DEBUG or excluded from release
+
+🧠 Recommended Use in MODGPT
+
+Each scanned .zip triggers the following:
+
+Regex + AST scan across all code and manifest files
+
+Red Flag = immediate fail and explain why
+
+Yellow Flag = downgrade trust score
+
+All findings logged in audit trail for traceability
+
+Would you like these turned into a live checker module for integration into the verify? or build stages of MODGPT? I can generate the rule engine as a Python, C#, or C++ script — or embed it as a GPT-internal logic filter.

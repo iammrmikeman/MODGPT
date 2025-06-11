@@ -1,0 +1,112 @@
+**You:**
+
+Propose how to attach the gore model to a ped using bone lookup alone and ScriptHookV native attach functions.
+
+* * *
+
+**ChatGPT:**
+
+To attach a gore model (e.g., an exploding head or splatter mesh) to a pedestrian (ped) using only bone lookup and ScriptHookV native functions, you can follow this proposal for a clean and efficient approach that avoids external dependencies like .meta or ymt.
+
+🔧 Objective
+
+Dynamically attach a custom gore .ydr model to a pedestrian’s head bone using ScriptHookV, relying only on:
+
+Bone index lookups
+
+Native attach functions
+
+Clean spawn/load logic
+
+✅ REQUIRED ASSETS
+
+Custom Gore Model:
+
+Must be loaded as a prop using STREAMING::REQUEST_MODEL.
+
+Should be set up as a static object (prop), not a ped or vehicle.
+
+ScriptHookV SDK:
+
+Includes natives.h with necessary functions like ATTACH_ENTITY_TO_ENTITY.
+
+🔩 STEP-BY-STEP PLAN
+1. Load and Spawn the Gore Model
+cpp
+Hash goreModelHash = GAMEPLAY::GET_HASH_KEY("prop_gore_headburst");
+
+STREAMING::REQUEST_MODEL(goreModelHash);
+while (!STREAMING::HAS_MODEL_LOADED(goreModelHash)) {
+    WAIT(0);
+}
+
+Vector3 pedCoords = ENTITY::GET_ENTITY_COORDS(targetPed, true);
+Object goreObj = OBJECT::CREATE_OBJECT(goreModelHash, pedCoords.x, pedCoords.y, pedCoords.z, true, true, false);
+
+2. Find the Head Bone
+cpp
+int headBoneIndex = PED::GET_PED_BONE_INDEX(targetPed, 31086); // 31086 = SKEL_Head
+
+
+✅ Other useful bone IDs:
+
+12844: SKEL_Neck_1
+
+18905: SKEL_R_Hand
+
+14201: SKEL_L_Thigh
+
+Full list: [OpenIV bone index maps or extracted from peds.ymt]
+
+3. Attach Gore Model to Bone
+cpp
+ENTITY::ATTACH_ENTITY_TO_ENTITY(
+    goreObj,                // Object to attach
+    targetPed,              // Ped to attach to
+    headBoneIndex,          // Bone index
+    0.0f, 0.0f, 0.0f,       // Position offset (relative to bone)
+    0.0f, 0.0f, 0.0f,       // Rotation offset
+    false, false, false,    // Collision, vertex-based attachment, soft pinning
+    false, 2, true          // Use bone, rotation order, fixed rotation
+);
+
+
+🔍 Optional: You can tweak the offsets (especially Z) if the gore model’s origin is not aligned with the ped’s skull geometry.
+
+🧠 STRATEGIC CONSIDERATIONS
+
+LOD & Cleanup:
+
+Set ENTITY::SET_ENTITY_LOD_DIST(goreObj, 1000); to keep visible at range.
+
+Use ENTITY::SET_ENTITY_AS_MISSION_ENTITY if persistence is needed.
+
+Fade / Explode / Animate:
+
+Use a timer or frame count to detach and delete after X seconds.
+
+Optionally apply physics or particle FX at attach moment.
+
+🧪 TEST VALIDATION LOGIC
+cpp
+if (ENTITY::DOES_ENTITY_EXIST(goreObj) && ENTITY::IS_ENTITY_ATTACHED_TO_ENTITY(goreObj, targetPed)) {
+    UI::DRAW_SUBTITLE("Gore attached successfully.");
+}
+
+📦 FUTURE EXPANSION
+
+Add randomized gore props (prop_gore1, prop_gore2) for variety.
+
+Load bone data dynamically using GET_ENTITY_BONE_ROTATION to pre-align gore model to ped pose.
+
+Attach multiple gore props to different bones (e.g., shoulder, neck).
+
+✅ Summary
+Component	Function(s) Used
+Load model	REQUEST_MODEL, HAS_MODEL_LOADED
+Spawn model	CREATE_OBJECT
+Find bone index	GET_PED_BONE_INDEX
+Attach to bone	ATTACH_ENTITY_TO_ENTITY
+Cleanup (optional)	DELETE_ENTITY, SET_ENTITY_AS_MISSION_ENTITY
+
+Would you like the system to auto-align the model to the ped's actual head rotation? That requires combining GET_ENTITY_BONE_ROTATION with a conversion to quaternion or Euler rotation offsets. I can also mock up that logic if you want the gore to always "face forward" correctly.
