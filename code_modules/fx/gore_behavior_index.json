@@ -1,3 +1,27 @@
-// File: gore_behavior_index.json
-// Purpose: Index of all active gore logic types and modules with enforcement mapping.
-// Status: @REAL@ enforced structure. Logic injection planned for STEP 3.
+{
+  "limb_sever": {
+    "file": "limb_sever__2025-06-12_v1.cpp",
+    "type": "fx",
+    "tags": ["gore_fx", "dismemberment_core"]
+  },
+  "decal_to_bone": {
+    "file": "decal_to_bone__2025-06-12_v1.cpp",
+    "type": "fx",
+    "tags": ["gore_fx", "decal_attach"]
+  },
+  "ragdoll_trigger": {
+    "file": "ragdoll_trigger__2025-06-12_v1.cpp",
+    "type": "fx",
+    "tags": ["gore_fx", "physics_control"]
+  },
+  "npc_react_headshot": {
+    "file": "npc_react_headshot__2025-06-12_v1.cpp",
+    "type": "ai",
+    "tags": ["ai_reactions", "npc_headshot"]
+  },
+  "swarm_assignments": {
+    "file": "swarm_assignments__2025-06-12_v1.cpp",
+    "type": "ai",
+    "tags": ["ai_swarm", "task_distributor"]
+  }
+}

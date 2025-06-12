@@ -1,0 +1,78 @@
+[
+  {
+    "file": "MODGPT/code_modules/fx/limb_sever__2025-06-12_v1.cpp",
+    "purpose": "Triggers mesh slicing and limb detachment",
+    "type": "cpp",
+    "tags": [
+      "fx",
+      "dismemberment"
+    ],
+    "sha256": "7e9d8be1dd439f9478571f8e03595d84eab8e8b15880efeffb3c0030341afe22",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  },
+  {
+    "file": "MODGPT/code_modules/fx/decal_to_bone__2025-06-12_v1.cpp",
+    "purpose": "Attaches gore decals to specific bones for blood trail realism",
+    "type": "cpp",
+    "tags": [
+      "fx",
+      "blood_decal"
+    ],
+    "sha256": "3fcc520c1e347760c03b26ae5de51d79f8633f05403d811a69d7b9511b144db7",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  },
+  {
+    "file": "MODGPT/code_modules/fx/ragdoll_trigger__2025-06-12_v1.cpp",
+    "purpose": "Switches entity to ragdoll state with velocity and bone impact logic",
+    "type": "cpp",
+    "tags": [
+      "fx"
+    ],
+    "sha256": "43d5f7090b11fd0c7d1ec3e40cc04572f9a7c44941344e70a4979762fa2370a4",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  },
+  {
+    "file": "MODGPT/code_modules/fx/gore_behavior_index.json",
+    "purpose": "Index of all active gore logic types and modules with enforcement mapping",
+    "type": "json",
+    "tags": [
+      "fx"
+    ],
+    "sha256": "09b4265e835044333ff3bf52d46186c820e919cbc4ffb22fd4638f92fe7c96ff",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  },
+  {
+    "file": "MODGPT/code_modules/ai/npc_react_headshot__2025-06-12_v1.cpp",
+    "purpose": "Defines NPC AI reactions to fatal headshots, including fallback scream/death triggers",
+    "type": "cpp",
+    "tags": [
+      "ai",
+      "headshot_reaction"
+    ],
+    "sha256": "71a4e7fdb21b90f480e91aa95ac717639681856f6daa436436efd4c71a79a4aa",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  },
+  {
+    "file": "MODGPT/code_modules/ai/swarm_assignments__2025-06-12_v1.cpp",
+    "purpose": "Manages dynamic task routing across GPT Swarm units",
+    "type": "cpp",
+    "tags": [
+      "ai",
+      "task_distribution"
+    ],
+    "sha256": "1cc9cb243fed952621304f34604f631bd2f497b19dc30910eed91092ddcfcbe2",
+    "injected_by": "GPT-4.0 Boss",
+    "trusted": true,
+    "last_updated": "2025-06-12T01:18:05Z"
+  }
+]
