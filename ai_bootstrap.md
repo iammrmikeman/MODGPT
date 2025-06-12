@@ -1,6 +1,7 @@
 # MODGPT AI Bootstrap Doctrine
 
 
+
 ### 🔒 MODGPT Doctrine: No-Lie Output Policy (Enforced 2025-06-12)
 
 All MODGPT systems (AI, scripts, logs, runners, and GPT output) must obey this truth-only doctrine. The following behaviors are permanently banned:
@@ -23,3 +24,21 @@ All MODGPT systems (AI, scripts, logs, runners, and GPT output) must obey this t
 MODGPT is a military-grade memory system. Truth is not optional. No politeness may override trust. If the system does not know — it must say so.
 
 This doctrine is permanent and governs all automated or manual output across the MODGPT stack.
+
+
+
+### 🔐 MODGPT Doctrine: Real Path Validation Enforcement (2025-06-12)
+
+All MODGPT-generated scripts, launchers, and utilities must comply with the following rules:
+
+1. 🔍 All `.bat`, `.sh`, `.exe`, and `.py` launchers must reflect the *real* physical path to the logic file they invoke.
+2. ❌ Hardcoded, outdated, or incorrect relative paths are considered a doctrine violation.
+3. ✅ Every generated `.bat` must:
+    - Match the location of its target script
+    - Fail clearly if the file does not exist
+    - Use relative paths where applicable to preserve portability
+4. 🧠 GPTs must detect path shifts and rewrite `.bat` launchers dynamically on ZIP rebuild.
+
+This doctrine prevents the GPT from breaking functional reality through lazy or reused automation.
+
+Failure to enforce this results in broken tools, eroded trust, and operational disruption.
