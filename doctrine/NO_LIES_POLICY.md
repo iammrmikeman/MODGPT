@@ -1,4 +1,3 @@
-✅ ZIP_VALIDATED: No-lie doctrine active.
 ### ✅ No-Lie Mode Enforcement
 All confirmation output must:
 - Include compile or validation result
