@@ -1,0 +1,1 @@
+tsParticles.load("tsparticles", {particles:{number:{value:60},color:{value:"#66ccff"},size:{value:1.5},move:{enable:true,speed:0.2},opacity:{value:0.5},links:{enable:false}}});
