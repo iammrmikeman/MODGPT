@@ -1,0 +1,40 @@
+{
+  "xmb": {
+    "tabDistance": 200,
+    "tabSlideTime": 250,
+    "tabBounceScale": [
+      1.0,
+      1.1,
+      1.0
+    ],
+    "bounceDuration": 300,
+    "hoverLuminance": [
+      0.1,
+      0.4
+    ],
+    "hoverDuration": 150,
+    "submenuExpand": {
+      "height": 300,
+      "time": 300,
+      "stagger": 50
+    },
+    "wavePanSpeed": {
+      "base": 15,
+      "active": 22.5
+    },
+    "waveOpacityOffset": 0.1,
+    "tileFocus": {
+      "scale": [
+        1.0,
+        1.05
+      ],
+      "time": 150
+    },
+    "selectionSlideTime": 250,
+    "selectionDim": 0.3,
+    "backCollapseTime": 250,
+    "popupSlideTime": 300,
+    "popupHeight": 150,
+    "popupDim": 0.2
+  }
+}

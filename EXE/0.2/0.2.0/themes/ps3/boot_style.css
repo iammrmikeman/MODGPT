@@ -1,0 +1,50 @@
+
+body {
+  margin: 0;
+  background-color: #000;
+  color: white;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+#xmb-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+#legal-text {
+  position: absolute;
+  bottom: 10px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+#disc-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin-bottom: 40px;
+}
+#disc-particles {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  z-index: 1;
+}
+#modgpt-disc {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+}
+#xmb-icons {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+  z-index: 3;
+}
+.xmb-icon {
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
