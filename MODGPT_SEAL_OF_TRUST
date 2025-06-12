@@ -1,0 +1,3 @@
+// File: MODGPT_SEAL_OF_TRUST
+// Purpose: Embedded SEAL marker to verify authenticity of memory update ZIP.
+// Status: @REAL@ enforced structure. Logic injection planned for STEP 3.
