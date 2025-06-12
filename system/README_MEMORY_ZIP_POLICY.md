@@ -1,1 +1,1 @@
-MODGPT AI File Mapper v2.1: Includes doctrine detection, anomaly log, and swarm trust compatibility.
+This version includes FORCELOG classification enforcement. Script will print every file, validate memory size, and abort on silent failure.

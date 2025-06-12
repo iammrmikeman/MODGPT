@@ -1,3 +1,4 @@
 @echo off
-python tools\ai_file_mapper_v2_1.py
+cd /d %~dp0
+python tools\ai_file_mapper_v2_3_FORCEDLOG.py
 pause

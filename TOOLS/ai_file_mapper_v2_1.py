@@ -69,7 +69,7 @@ def scan_directory(base_dir="."):
             except:
                 continue
 
-            rel_path = os.path.relpath(path, base_dir).replace("\\", "/").replace("\", "/")
+            rel_path = os.path.relpath(path, base_dir).replace(os.sep, "/")
             ext = os.path.splitext(file)[-1].lstrip(".").lower()
             sha = generate_sha256(content)
             tags = tag_file(rel_path, content)
@@ -104,13 +104,11 @@ def scan_directory(base_dir="."):
 
     # Write anomaly log
     with open(OUTPUT_ANOMALIES, "w", encoding="utf-8") as f:
-        f.write("🛑 Duplicate SHA256 Entries:
-")
+        f.write("🛑 Duplicate SHA256 Entries:\n")
         for sha, paths in sha_map.items():
             if len(paths) > 1:
                 f.write(f"[{sha[:10]}...] -> {paths}\n")
-        f.write("\n⚠️ Suspicious Filenames:
-")
+        f.write("\n⚠️ Suspicious Filenames:\n")
         for name in suspicious_names:
             f.write(f"- {name}\n")
 
