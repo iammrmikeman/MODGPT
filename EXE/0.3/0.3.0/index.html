@@ -1,35 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MODGPT Dashboard R11 + Wave</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MODGPT EXE R17</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
 </head>
 <body>
-  <canvas id="wave-bg"></canvas>
-  <div id="sidebar" class="adaptive">
+  <div id="ambient-light"></div>
+  <div id="tsparticles"></div>
+
+  <div id="sidebar">
     <div class="logo-block">
       <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Logo" class="logo-img" />
       <div class="api-hint">CLICK FOR API KEY</div>
     </div>
-    <div class="nav" id="nav-buttons">
-      <button class="nav-btn"><img src="folder.svg" class="folder-icon"/>EMAILS</button>
-      <button class="nav-btn"><img src="folder.svg" class="folder-icon green"/>MEDIA</button>
-      <button class="nav-btn"><img src="folder.svg" class="folder-icon yellow"/>Projects</button>
-      <button class="nav-btn"><img src="folder.svg" class="folder-icon red"/>Memory</button>
+
+    <div class="nav">
+      <button class="nav-btn purple">
+        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 7h5l2 3h11v9H3z"/>
+        </svg>
+        EMAILS
+      </button>
+      <button class="nav-btn green">
+        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 7h5l2 3h11v9H3z"/>
+        </svg>
+        MEDIA
+      </button>
+      <button class="nav-btn yellow">
+        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 7h5l2 3h11v9H3z"/>
+        </svg>
+        Projects
+      </button>
+      <button class="nav-btn red">
+        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 7h5l2 3h11v9H3z"/>
+        </svg>
+        Memory
+      </button>
     </div>
+
     <div class="quick">
       <p>TRUSTED? AUTO FIX YES / NO / BUILD</p>
       <p>CEO MIND FOG / AI HELP</p>
       <p>TERMS</p>
     </div>
-    <div class="license">
+
+    <div class="legal">
       <p>SIGNED MIKE SHEEHAN CEO</p>
       <p>MODGPT Custom License v2.0 (Closed-use, AI-enabled)</p>
       <p>&copy; 2025 Mike Sheehan. All rights reserved.</p>
     </div>
   </div>
-  <div id="main">Main UI Panel</div>
+
+  <div id="main">
+    Main UI Panel
+  </div>
+
   <script src="script.js"></script>
 </body>
 </html>

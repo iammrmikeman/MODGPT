@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   await tsParticles.load("tsparticles", {
     particles: {
-      number: { value: 20 },
-      size: { value: 2 },
-      move: { enable: true, speed: 0.3 },
-      opacity: { value: 0.1 },
+      number: { value: 18 },
+      size: { value: 1.5 },
+      move: { enable: true, speed: 0.25 },
+      opacity: { value: 0.08 },
       color: { value: "#ffffff" }
     },
     background: { color: "#000000" },
