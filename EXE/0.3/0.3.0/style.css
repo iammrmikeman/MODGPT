@@ -153,3 +153,45 @@ body {
 .footer-link:hover {
   color: #fff;
 }
+
+
+/* R18.3 injected styles */
+.sidebar {
+  background-color: #111 !important;
+  color: white;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-category {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.folder {
+  margin-left: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.folder.collapsed > .subfolders {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.folder.expanded > .subfolders {
+  max-height: 500px;
+  opacity: 1;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.subfolders {
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+}
