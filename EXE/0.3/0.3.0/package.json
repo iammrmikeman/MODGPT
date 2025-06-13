@@ -4,6 +4,7 @@
   "description": "MODGPT EXE UI R17 Final Patch",
   "main": "main.js",
   "scripts": {
+    "dev": "vite",
     "start": "electron ."
   },
   "devDependencies": {

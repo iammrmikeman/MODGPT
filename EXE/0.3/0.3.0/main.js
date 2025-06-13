@@ -1,14 +1,18 @@
+
 const { app, BrowserWindow } = require('electron');
-app.commandLine.appendSwitch("disable-gpu-shader-disk-cache");
+const path = require('path');
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 1280,
-    height: 768,
+    height: 720,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false
+      preload: path.join(__dirname, 'preload.js')
     }
   });
-  win.loadFile('index.html');
+
+  // Dev mode: point Electron at Vite dev server
+  win.loadURL('http://localhost:5173');
 }
+
 app.whenReady().then(createWindow);
