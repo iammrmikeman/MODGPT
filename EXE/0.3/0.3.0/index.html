@@ -1,66 +1,44 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MODGPT EXE R17</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MODGPT EXE R17.3</title>
+<link href="style.css" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
 </head>
 <body>
-  <div id="ambient-light"></div>
-  <div id="tsparticles"></div>
+<div id="tsparticles"></div>
+<div id="sidebar">
+<div class="logo-block">
+<img alt="MODGPT Logo" class="logo-img" src="logo_only_trimmed.png"/>
+<div class="api-hint">CLICK FOR API KEY</div>
+<div class="sidebar-divider"></div>
+</div>
+<div class="nav">
+<button class="nav-btn purple"><span class="icon"></span>EMAILS</button>
+<button class="nav-btn green"><span class="icon"></span>MEDIA</button>
+<button class="nav-btn yellow"><span class="icon"></span>Projects</button>
+<button class="nav-btn red"><span class="icon"></span>Memory</button>
+</div>
+<div class="quick-commands">
+</div>
+<!-- LEGAL STRIP REPLACED -->
+</div>
 
-  <div id="sidebar">
-    <div class="logo-block">
-      <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Logo" class="logo-img" />
-      <div class="api-hint">CLICK FOR API KEY</div>
-    </div>
+<div id="main">Main UI Panel</div>
+<script src="script.js"></script>
+<div class="legal-column">
+</div>
 
-    <div class="nav">
-      <button class="nav-btn purple">
-        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 7h5l2 3h11v9H3z"/>
-        </svg>
-        EMAILS
-      </button>
-      <button class="nav-btn green">
-        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 7h5l2 3h11v9H3z"/>
-        </svg>
-        MEDIA
-      </button>
-      <button class="nav-btn yellow">
-        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 7h5l2 3h11v9H3z"/>
-        </svg>
-        Projects
-      </button>
-      <button class="nav-btn red">
-        <svg class="folder-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-          <path d="M3 7h5l2 3h11v9H3z"/>
-        </svg>
-        Memory
-      </button>
-    </div>
 
-    <div class="quick">
-      <p>TRUSTED? AUTO FIX YES / NO / BUILD</p>
-      <p>CEO MIND FOG / AI HELP</p>
-      <p>TERMS</p>
-    </div>
-
-    <div class="legal">
-      <p>SIGNED MIKE SHEEHAN CEO</p>
-      <p>MODGPT Custom License v2.0 (Closed-use, AI-enabled)</p>
-      <p>&copy; 2025 Mike Sheehan. All rights reserved.</p>
-    </div>
-  </div>
-
-  <div id="main">
-    Main UI Panel
-  </div>
-
-  <script src="script.js"></script>
-</body>
+<script>
+document.querySelectorAll('.folder-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const content = btn.nextElementSibling;
+    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+  });
+});
+</script></body>
 </html>

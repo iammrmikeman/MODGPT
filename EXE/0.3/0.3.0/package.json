@@ -1,11 +1,12 @@
 {
-  "name": "modgpt-sidebar-r11-wave",
-  "version": "0.5.2",
+  "name": "modgpt-exe-0.3.17",
+  "version": "0.3.17",
+  "description": "MODGPT EXE UI R17 Final Patch",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^28.1.0"
+    "electron": "^28.2.2"
   }
 }

@@ -1,14 +1,14 @@
 const { app, BrowserWindow } = require('electron');
-const path = require('path');
-
-app.whenReady().then(() => {
+app.commandLine.appendSwitch("disable-gpu-shader-disk-cache");
+function createWindow() {
   const win = new BrowserWindow({
-    fullscreen: true,
-    frame: false,
+    width: 1280,
+    height: 768,
     webPreferences: {
+      nodeIntegration: true,
       contextIsolation: false
     }
   });
-
   win.loadFile('index.html');
-});
+}
+app.whenReady().then(createWindow);

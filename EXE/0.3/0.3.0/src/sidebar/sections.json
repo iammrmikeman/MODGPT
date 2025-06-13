@@ -1,0 +1,28 @@
+{
+  "core": [
+    {"label": "EMAILS", "color": "purple"},
+    {"label": "MEDIA", "color": "green"},
+    {"label": "Projects", "color": "yellow"},
+    {"label": "Memory", "color": "red"}
+  ],
+  "company": {
+    "label": "COMPANY", "color": "blue", "children": [
+      "Nexus Mods", "Public Branding", "Revenue", "Contracts"
+    ]
+  },
+  "special_ops": {
+    "label": "SPECIAL OPS", "color": "orange", "children": [
+      "Task Force 141", "Pentagon", "SUPPORT", "INTEL"
+    ]
+  },
+  "systems": {
+    "label": "SYSTEMS", "color": "white", "children": [
+      "Export Engine", "Memory Sync", "Trusted Update", "Diagnostic"
+    ]
+  },
+  "documentation": {
+    "label": "DOCUMENTATION", "color": "brown", "children": [
+      "License Terms", "API Usage", "Developer Notes", "Dev Roadmap"
+    ]
+  }
+}
