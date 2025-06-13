@@ -1,12 +1,11 @@
 {
-  "name": "modgpt-dashboard-r7",
-  "version": "0.3.2r7-logic",
-  "description": "MODGPT AI Dashboard with Live Chat + Feed",
+  "name": "modgpt-sidebar-r11-wave",
+  "version": "0.5.2",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "dependencies": {
+  "devDependencies": {
     "electron": "^28.1.0"
   }
 }

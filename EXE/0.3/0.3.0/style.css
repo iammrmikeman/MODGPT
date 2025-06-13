@@ -1,94 +1,99 @@
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
+html, body {
+  margin: 0;
+  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: #0a0a0a;
-  color: white;
-}
-#app { display: flex; height: 100vh; }
-#sidebar {
-  width: 260px;
-  background: #111;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-#sidebar img { width: 96px; margin-bottom: 20px; }
-#sidebar .nav {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 8px;
-  background: #222;
-  text-align: center;
-  border-radius: 6px;
-  cursor: pointer;
-}
-#dashboard {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-#dashboard header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#dashboard h1 { font-size: 24px; }
-#status { font-size: 14px; color: #8f8; }
-section {
-  margin-top: 20px;
-  background: #181818;
-  padding: 16px;
-  border-radius: 6px;
-}
-.email, .gpt {
-  background: #222;
-  padding: 10px;
-  margin-top: 6px;
-  border-radius: 4px;
-}
-#chatlog {
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 360px;
   height: 100vh;
-  background: #161616;
-  border-left: 1px solid #333;
+  overflow: hidden;
+  background: #000;
+}
+body {
+  display: flex;
+  flex-direction: row;
+}
+#wave-bg, #tsparticles {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+}
+#sidebar {
   display: flex;
   flex-direction: column;
-}
-#chatlog .header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: #202020;
-  border-bottom: 1px solid #333;
-}
-#chat-content {
-  flex: 1;
+  width: clamp(220px, 270px, 340px);
+  height: 100vh;
+  background-color: rgba(20, 20, 20, 0.94);
+  backdrop-filter: blur(14px);
+  border-right: 1px solid #333;
+  padding: 1.25rem 1rem 0;
   overflow-y: auto;
-  padding: 10px;
-  font-size: 13px;
+  scrollbar-width: none;
+  position: relative;
 }
-.chat-input {
-  display: flex;
-  padding: 8px;
-  border-top: 1px solid #333;
+#sidebar::-webkit-scrollbar { display: none; }
+
+.logo-img {
+  width: 100px;
+  display: block;
+  margin: 0 auto 0.25rem;
 }
-.chat-input input {
-  flex: 1;
-  padding: 6px;
-  background: #222;
-  border: 1px solid #444;
-  color: white;
+.api-hint {
+  text-align: center;
+  font-size: 0.7rem;
+  color: gray;
 }
-.chat-input button {
-  margin-left: 6px;
-  background: #333;
-  color: white;
+.nav {
+  margin-top: 1.5rem;
+}
+.nav-btn {
+  background: none;
   border: none;
-  padding: 6px 12px;
+  color: white;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 0 6px rgba(255, 50, 50, 0.25);
+}
+.folder-icon {
+  width: 18px;
+  height: 18px;
+}
+.quick {
+  font-size: 0.8rem;
+  margin: 2rem 0 1rem;
+  color: #ccc;
+}
+#main {
+  flex-grow: 1;
+  padding: 2rem;
+  color: white;
+  overflow: hidden;
+  background-color: #000;
+}
+
+/* LEGAL Footer Fix */
+.legal {
+  background: #1a1a1a;
+  padding: 1rem;
+  color: #bbb;
+  font-size: 0.65rem;
+  margin-top: auto;
+  border-top: 1px solid #333;
+  animation: flyIn 0.6s ease-out;
+}
+.legal p {
+  margin: 0.25rem 0;
+  line-height: 1.25;
+}
+@keyframes flyIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }

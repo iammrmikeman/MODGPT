@@ -1,51 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>MODGPT Dashboard + Logic</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>MODGPT Dashboard R11 + Wave</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
-    <aside id="sidebar">
-      <img src="modgpt_logo.png" id="modgpt-logo" />
-      <nav>
-        <div class="nav">📧 EMAIL</div>
-        <div class="nav">🖼 MEDIA</div>
-        <div class="nav">📁 PROJECTS</div>
-        <div class="nav">🧠 MEMORY</div>
-      </nav>
-    </aside>
-
-    <main id="dashboard">
-      <header>
-        <h1>MODGPT Control Center</h1>
-        <span id="status">GPT Swarm: 🟢 Connected</span>
-      </header>
-
-      <section id="email-feed">
-        <h2>📬 Inbox</h2>
-        <div id="email-list"></div>
-      </section>
-
-      <section id="swarm-status">
-        <h2>🧠 Swarm Intelligence</h2>
-        <div id="swarm-list"></div>
-      </section>
-    </main>
-
-    <section id="chatlog">
-      <div class="header">
-        <h3>📝 Live Chat Log</h3>
-        <button onclick="toggleChat()">⏷</button>
-      </div>
-      <div id="chat-content"></div>
-      <div class="chat-input">
-        <input type="text" id="userInput" placeholder="Type message..." />
-        <button onclick="sendMessage()">Send</button>
-      </div>
-    </section>
+  <canvas id="wave-bg"></canvas>
+  <div id="sidebar" class="adaptive">
+    <div class="logo-block">
+      <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Logo" class="logo-img" />
+      <div class="api-hint">CLICK FOR API KEY</div>
+    </div>
+    <div class="nav" id="nav-buttons">
+      <button class="nav-btn"><img src="folder.svg" class="folder-icon"/>EMAILS</button>
+      <button class="nav-btn"><img src="folder.svg" class="folder-icon green"/>MEDIA</button>
+      <button class="nav-btn"><img src="folder.svg" class="folder-icon yellow"/>Projects</button>
+      <button class="nav-btn"><img src="folder.svg" class="folder-icon red"/>Memory</button>
+    </div>
+    <div class="quick">
+      <p>TRUSTED? AUTO FIX YES / NO / BUILD</p>
+      <p>CEO MIND FOG / AI HELP</p>
+      <p>TERMS</p>
+    </div>
+    <div class="license">
+      <p>SIGNED MIKE SHEEHAN CEO</p>
+      <p>MODGPT Custom License v2.0 (Closed-use, AI-enabled)</p>
+      <p>&copy; 2025 Mike Sheehan. All rights reserved.</p>
+    </div>
   </div>
+  <div id="main">Main UI Panel</div>
   <script src="script.js"></script>
 </body>
 </html>
