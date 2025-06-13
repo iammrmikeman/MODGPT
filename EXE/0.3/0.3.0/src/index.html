@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MODGPT XMB Boot</title>
+  <link rel="stylesheet" href="/themes/ps3/boot_style.css" />
+</head>
+<body>
+  <div id="boot-screen">
+    <div id="wave-bg"></div>
+    <div id="logo">MODGPT</div>
+    <div id="xmb-menu">
+      <div class="xmb-icon" onclick="scrollToCategory('settings')">Settings</div>
+      <div class="xmb-icon" onclick="scrollToCategory('users')">Users</div>
+      <div class="xmb-icon" onclick="scrollToCategory('game')">Game</div>
+      <div class="xmb-icon" onclick="scrollToCategory('video')">Video</div>
+      <div class="xmb-icon" onclick="scrollToCategory('music')">Music</div>
+    </div>
+    <div id="legal-text">© 2025 MODGPT. All Rights Reserved.</div>
+  </div>
+  <script src="boot.js"></script>
+  <script src="/themes/ps3/wave_engine.js"></script>
+  <script src="/themes/ps3/input_controls.js"></script>
+</body>
+</html>

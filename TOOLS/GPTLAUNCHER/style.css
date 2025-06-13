@@ -1,0 +1,27 @@
+body {
+  background: #0b0b0b;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+.ui-container {
+  display: flex;
+  gap: 2rem;
+}
+.ps4-icon {
+  background: #111;
+  padding: 2rem;
+  border-radius: 1rem;
+  font-size: 2rem;
+  cursor: pointer;
+  border: 2px solid #333;
+  transition: all 0.2s ease;
+}
+.ps4-icon:hover {
+  background: #222;
+  transform: scale(1.05);
+}

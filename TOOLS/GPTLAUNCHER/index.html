@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>MODGPT Launcher</title></head>
+<body style="text-align:center;margin-top:100px;background:#000;color:#fff;">
+  <h1>🚀 MODGPT Launcher</h1>
+  <button id="modgpt">⚙️ Launch MODGPT</button>
+  <button id="chatgpt">🧠 Launch ChatGPT</button>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("modgpt").addEventListener("click", () => {
+        window.electronAPI.launchApp("modgpt");
+      });
+      document.getElementById("chatgpt").addEventListener("click", () => {
+        window.electronAPI.launchApp("chatgpt");
+      });
+    });
+  </script>
+</body>
+</html>

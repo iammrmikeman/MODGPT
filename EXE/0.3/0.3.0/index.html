@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>MODGPT Dashboard + Logic</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <img src="modgpt_logo.png" id="modgpt-logo" />
+      <nav>
+        <div class="nav">📧 EMAIL</div>
+        <div class="nav">🖼 MEDIA</div>
+        <div class="nav">📁 PROJECTS</div>
+        <div class="nav">🧠 MEMORY</div>
+      </nav>
+    </aside>
+
+    <main id="dashboard">
+      <header>
+        <h1>MODGPT Control Center</h1>
+        <span id="status">GPT Swarm: 🟢 Connected</span>
+      </header>
+
+      <section id="email-feed">
+        <h2>📬 Inbox</h2>
+        <div id="email-list"></div>
+      </section>
+
+      <section id="swarm-status">
+        <h2>🧠 Swarm Intelligence</h2>
+        <div id="swarm-list"></div>
+      </section>
+    </main>
+
+    <section id="chatlog">
+      <div class="header">
+        <h3>📝 Live Chat Log</h3>
+        <button onclick="toggleChat()">⏷</button>
+      </div>
+      <div id="chat-content"></div>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Type message..." />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </section>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
