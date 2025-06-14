@@ -1,45 +1,27 @@
 <!DOCTYPE html>
-
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>MODGPT EXE R17.3</title>
-<link href="style.css" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
-</head>
-<body>
-<div id="tsparticles"></div>
-<div id="sidebar">
-<div class="logo-block">
-<img alt="MODGPT Logo" class="logo-img" src="logo_only_trimmed.png"/>
-<div class="api-hint">CLICK FOR API KEY</div>
-<div class="sidebar-divider"></div>
-</div>
-<div class="nav">
-<button class="nav-btn purple"><span class="icon"></span>EMAILS</button>
-<button class="nav-btn green"><span class="icon"></span>MEDIA</button>
-<button class="nav-btn yellow"><span class="icon"></span>Projects</button>
-<button class="nav-btn red"><span class="icon"></span>Memory</button>
-</div>
-<div class="quick-commands">
-</div>
-<!-- LEGAL STRIP REPLACED -->
-</div>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/icon_128_MODGPT_PERFECT.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MODGPT</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  <script>
+window.addEventListener("DOMContentLoaded", () => {
+  const folders = document.querySelectorAll(".sidebar-folder");
+  const dots = document.querySelectorAll(".dot");
 
-<div id="main">Main UI Panel</div>
-<script src="script.js"></script>
-<div class="legal-column">
-</div>
-
-
-<script>
-document.querySelectorAll('.folder-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const content = btn.nextElementSibling;
-    content.style.display = content.style.display === 'none' ? 'block' : 'none';
+  // Adjust each dot's vertical position to match corresponding folder
+  folders.forEach((folder, i) => {
+    const offset = folder.offsetTop;
+    if (dots[i]) {
+      dots[i].style.position = "absolute";
+      dots[i].style.top = `${offset + 16}px`; // slight offset for alignment
+    }
   });
 });
-</script>  <div id="root"></div>
-</body>
+</script></body>
 </html>

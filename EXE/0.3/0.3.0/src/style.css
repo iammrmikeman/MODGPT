@@ -1,0 +1,37 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: black;
+  color: white;
+}
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 100vh;
+  background: #111;
+  padding: 10px;
+}
+.logo img {
+  width: 128px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.main-content {
+  margin-left: 220px;
+  padding: 20px;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal {
+  background: #222;
+  padding: 20px;
+  border-radius: 8px;
+}

@@ -1,13 +1,18 @@
 {
-  "name": "modgpt-exe-0.3.17",
-  "version": "0.3.17",
-  "description": "MODGPT EXE UI R17 Final Patch",
+  "name": "modgpt-exe",
+  "version": "0.3.22",
   "main": "main.js",
   "scripts": {
     "dev": "vite",
     "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^28.2.2"
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^5.0.0",
+    "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
   }
 }

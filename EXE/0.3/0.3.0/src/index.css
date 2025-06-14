@@ -1,1 +1,139 @@
-body { margin: 0; font-family: sans-serif; background: black; color: white; }
+
+/* FINAL RED VERTICAL DOT SCROLLBAR */
+
+body {
+  margin: 0;
+  font-family: 'Orbitron', sans-serif;
+  background-color: black;
+  color: white;
+  overflow: hidden;
+}
+
+.modgpt-container {
+  display: flex;
+  height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 14px;
+  gap: 14px;
+  overflow-y: auto;
+  max-height: 100vh;
+  position: relative;
+}
+
+.logo-section {
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.logo-label {
+  font-size: 0.6rem;
+  color: #ccc;
+  margin-top: 2px;
+}
+
+.modgpt-logo {
+  width: 60px;
+  margin-bottom: 4px;
+}
+
+.folder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: floatWobble 6s ease-in-out infinite;
+  transition: transform 0.25s ease;
+}
+
+.folder:hover {
+  transform: translateY(-3px) scale(1.04);
+}
+
+.folder-icon {
+  width: 38px;
+  margin-bottom: 3px;
+  filter: drop-shadow(0 0 5px var(--glow));
+  animation: idleGlow 4s ease-in-out infinite;
+}
+
+.folder-label {
+  color: #aaa;
+  font-size: 0.7rem;
+  letter-spacing: 0.3px;
+  text-align: center;
+  max-width: 95%;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+}
+
+.folder:hover .folder-label {
+  color: #fff;
+  text-shadow: 0 0 4px #ccc;
+  transform: scale(1.03);
+}
+
+.main-panel {
+  flex: 1;
+  padding: 40px;
+}
+
+/* VERTICAL RED DOT SCROLLBAR */
+.dot-track {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 2;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #222;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background-color: #f22;
+  box-shadow: 0 0 5px #f22;
+}
+
+@keyframes idleGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px var(--glow)); }
+  50%      { filter: drop-shadow(0 0 9px var(--glow)); }
+}
+
+@keyframes floatWobble {
+  0%, 100% { transform: translateY(0); }
+  25%      { transform: translateY(-1.2px); }
+  50%      { transform: translateY(0.8px); }
+  75%      { transform: translateY(-0.5px); }
+}
+
+.scroll-wrapper {
+  overflow: hidden !important;
+}
+
+.sidebar {
+  height: 100vh;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  display: none;
+}

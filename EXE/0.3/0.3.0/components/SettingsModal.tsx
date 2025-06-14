@@ -61,7 +61,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     zIndex: 1000
   },
   modal: {
-    backgroundColor: '#111', padding: '20px',
+    backgroundColor: '#111', border: '2px solid lime', zIndex: 9999, padding: '20px',
     borderRadius: '10px', width: '400px',
     color: 'white', boxShadow: '0 0 10px #0ff'
   },
