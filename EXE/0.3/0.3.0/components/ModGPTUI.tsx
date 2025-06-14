@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import "../src/index.css";
+import SettingsModal from './SettingsModal';
 
 const folders = [
   "Emails", "Media", "Projects", "Memory",
@@ -26,6 +27,8 @@ const folderColors = {
 export default function ModGPTUI() {
   const sidebarRef = useRef(null);
   const [activeDot, setActiveDot] = useState(0);
+  const [showSettings, setShowSettings] = useState(false);
+
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -43,7 +46,10 @@ export default function ModGPTUI() {
     <div className="modgpt-container">
       <div className="scroll-wrapper">
         <div className="sidebar" ref={sidebarRef}>
-          <div className="logo-section">
+          <div className="logo-section" onClick={() => setShowSettings(true)} style={{ cursor: "pointer" }}>
+            <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Logo" className="modgpt-logo" />
+            <div className="logo-label">CLICK FOR API KEY</div>
+          </div>
             <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Logo" className="modgpt-logo" />
             <div className="logo-label">CLICK FOR API KEY</div>
           </div>
@@ -66,7 +72,8 @@ export default function ModGPTUI() {
       </div>
       <div className="main-panel">
         <h1>🎮 MODGPT PS3 UI – V4 FINAL</h1>
-      </div>
+      
+      {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
     </div>
   );
 }
