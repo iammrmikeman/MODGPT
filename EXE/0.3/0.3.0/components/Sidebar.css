@@ -1,0 +1,11 @@
+
+.folder {
+  width: 28px;
+  height: 28px;
+  margin: 6px 0;
+  transition: transform 0.2s ease-in-out;
+}
+.folder:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}

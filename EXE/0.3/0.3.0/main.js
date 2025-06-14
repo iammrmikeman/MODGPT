@@ -1,6 +1,21 @@
 const { app, BrowserWindow } = require('electron');
-function createWindow () {
-  const win = new BrowserWindow({ width: 1400, height: 900, webPreferences: { nodeIntegration: true, contextIsolation: false }});
-  win.loadURL('http://localhost:5173');
+const path = require('path');
+
+function createWindow() {
+  const win = new BrowserWindow({
+    width: 1000,
+    height: 700,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      sandbox: false
+    }
+  });
+
+  win.loadFile('index.html');
+  win.webContents.openDevTools();
 }
-app.whenReady().then(() => createWindow());
+
+app.whenReady().then(() => {
+  createWindow();
+});

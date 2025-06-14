@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/icon_128_MODGPT_PERFECT.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MODGPT</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  <script>
-window.addEventListener("DOMContentLoaded", () => {
-  const folders = document.querySelectorAll(".sidebar-folder");
-  const dots = document.querySelectorAll(".dot");
-
-  // Adjust each dot's vertical position to match corresponding folder
-  folders.forEach((folder, i) => {
-    const offset = folder.offsetTop;
-    if (dots[i]) {
-      dots[i].style.position = "absolute";
-      dots[i].style.top = `${offset + 16}px`; // slight offset for alignment
+<head>
+  <meta charset="UTF-8" />
+  <title>MODGPT HTML UI</title>
+  <style>
+    body {
+      background: black;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
     }
-  });
-});
-</script></body>
+    #MODGPTICON {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 9999;
+    }
+    #settingsModal {
+      display: none;
+      position: fixed;
+      top: 100px;
+      left: 100px;
+      background: #111;
+      color: white;
+      padding: 20px;
+      border: 2px solid red;
+      z-index: 10000;
+    }
+  </style>
+</head>
+<body>
+  <div id="MODGPTICON">
+    <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Icon" width="64" />
+  </div>
+
+  <div id="settingsModal">
+    <h2>⚙️ MODGPT Settings</h2>
+    <p>This is a fully working pure HTML modal.</p>
+    <button onclick="document.getElementById('settingsModal').style.display = 'none'">Close</button>
+  </div>
+</body>
 </html>
