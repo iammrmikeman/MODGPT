@@ -39,7 +39,9 @@ export default function ModGPTUI() {
       setActiveDot(Math.min(position, folders.length - 1));
     };
     sidebar.addEventListener("scroll", handler);
-    return () => sidebar.removeEventListener("scroll", handler);
+    return (
+  <>
+  ) => sidebar.removeEventListener("scroll", handler);
   }, []);
 
   return (
@@ -75,5 +77,6 @@ export default function ModGPTUI() {
       
       {showSettings && <SettingsModal onClose={() => setShowSettings(false)} />}
     </div>
-  );
+  </>
+);
 }
