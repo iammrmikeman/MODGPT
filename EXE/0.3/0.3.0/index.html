@@ -1,44 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>MODGPT HTML UI</title>
-  <style>
-    body {
-      background: black;
-      color: white;
-      font-family: sans-serif;
-      margin: 0;
-    }
-    #MODGPTICON {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      cursor: pointer;
-      z-index: 9999;
-    }
-    #settingsModal {
-      display: none;
-      position: fixed;
-      top: 100px;
-      left: 100px;
-      background: #111;
-      color: white;
-      padding: 20px;
-      border: 2px solid red;
-      z-index: 10000;
-    }
-  </style>
+  <title>MODGPT EXE</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="MODGPTICON">
-    <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Icon" width="64" />
+    <img src="icon_128_MODGPT_PERFECT.png" alt="MODGPT Icon">
   </div>
-
+  <div id="xmb-bar">
+    <div class="xmb-entry"><img src="emails_folder.png" class="xmb-icon"><div class="xmb-label">EMAILS</div></div>
+    <div class="xmb-entry"><img src="media_folder.png" class="xmb-icon"><div class="xmb-label">MEDIA</div></div>
+    <div class="xmb-entry"><img src="projects_folder.png" class="xmb-icon"><div class="xmb-label">PROJECTS</div></div>
+    <div class="xmb-entry"><img src="memory_folder.png" class="xmb-icon"><div class="xmb-label">MEMORY</div></div>
+    <div class="xmb-entry"><img src="swarm_folder.png" class="xmb-icon"><div class="xmb-label">SWARM</div></div>
+    <div class="xmb-entry"><img src="trusted_builds_folder.png" class="xmb-icon"><div class="xmb-label">TRUSTED BUILDS</div></div>
+    <div class="xmb-entry"><img src="mods_folder.png" class="xmb-icon"><div class="xmb-label">MODS</div></div>
+    <div class="xmb-entry"><img src="dev_tools_folder.png" class="xmb-icon"><div class="xmb-label">DEV TOOLS</div></div>
+  </div>
   <div id="settingsModal">
-    <h2>⚙️ MODGPT Settings</h2>
-    <p>This is a fully working pure HTML modal.</p>
-    <button onclick="document.getElementById('settingsModal').style.display = 'none'">Close</button>
+    <h2>Settings</h2>
+    <label>API Key:</label>
+    <input type="text" id="apikeyInput" />
+    <button onclick="saveKey()">Save</button>
   </div>
+  <script src="renderer.js"></script>
 </body>
 </html>
