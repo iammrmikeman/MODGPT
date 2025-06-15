@@ -6,6 +6,10 @@
   <script src="folderMap.js"></script>
 </head>
 <body>
+<script>
+alert("Electron running index.html from: " + window.location.pathname);
+</script>
+
   <div id="topbar">
     <img src="logo_header_modgpt.png" class="logo" id="modgpt-icon" onclick="openSettings()" />
     <div class="credit">© Mike Sheehan / iammrmikeman</div>
@@ -15,5 +19,6 @@
   <div id="submenu"></div>
 
   <script src="script.js"></script>
+<div id="panel"></div>
 </body>
 </html>
