@@ -1,0 +1,1 @@
+This is the placeholder for THEMES/Next-Gen Theme.

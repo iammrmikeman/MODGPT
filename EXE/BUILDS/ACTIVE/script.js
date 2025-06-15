@@ -1,24 +1,39 @@
 
-function toggleSettings() {
-  const modal = document.getElementById('settings-modal');
-  modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+const dashboard = document.getElementById('dashboard');
+const submenu = document.getElementById('submenu');
+
+// Folder label to icon file map
+const iconMap = {
+  'EMAILS': 'emails_folder.png',
+  'COMPANY': 'projects_folder.png',
+  'SPEC OPS': 'docs_folder.png',
+  'MEMORY LOGS': 'memory_folder.png',
+  'TRUSTED BUILDS': 'trusted_builds_folder.png',
+  'THEMES': 'xmb_themes_folder.png',
+  'MODGPT': 'icon_128_MODGPT_PERFECT.png'
+};
+
+function renderTopLevelFolders() {
+  dashboard.innerHTML = '';
+  Object.keys(window.folderMap).forEach(folder => {
+    const div = document.createElement('div');
+    const icon = iconMap[folder] || 'folder.png';
+    div.className = 'icon';
+    div.innerHTML = `<img src="${icon}"><div class="label">${folder}</div>`;
+    div.onclick = () => renderSubmenu(folder);
+    dashboard.appendChild(div);
+  });
 }
 
-function saveKey() {
-  const key = document.getElementById('api-key').value;
-  const repo = document.getElementById('repo-path').value;
-  const exportPath = document.getElementById('export-path').value;
-  const model = document.getElementById('model').value;
-
-  localStorage.setItem('gpt_key', key);
-  localStorage.setItem('modgpt_repo', repo);
-  localStorage.setItem('export_path', exportPath);
-  localStorage.setItem('gpt_model', model);
-
-  alert("Saved.");
+function renderSubmenu(folder) {
+  submenu.innerHTML = '';
+  window.folderMap[folder].forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'subitem';
+    div.innerText = item;
+    div.onclick = () => alert(`Open: ${folder} → ${item}`);
+    submenu.appendChild(div);
+  });
 }
 
-function openSwarm() {
-  const panel = document.getElementById('chat-panel');
-  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-}
+window.onload = renderTopLevelFolders;

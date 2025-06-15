@@ -1,0 +1,1 @@
+This is the placeholder for MEMORY LOGS/Short-Term Memory Log.

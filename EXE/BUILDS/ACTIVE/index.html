@@ -2,45 +2,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MODGPT EXE</title>
+  <meta charset="UTF-8">
+  <title>MODGPT</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="topbar">
-    <div class="left">
-      <img src="icon_128_MODGPT_PERFECT.png" id="modgpt-icon" onclick="toggleSettings()">
-      <span class="title">MODGPT™</span>
-    </div>
-    <div class="right">
-      <span class="attribution">© Mike Sheehan / iammrmikeman</span>
-    </div>
-  </div>
 
-  <div id="settings-modal">
-    <h2>Settings</h2>
-    <label>API Key</label><input type="text" id="api-key">
-    <label>Repo Path</label><input type="text" id="repo-path">
-    <label>Export Folder</label><input type="text" id="export-path">
-    <label>Model</label>
-    <select id="model">
-      <option value="gpt-4">gpt-4</option>
-      <option value="gpt-4o">gpt-4o</option>
-    </select>
-    <button onclick="saveKey()">Save</button>
+<!-- OSX Header -->
+<div id="custom-header">
+  <div>MODGPT</div>
+  <div class="buttons">
+    <div class="dot red"></div>
+    <div class="dot yellow"></div>
+    <div class="dot green"></div>
   </div>
+</div>
 
-  <div id="dashboard">
-    <div class="icon"><img src="memory_folder.png"><div class="label">MEMORY</div></div>
-    <div class="icon" onclick="openSwarm()"><img src="swarm_folder.png"><div class="label">SWARM</div></div>
-    <div class="icon"><img src="trusted_builds_folder.png"><div class="label">TRUSTED BUILDS</div></div>
-    <div class="icon"><img src="mods_folder.png"><div class="label">MODS</div></div>
-    <div class="icon"><img src="dev_tools_folder.png"><div class="label">DEV TOOLS</div></div>
-  </div>
+<!-- Top Bar -->
+<div id="topbar">
+  <img src="logo_header_modgpt_clean.png" id="modgpt-icon">
+  <div class="credit">© Mike Sheehan / iammrmikeman</div>
+</div>
 
-  <div id="chat-panel">
-    <iframe src="chat/boss/chat.html"></iframe>
-  </div>
+<!-- Folder Bar -->
+<div id="dashboard">
+  <div class="icon" data-id="EMAILS"><img src="emails_folder.png"><div class="label">EMAILS</div></div>
+  <div class="icon" data-id="COMPANY"><img src="storage_folder.png"><div class="label">COMPANY</div></div>
+  <div class="icon" data-id="SPEC OPS"><img src="swarm_folder.png"><div class="label">SPEC OPS</div></div>
+  <div class="icon" data-id="MEMORY LOGS"><img src="memory_folder.png"><div class="label">MEMORY LOGS</div></div>
+  <div class="icon" data-id="TRUSTED BUILDS"><img src="trusted_builds_folder.png"><div class="label">TRUSTED BUILDS</div></div>
+  <div class="icon" data-id="THEMES"><img src="xmb_themes_folder.png"><div class="label">THEMES</div></div>
+  <div class="icon" data-id="MODGPT"><img src="icon_128_MODGPT_PERFECT.png"><div class="label">MODGPT</div></div>
+</div>
 
-  <script src="script.js"></script>
+<!-- Submenu -->
+<div id="submenu"></div>
+
+<script src="renderer.js"></script>
 </body>
 </html>
