@@ -1,3 +1,68 @@
-<div style='background:#222;color:#fff;padding:40px 20px;font-size:2.5em;text-align:center;'>
-        THIS IS THE NEW PANEL: MARKETING
-    </div>
+
+<style>
+  .card {
+    background: #1b1b1b;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 8px #000;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111;
+    margin-top: 10px;
+  }
+  th, td {
+    border: 1px solid #444;
+    padding: 8px;
+    text-align: left;
+    color: #ccc;
+  }
+  th {
+    background: #222;
+  }
+  input, textarea {
+    background: #111;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 4px;
+    width: 100%;
+  }
+  button {
+    background: #222;
+    color: #eee;
+    border: 1px solid #444;
+    padding: 6px 12px;
+    margin-top: 6px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #333;
+  }
+  .chat-box {
+    height: 180px;
+    overflow-y: auto;
+    border: 1px solid #333;
+    padding: 8px;
+    background: #101010;
+    margin-bottom: 8px;
+  }
+  .chat-msg {
+    margin-bottom: 6px;
+  }
+  .chat-msg.you { color: #6cf; }
+  .chat-msg.bot { color: #c6f; }
+</style>
+
+<div class="card">
+  <h1>📣 Marketing & PR – 🧠 Team Leader GPT Interface</h1>
+  <p><b>Command to 📣 Marketing & PR:</b></p>
+  <textarea rows="4" style="width:100%;" placeholder="e.g. Analyze this script for SHV compatibility..."></textarea>
+  <button onclick="alert('Team Leader GPT is processing...')">Send to GPT</button>
+  <p><b>GPT Response:</b></p>
+  <pre style="background:#111;padding:10px;">[📣 Marketing & PR-GPT] Awaiting command...</pre>
+</div>

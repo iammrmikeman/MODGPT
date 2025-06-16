@@ -1,1 +1,0 @@
-This is the placeholder for THEMES/Retro PS2 Theme.

@@ -62,3 +62,11 @@ body {
   opacity: 1;
   text-shadow: 0 0 6px #0ff;
 }
+
+.gpt-header {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.3em;
+  font-weight: 500;
+  color: #00ffff;
+  padding: 4px 0;
+}

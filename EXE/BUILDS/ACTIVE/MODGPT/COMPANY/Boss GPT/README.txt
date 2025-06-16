@@ -1,1 +1,0 @@
-This is the placeholder for COMPANY/Boss GPT.

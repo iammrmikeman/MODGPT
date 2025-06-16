@@ -1,1 +1,0 @@
-This is the placeholder for MODGPT.EXE/Auto-Update.

@@ -1,1 +1,0 @@
-This is the placeholder for MEMORY LOGS/Long-Term Archives.

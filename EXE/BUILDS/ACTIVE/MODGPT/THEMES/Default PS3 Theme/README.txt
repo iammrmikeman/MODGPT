@@ -1,1 +1,0 @@
-This is the placeholder for THEMES/Default PS3 Theme.
