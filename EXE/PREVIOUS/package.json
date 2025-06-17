@@ -1,0 +1,11 @@
+{
+  "name": "modgpt-exe",
+  "version": "0.3.22",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^27.0.0"
+  }
+}
