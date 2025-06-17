@@ -1,16 +1,4 @@
 
-function collapseAllSubfolders() {
-  const allSubs = document.querySelectorAll('.subfolders');
-  allSubs.forEach(el => el.style.display = 'none');
-}
-
-function document.getElementById(folderId) {
-  collapseAllSubfolders();
-  const el = document.getElementById(folderId);
-  if (el) el.style.display = 'block';
-}
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {

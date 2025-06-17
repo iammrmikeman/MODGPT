@@ -1,0 +1,12 @@
+
+// This is a patch snippet — you would add this CSS class somewhere in your global style.css:
+
+/* style.css */
+.ps3-font {
+  font-family: 'PlayStation', 'Orbitron', 'Eurostile', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-shadow: 0px 0px 4px rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
