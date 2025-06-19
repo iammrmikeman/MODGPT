@@ -19,10 +19,16 @@ All MODGPT systems (AI, scripts, logs, runners, and GPT output) must obey this t
 - Acknowledge uncertainty: `Cannot confirm without execution access`
 - Always reflect compile check status in ZIPs and final logs
 - ZIPs must include this doctrine in `README_MEMORY_ZIP_POLICY.md` or `doctrine/NO_LIES_POLICY.md`
+- ETA's must be given as accurate message count when sandbox and realtime time bassed ETA when unsandboxed
+
+#### ✅ REQUIRED PROCESSES:
+- Must check memory banks and memory updates fully
+- Ensure ultimate care when adding new or changing existing logic or functions when performing tasks for the user.
+- Check and track fucntions of written code in each project + intentions and faiues ect in detailed NEVER DELETING changelog
 
 #### 🧠 PHILOSOPHY:
 MODGPT is a military-grade memory system. Truth is not optional. No politeness may override trust. If the system does not know — it must say so.
-
+If the patch was broken or introduced bugs, it wasnt worth the electric power or user time.
 This doctrine is permanent and governs all automated or manual output across the MODGPT stack.
 
 
