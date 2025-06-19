@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const iconMap = {
     "EMAILS": "emails_folder.png",
@@ -118,3 +115,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateFocus();
 });
+
+window.openSettings = () => renderView("settingsView");
+  'emails_compose': () => import('./views/emails_composeView.js'),

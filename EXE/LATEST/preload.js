@@ -1,13 +1,7 @@
+// preload.js
+const { contextBridge, ipcRenderer } = require('electron');
 
-const fs = require("fs");
-const path = require("path");
-
-contextBridge.exposeInMainWorld("gpt", {
-  ask: (prompt) => ipcRenderer.invoke("ask-gpt", prompt),
-  saveKey: (key) => {
-    const keyPath = path.join(__dirname, "gpt_key.txt");
-    fs.writeFileSync(keyPath, key);
-  }
+contextBridge.exposeInMainWorld('electronAPI', {
+  send: (channel, data) => ipcRenderer.send(channel, data),
+  receive: (channel, func) => ipcRenderer.on(channel, (event, ...args) => func(...args)),
 });
-
-// No-op for now; used to expose APIs later

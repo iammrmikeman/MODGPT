@@ -1,26 +1,26 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>MODGPT.EXE</title>
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+  <title>MODGPT EXE</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="folderMap.js"></script>
 </head>
 <body>
-  <canvas id="particles-bg"></canvas>
-  <div id="wave-layer"></div>
-  <div id="header">
-    <img src="logo_header_modgpt.png" id="titleBarIcon" />
-    <span id="legalText">© 2025 MODGPT Inc. All rights reserved.</span>
-    <span id="tokenCounter">Tokens: 0</span>
+  
+<div class="dot yellow"></div>
+    <div class="dot green"></div>
   </div>
-  <div id="mainView">
-    <!-- Will be replaced by layout wrapper -->
-  </div>
+</div>
 
-  <!-- Scripts now load at end -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.1.0/tsparticles.bundle.min.js"></script>
-  <script type="module" src="particles.js"></script>
-  <script type="module" src="views/layoutView.js"></script>
+  <div id="topbar">
+    <img src="logo_header_modgpt.png" class="logo" id="modgpt-icon" onclick="openSettings()" />
+    <div class="credit">© Mike Sheehan / iammrmikeman</div>
+  </div>
+  <div id="panel"></div>
+  <script type="module" src="layoutLoader.js"></script>
+
+
+
 </body>
 </html>

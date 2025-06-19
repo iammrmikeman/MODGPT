@@ -1,0 +1,12 @@
+
+MODGPT Electron Main Process/Renderer Patch
+-------------------------------------------
+- main.js: Clean Electron startup—ONLY launches index.html, no DOM, no inbox logic, no 'window' calls.
+- inbox-float.js: All floating inbox/mail icon logic stays here (renderer/UI only), loaded from index.html as type="module".
+How to use:
+1. Replace your root main.js with this one (Node/Electron main process only!)
+2. Make sure index.html includes: <script type="module" src="inbox-float.js"></script>
+3. All inbox logic stays in inbox-float.js (renderer/UI side only)
+4. No more 'window is not defined' error. App will launch and floating inbox will work.
+
+If you use a preload file (preload.js), leave as is or comment/remove if not needed.
