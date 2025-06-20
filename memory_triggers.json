@@ -1,0 +1,21 @@
+{
+  "openai": "MEMORY_BANKS/OpenAi_Data/",
+  "chat history": "MEMORY_BANKS/OpenAi_Data/",
+  "chatgpt logs": "MEMORY_BANKS/OpenAi_Data/",
+  "rockstar": "MEMORY_BANKS/Swarm_Assimilation/",
+  "swarm": "MEMORY_BANKS/Swarm_Assimilation/",
+  "assimilation logs": "MEMORY_BANKS/Swarm_Assimilation/",
+  "doctrine": "MEMORY_BANKS/Doctrinal_Updates/",
+  "rules": "MEMORY_BANKS/Doctrinal_Updates/",
+  "laws": "MEMORY_BANKS/Doctrinal_Updates/",
+  "governance": "MEMORY_BANKS/Doctrinal_Updates/",
+  "patch": "MEMORY_BANKS/Patch_History/",
+  "fix": "MEMORY_BANKS/Patch_History/",
+  "changelog": "MEMORY_BANKS/Patch_History/",
+  "commands": "MEMORY_BANKS/User_Commands/",
+  "preferences": "MEMORY_BANKS/User_Commands/",
+  "user input": "MEMORY_BANKS/User_Commands/",
+  "mods": "MEMORY_BANKS/GPT_Mods_Logs/",
+  "mod logs": "MEMORY_BANKS/GPT_Mods_Logs/",
+  "gpt modding": "MEMORY_BANKS/GPT_Mods_Logs/"
+}

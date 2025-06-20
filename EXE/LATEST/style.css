@@ -167,7 +167,7 @@ html, body {
   position: absolute;
   bottom: 24px;
   right: 32px;
-  background: #ffffff;
+  background: transparent !important;
   color: #000;
   font-weight: 600;
   padding: 6px 14px;
@@ -247,7 +247,7 @@ html, body {
 /* Final visual sync to concept */
 
 .modinbox-reply-btn {
-  background: white;
+  background: transparent !important;
   color: #111;
   font-weight: 600;
   font-size: 13px;
@@ -296,4 +296,37 @@ html, body {
   font-size: 15px;
   color: #ccc;
   line-height: 1.7;
+}
+
+/* --- XMB Lock-In Patch --- */
+#xmb-shell {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 40px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  gap: 18px;
+}
+.layoutView {
+  padding-top: 110px; /* to avoid being hidden behind fixed XMB */
+  box-sizing: border-box;
+}
+/* --- View Transparency Patch --- */
+.layoutView {
+  background: transparent;
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  padding-top: 110px;
+}
+/* --- XMB Unblock Patch --- */
+body, html, .layoutView, .panel {
+  overflow: visible !important;
+  background: transparent !important;
+  position: relative !important;
+  z-index: 1 !important;
 }

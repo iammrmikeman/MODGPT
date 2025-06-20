@@ -1,24 +1,32 @@
 
-import emails_inbox from './views/emails_inboxView.js';
+// renderEngine.js – Dynamic view loader with full fallback support
 
-const VIEWS = {
-  emails_inbox
-};
+export function renderView(viewName) {
+  const panel = document.getElementById("mainView") || document.getElementById("panel");
+  if (!panel) return console.error("No panel container found");
 
-export function renderView(viewName, props = {}) {
-  const container = document.getElementById('mainView');
-  if (!container) return;
-  container.innerHTML = '';
-  const renderFn = VIEWS[viewName];
-  if (renderFn) {
-    try {
-      const view = renderFn(props);
-      container.appendChild(view);
-    } catch (err) {
-    console.error('View render error:', err);
-      container.innerHTML = `<div class='error'>Error rendering view '${viewName}'.</div>`;
-    }
-  } else {
-    container.innerHTML = `<div class='error'>View '${viewName}' not found.</div>`;
-  }
+  const modulePath = `./views/${viewName}View.js`;
+
+  import(modulePath)
+    .then(module => {
+      if (typeof module.default === 'function') {
+        panel.innerHTML = "";
+        panel.appendChild(module.default());
+      } else if (typeof module.render === 'function') {
+        panel.innerHTML = "";
+        panel.appendChild(module.render());
+      } else {
+        panel.innerHTML = `<p>✅ Loaded: ${viewName}, but no render function exported.</p>`;
+      }
+    })
+    .catch(err => {
+      console.warn(`[MODGPT] View '${viewName}' not found or failed to load:`, err);
+      panel.innerHTML = `
+        <div style="padding:20px;">
+          <h2>⚠️ View Not Found</h2>
+          <p>No JS view found for: <code>${viewName}</code></p>
+          <p>This is a fallback screen.</p>
+        </div>
+      `;
+    });
 }
