@@ -1,28 +1,29 @@
 
-// Electron main process ONLY—NO DOM/NO WINDOW!
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 
-function createWindow() {
-  const win = new BrowserWindow({
+function createWindow () {
+  const mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
     webPreferences: {
-      nodeIntegration: false,
-      contextIsolation: true, // Modern and safe!
-      preload: path.join(__dirname, 'preload.js') // If you use a preload file
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: true,       // Enables require('fs')
+      contextIsolation: false      // Allows global access to exposed APIs
     }
   });
 
-  win.loadFile('index.html');
+  mainWindow.loadFile('index.html');
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  createWindow();
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') app.quit();
+  app.on('activate', function () {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
+  });
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) createWindow();
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') app.quit();
 });

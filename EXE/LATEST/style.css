@@ -1,8 +1,7 @@
-
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: 100vh;
   overflow: hidden;
   background: #0d111a;
   color: #fff;
@@ -14,90 +13,109 @@ html, body {
   box-sizing: inherit;
 }
 
+/* Floating Layout Structure */
 .modinbox-grid {
-  display: grid;
-  grid-template-columns: 220px 320px 1fr;
+  display: flex;
   gap: 24px;
-  height: 100%;
   padding: 24px;
+  height: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: stretch;
 }
 
-.modinbox-contacts {
+/* Shared Card Styles */
+.modinbox-contacts-wrapper-card,
+.modinbox-inbox-col,
+.modinbox-detail {
+  background: rgba(30, 33, 46, 0.8) !important;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  transition: all 0.3s ease;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Contact Card Specific */
+.modinbox-contacts-wrapper-card {
+  flex: 0 0 280px;
 }
 
 .modinbox-contacts-title {
-  font-weight: bold;
-  color: #aaa;
-  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ccc;
+  margin-bottom: 12px;
 }
 
-.modinbox-contact {
+.modinbox-contact-pill {
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  margin-bottom: 8px;
   font-size: 14px;
 }
 
-.avatar {
-  width: 16px;
-  height: 16px;
+.pill-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
 }
+.pill-dot.red { background: #e74c3c; }
+.pill-dot.blue { background: #3498db; }
+.pill-dot.purple { background: #9b59b6; }
+.pill-dot.cyan { background: #1abc9c; }
+.pill-dot.gold { background: #f1c40f; }
 
+/* Inbox Column */
 .modinbox-inbox-col {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  height: 100%;
+  flex: 0 0 380px;
 }
 
 .modinbox-inbox-header {
   font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 10px;
-}
-
-.modinbox-unread {
-  font-size: 13px;
-  color: #aaa;
-  margin-top: 4px;
+  font-size: 20px;
+  color: white;
+  margin-bottom: 16px;
 }
 
 .modinbox-scroll {
-  flex-grow: 1;
+  flex: 1;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
+  padding-right: 8px;
+  max-height: calc(100vh - 180px);
 }
 
 .modinbox-email {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 12px 16px;
-  transition: 0.2s ease;
-  border: 1px solid rgba(255,255,255,0.05);
+  background: rgba(40, 44, 58, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 10px 0;
+  transition: all 0.2s ease;
+}
+.modinbox-email:hover {
+  background: rgba(50, 54, 70, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 .modinbox-email.active {
   background: rgba(0, 102, 255, 0.2);
-  border: 1px solid rgba(0,102,255,0.5);
-}
-
-.modinbox-section-label {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 2px;
+  border: 1px solid rgba(0, 102, 255, 0.5);
 }
 
 .modinbox-email-subject {
   font-weight: bold;
   font-size: 15px;
+  margin-bottom: 4px;
 }
 
 .modinbox-email-preview {
@@ -105,181 +123,11 @@ html, body {
   color: #ccc;
 }
 
+/* Detail Panel */
 .modinbox-detail {
-  background: rgba(255,255,255,0.03);
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
-  color: #fff;
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-
-
-.scrollbox-container {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  flex: 1;
   position: relative;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.02);
-}
-
-.scrollbox-content {
-  position: absolute;
-  width: 100%;
-  top: 0;
-  left: 0;
-  will-change: transform;
-}
-
-.scrollbox-card {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.05);
-  margin: 8px;
-  border-radius: 10px;
-  padding: 16px;
-}
-
-
-
-.modinbox-inbox-col {
-  box-shadow: 0 0 12px rgba(0, 204, 255, 0.1);
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 16px;
-  padding: 12px;
-}
-
-.modinbox-detail {
-  padding: 32px;
-  font-size: 15px;
-  line-height: 1.6;
-  border-radius: 20px;
-  box-shadow: 0 0 14px rgba(255,255,255,0.03);
-  backdrop-filter: blur(16px);
-  background: rgba(255, 255, 255, 0.02);
-  position: relative;
-}
-
-.modinbox-reply-btn {
-  position: absolute;
-  bottom: 24px;
-  right: 32px;
-  background: transparent !important;
-  color: #000;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: background 0.2s;
-}
-.modinbox-reply-btn:hover {
-  background: #f0f0f0;
-}
-
-.modinbox-email {
-  margin: 12px 10px;
-  border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-
-
-
-/* Final visual polish patch */
-
-.modinbox-inbox-col {
-  box-shadow: 0 0 32px rgba(0, 204, 255, 0.05), 0 0 8px rgba(0,204,255,0.05) inset;
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 16px;
-  padding: 12px;
-}
-
-.modinbox-detail {
-  padding: 32px;
-  font-size: 15px;
-  line-height: 1.6;
-  border-radius: 20px;
-  box-shadow: 0 0 14px rgba(255,255,255,0.03);
   backdrop-filter: blur(24px);
-  background: rgba(255, 255, 255, 0.02);
-  position: relative;
-}
-
-.modinbox-reply-btn {
-  position: absolute;
-  bottom: 24px;
-  right: 32px;
-  background: rgba(255,255,255,0.07);
-  color: white;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.1);
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  transition: background 0.2s;
-}
-.modinbox-reply-btn:hover {
-  background: rgba(255,255,255,0.15);
-}
-
-.modinbox-email {
-  margin: 12px 10px;
-  border-radius: 14px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
-.modinbox-email:hover {
-  background: rgba(255,255,255,0.07);
-  box-shadow: 0 2px 6px rgba(0, 204, 255, 0.2);
-}
-
-.modinbox-grid {
-  padding: 32px;
-  gap: 32px;
-}
-
-
-
-/* Final visual sync to concept */
-
-.modinbox-reply-btn {
-  background: transparent !important;
-  color: #111;
-  font-weight: 600;
-  font-size: 13px;
-  padding: 6px 16px;
-  border-radius: 100px;
-  border: none;
-  box-shadow: 0 2px 6px rgba(255,255,255,0.2);
-}
-
-.modinbox-inbox-col h2 {
-  font-size: 20px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 6px;
-}
-
-.modinbox-email .title {
-  font-size: 14px;
-  font-weight: 600;
-  color: white;
-  letter-spacing: 0.3px;
-}
-
-.modinbox-email .preview {
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-  margin-top: 2px;
-}
-
-.modinbox-inbox-col,
-.modinbox-detail {
-  box-shadow: 0 4px 32px rgba(0,0,0,0.25), 0 0 8px rgba(255,255,255,0.05);
 }
 
 .modinbox-detail .from {
@@ -287,46 +135,44 @@ html, body {
   color: #999;
   margin-bottom: 6px;
 }
+
 .modinbox-detail .title {
   font-size: 17px;
   font-weight: bold;
+  margin-bottom: 12px;
 }
+
 .modinbox-detail .body {
-  margin-top: 12px;
   font-size: 15px;
   color: #ccc;
   line-height: 1.7;
 }
 
-/* --- XMB Lock-In Patch --- */
-#xmb-shell {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 16px 40px;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: transparent;
-  gap: 18px;
+.modinbox-reply-btn {
+  position: absolute;
+  bottom: 24px;
+  right: 32px;
+  background: white;
+  color: #111;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 6px 16px;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.layoutView {
-  padding-top: 110px; /* to avoid being hidden behind fixed XMB */
-  box-sizing: border-box;
+.modinbox-reply-btn:hover {
+  background: #f0f0f0;
 }
-/* --- View Transparency Patch --- */
-.layoutView {
-  background: transparent;
-  backdrop-filter: blur(10px);
-  box-sizing: border-box;
-  padding-top: 110px;
-}
-/* --- XMB Unblock Patch --- */
-body, html, .layoutView, .panel {
-  overflow: visible !important;
-  background: transparent !important;
-  position: relative !important;
-  z-index: 1 !important;
+
+/* Hover Effects */
+.modinbox-contacts-wrapper-card:hover,
+.modinbox-inbox-col:hover,
+.modinbox-detail:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
 }
